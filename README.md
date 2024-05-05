@@ -1,24 +1,47 @@
-# README
+# HABI-LOG
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
 
-Things you may want to cover:
 
-* Ruby version
+### サイトテーマ
+習慣の記録をつけたり、お互いの頑張りを励まし合ったり出来る習慣トラッカーSNSサイト
 
-* System dependencies
 
-* Configuration
 
-* Database creation
+### テーマを選んだ理由
 
-* Database initialization
+運動や習いごと等、新しく何かを始め、「習慣」とする。日々を忙しく生きる私たちにとって、行動の習慣化は自分との戦いになりがちです。新しいことを始めようとしてもなかなか続かない状況に陥ることがあり、とても悩んでいました。
 
-* How to run the test suite
+日々の頑張りを1人で抱え込まずに皆で励まし合ったり、他の人の良い習慣を取り入れて実践していけば、高いモチベーションを持って習慣化に繋げられ、より充実した日々を過ごすことが出来るのではないかと考え、開発テーマと致しました。
 
-* Services (job queues, cache servers, search engines, etc.)
+### ターゲットユーザー
 
-* Deployment instructions
+- 何か新しいことを始めて習慣化したい人
+- 習慣化したいことがあるのに続けられず困っている人
+- 他の人の頑張りを応援したい人
 
-* ...
+### 主な利用シーン
+- 日々の頑張りの記録をつけ、他の人から反応をもらいたい時
+- 他の人の頑張りに対して励ましたい時
+- 何か新しい習慣を始めようと思った時
+
+## 設計書
+
+後ほど作成予定
+
+## 開発環境
+
+- OS:Linux(CentOS)
+
+- 言語:HTML,CSS,JavaScript,Ruby,SQL
+
+- フレームワーク:Ruby on Rails 6.1.7.7
+
+- IDE:Cloud9
+
+## 使用素材
+
+- フリー素材として以下を使用
+
+  - FontAwesome (https://fontawesome.com)
+  - Unsplash (https://unsplash.com)
