@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HabiLog</title>
+    <title>HABI-LOG</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,24 @@
   </head>
 
   <body>
+    <header>
+      <% if member_signed_in? %>
+        <li>
+          <%= link_to "log out", destroy_member_session_path, method: :delete %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "sign up", new_member_registration_path %>
+        </li>
+        <li>
+          <%= link_to "log in", new_member_session_path %>
+        </li>
+        <li>
+          <%= link_to "guest log in", guest_sign_in_path, method: :post %>
+        </li>
+      <% end %>
+    </header>
+    <p class="notice"><%= notice %></p>
     <%= yield %>
   </body>
 </html>
