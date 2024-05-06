@@ -2,8 +2,8 @@
 
 <%= form_with model: @member, url: member_session_path do |f| %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :account_name %><br />
+    <%= f.text_field :account_name, autofocus: true, autocomplete: "account_name" %>
   </div>
 
   <div class="field">
