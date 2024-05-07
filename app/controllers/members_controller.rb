@@ -4,7 +4,7 @@ class MembersController < ApplicationController
     
     
     
-private
+  private
 
   def member_params
     params.require(:member).permit(:account_name, :email, :nickname, :introduction, :is_private, :is_active, :follow_count, :followed_count, :profile_image)

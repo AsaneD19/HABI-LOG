@@ -1,12 +1,18 @@
-<h1>習慣登録</h1>
+<h1>新規投稿</h1>
 
-<%= form_with model: new_book, url: books_path, method: :post do |f| %>
+<%= form_with model: @habit, url: member_habits_path, method: :post do |f| %>
 
-  <p>Title</p>
-  <%= f.text_field :title %>
+  <p>習慣名</p>
+  <%= f.text_field :name %>
   <br>
-  <p>Opinion</p>
-  <%= f.text_area :body %>
+  <p>コメント</p>
+  <%= f.text_area :comment %>
   <br>
-  <%= f.submit 'Create Book', class: "btn btn-sm btn-success" %>
+  <p>タグ</p>
+  <%= f.text_area :tag_id %>
+  <br>
+
+  <%= f.submit "登録する" %>
+
 <% end %>
+<%= link_to "戻る", timeline_path %>
