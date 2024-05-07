@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   end
 
   def index
+    @posts = member.posts
   end
 
   def show
@@ -26,5 +27,6 @@ class PostsController < ApplicationController
   end
 
   def timeline
+    @posts = Post.all
   end
 end

@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
   create_table "habits", force: :cascade do |t|
     t.string "name", null: false
     t.integer "count", default: 0, null: false
+    t.text "comment"
     t.date "last_achievement"
     t.integer "duration", default: 0, null: false
     t.integer "max_duration", default: 0, null: false
@@ -90,7 +91,7 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "CreateTags", null: false
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

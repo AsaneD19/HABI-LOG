@@ -4,15 +4,15 @@
 
   <p>習慣名</p>
   <%= f.text_field :name %>
-  <br>
-  <p>コメント</p>
+  <p>意気込みをどうぞ</p>
   <%= f.text_area :comment %>
+
   <br>
   <p>タグ</p>
-  <%= f.text_area :tag_id %>
-  <br>
-
+  <% @tags.each do |tag| %>
+    <%= f.radio_button :tag_id, tag.id %>
+    <%= f.label :tag_id_name, tag.name %>
+  <% end %>
   <%= f.submit "登録する" %>
-
 <% end %>
 <%= link_to "戻る", timeline_path %>

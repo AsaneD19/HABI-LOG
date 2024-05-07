@@ -1,1 +1,29 @@
 <h1>習慣一覧</h1>
+<% @habits.each do |habit| %>
+  <div>
+    習慣名：<%= habit.name %>
+  </div>
+  <div>
+    コメント：<%= habit.comment %>
+  </div>
+
+  <div>
+    回数：<%= habit.count %>
+  </div>
+  <div>
+    最終達成日：<%= habit.last_achievement %>
+  </div>
+  <div>
+    継続日数：<%= habit.duration %>
+  </div>
+  <div>
+    継続日数：<%= habit.duration %>
+  </div>
+  <div>
+    最大継続日数：<%= habit.max_duration %>
+  </div>
+  <div>
+    タグ：<%= habit.tag.name %>
+  </div>
+  <br>
+<% end %>

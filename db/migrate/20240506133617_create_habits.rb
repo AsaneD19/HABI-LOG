@@ -4,6 +4,7 @@ class CreateHabits < ActiveRecord::Migration[6.1]
 
       t.string  :name,             null: false
       t.integer :count,            null: false, default: 0
+      t.text    :comment
       t.date    :last_achievement
       t.integer :duration,         null: false, default: 0
       t.integer :max_duration,     null: false, default: 0

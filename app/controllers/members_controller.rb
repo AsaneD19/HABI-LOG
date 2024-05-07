@@ -1,9 +1,6 @@
 class MembersController < ApplicationController
-    before_action :is_matching_login_member, except: [:index, :show]
-    
-    
-    
-    
+  before_action :is_matching_login_member, except: [:index, :show]
+
   private
 
   def member_params
