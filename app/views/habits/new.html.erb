@@ -1,0 +1,12 @@
+<h1>習慣登録</h1>
+
+<%= form_with model: new_book, url: books_path, method: :post do |f| %>
+
+  <p>Title</p>
+  <%= f.text_field :title %>
+  <br>
+  <p>Opinion</p>
+  <%= f.text_area :body %>
+  <br>
+  <%= f.submit 'Create Book', class: "btn btn-sm btn-success" %>
+<% end %>

@@ -1,0 +1,13 @@
+<% if current_member != nil %>
+
+  <div>
+    アカウント名：<%= current_member.account_name %>
+  </div>
+  <div>
+    メールアドレス：<%= current_member.email %>
+  </div>
+  <div>
+    ニックネーム：<%= current_member.nickname %>
+  </div>
+
+<% end %>
