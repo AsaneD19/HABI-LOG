@@ -1,4 +1,7 @@
+<%= link_to "戻る", timeline_path %>
+
 <h1>習慣一覧</h1>
+
 <% @habits.each do |habit| %>
   <div>
     習慣名：<%= habit.name %>
@@ -8,6 +11,9 @@
   </div>
   <div>
     <%= link_to "詳細", member_habit_path(member_id: habit.member_id, id: habit.id) %>
+  </div>
+  <div>
+    <%= link_to "消す", member_habit_path(member_id: habit.member_id, id: habit.id), method: :delete, data: { confirm: "ほんとに？"} %>
   </div>
 
   <br>

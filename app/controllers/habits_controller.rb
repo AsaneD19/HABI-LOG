@@ -37,31 +37,32 @@ class HabitsController < ApplicationController
   def destroy
     habit = Habit.find(params[:id])
     habit.destroy
+    flash[:notice] = "Your entered habit has been deleted successfully."
     redirect_to member_habits_path
   end
 
-def update
-  @habit = Habit.find(params[:id])
-  count, last_achievement, duration, max_duration = set_achievement_data(@habit, count, last_achievement, duration, max_duration)
-
-  @habit.update!(count: count,
-              duration: duration,
-              max_duration: max_duration,
-              last_achievement: last_achievement)
+  def update
+    @habit = Habit.find(params[:id])
+    count, last_achievement, duration, max_duration = set_achievement_data(@habit)
     @habit_progress = HabitProgress.new(habit_progress_params)
     @habit_progress.habit_id = @habit.id
     @habit_progress.duration = duration
-    @habit_progress.save!
 
+    if @habit_progress.save
+      @habit.update(count: count,
+                    duration: duration,
+                    max_duration: max_duration,
+                    last_achievement: last_achievement)
+      flash[:notice] = "Your achievement has recorded successfully."
+      redirect_to member_habits_path(current_member.id)
+    else
+      flash[:alert] = @habit_progress.errors.full_messages.join(", ")
+      @habit = Habit.find(params[:id])
       @habit_progresses = @habit.habit_progresses
-      flash[:alert] = @habit.errors.full_messages.join(", ")
-      render :show and return
+      render :show
     end
   end
 
-  redirect_to member_habit_path(member_id: @habit.member_id, id: @habit.id)
-
-end
   protected
 
   private
@@ -81,7 +82,7 @@ end
     end
   end
 
-  def set_achievement_data(habit, count, last_achievement, duration, max_duration)
+  def set_achievement_data(habit)
 
     count = habit.count + 1
 
@@ -100,4 +101,5 @@ end
     last_achievement = Time.zone.today
     return count, last_achievement, duration, max_duration
   end
+
 end
