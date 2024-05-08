@@ -1,4 +1,10 @@
 <h1>習慣詳細</h1>
+<% if @habit.errors.any? %>
+  <%= render 'layouts/error_message', error_obj: @habit %>
+<% end %>
+<% if @habit_progress.errors.any? %>
+  <%= render 'layouts/error_message', error_obj: @habit_progress %>
+<% end %>
 
   <div>
     習慣名：<%= @habit.name %>
@@ -23,10 +29,10 @@
   <div>
     登録日：<%= @habit.created_at %>
   </div>
-  <%= form_with model: @habit, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
+  <%= form_with model: @habit_progress, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
 
     <p>達成して一言</p>
-    <%= f.text_area @comment_to_achievement %>
+    <%= f.text_area :comment %>
     <%= f.submit "達成！", data: { confirm: "ほんとにやった？"} %>
 
   <% end %>
@@ -41,11 +47,12 @@
       実行日：<%= habit_progress.created_at %>
     </div>
     <div>
-      継続日数： <%= habit_progress.created_at %>
+      継続日数： <%= habit_progress.duration %>
     </div>
     <div>
       コメント： <%= habit_progress.comment %>
     </div>
+    <% n += 1 %>
 
     <br>
   <% end %>

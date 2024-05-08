@@ -14,7 +14,6 @@ class HabitsController < ApplicationController
     @habit.member_id = current_member.id
     if @habit.save
       flash[:notice] = "You have entered a new habit successfully."
-      post_to_timeline(@habit)
       redirect_to member_habits_path
     else
       @member = current_member
@@ -32,6 +31,7 @@ class HabitsController < ApplicationController
   def show
     @habit = Habit.find(params[:id])
     @habit_progresses = @habit.habit_progresses
+    @habit_progress = HabitProgress.new
   end
 
   def destroy
@@ -40,35 +40,38 @@ class HabitsController < ApplicationController
     redirect_to member_habits_path
   end
 
-  def update
-    @habit = Habit.find(params[:id])
-    count, last_achievement, duration, max_duration = set_achievement_data(@habit, count, last_achievement, duration, max_duration)
-    if @habit.update(count: count,
-                  duration: duration,
-                  max_duration: max_duration,
-                  last_achievement: last_achievement)
-      comment = @comment_to_achievement
-      habit_progress = HabitProgress.new
-      habit_progress.habit_id = @habit.id
-      habit_progress.comment = comment
-      habit_progress.duration = duration
-      habit_progress.save
-      redirect_to member_habits_path
-    else
-      @habit = Habit.find(params[:id])
+def update
+  @habit = Habit.find(params[:id])
+  count, last_achievement, duration, max_duration = set_achievement_data(@habit, count, last_achievement, duration, max_duration)
+
+  @habit.update!(count: count,
+              duration: duration,
+              max_duration: max_duration,
+              last_achievement: last_achievement)
+    @habit_progress = HabitProgress.new(habit_progress_params)
+    @habit_progress.habit_id = @habit.id
+    @habit_progress.duration = duration
+    @habit_progress.save!
+
       @habit_progresses = @habit.habit_progresses
       flash[:alert] = @habit.errors.full_messages.join(", ")
-      render :index
+      render :show and return
     end
-
   end
 
+  redirect_to member_habit_path(member_id: @habit.member_id, id: @habit.id)
+
+end
   protected
 
   private
 
   def habit_params
     params.require(:habit).permit(:name, :count, :comment, :last_achivement, :duration, :max_duration, :member_id, :tag_id, :profile_image)
+  end
+
+  def habit_progress_params
+    params.require(:habit_progress).permit(:habit_id, :comment, :duration)
   end
 
   def is_matching_login_member
