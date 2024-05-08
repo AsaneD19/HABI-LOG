@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "/home",  to: "posts#timeline", as: "timeline"
 
   resources :members do
-    resources :habits, except: [:update]
+    resources :habits
     resources :posts
   end
 end

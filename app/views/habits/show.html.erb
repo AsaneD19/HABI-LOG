@@ -1,0 +1,52 @@
+<h1>習慣詳細</h1>
+
+  <div>
+    習慣名：<%= @habit.name %>
+  </div>
+    登録時のコメント：<%= @habit.comment %>
+  </div>
+  <div>
+    回数：<%= @habit.count %>
+  </div>
+  <div>
+    継続日数：<%= @habit.duration %>
+  </div>
+  <div>
+    最大継続日数：<%= @habit.max_duration %>
+  </div>
+  <div>
+    タグ：<%= @habit.tag.name %>
+  </div>
+  <div>
+    最終達成日：<%= @habit.last_achievement %>
+  </div>
+  <div>
+    登録日：<%= @habit.created_at %>
+  </div>
+  <%= form_with model: @habit, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
+
+    <p>達成して一言</p>
+    <%= f.text_area @comment_to_achievement %>
+    <%= f.submit "達成！", data: { confirm: "ほんとにやった？"} %>
+
+  <% end %>
+
+  <br>
+
+  <% n = 1 %>
+
+  <% @habit_progresses.each do |habit_progress| %>
+    <%= n %>日目
+    <div>
+      実行日：<%= habit_progress.created_at %>
+    </div>
+    <div>
+      継続日数： <%= habit_progress.created_at %>
+    </div>
+    <div>
+      コメント： <%= habit_progress.comment %>
+    </div>
+
+    <br>
+  <% end %>
+

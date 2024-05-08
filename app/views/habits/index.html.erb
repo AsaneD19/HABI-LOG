@@ -4,26 +4,13 @@
     習慣名：<%= habit.name %>
   </div>
   <div>
-    コメント：<%= habit.comment %>
-  </div>
-
-  <div>
-    回数：<%= habit.count %>
-  </div>
-  <div>
     最終達成日：<%= habit.last_achievement %>
   </div>
   <div>
-    継続日数：<%= habit.duration %>
+    <%= link_to "詳細", member_habit_path(member_id: habit.member_id, id: habit.id) %>
   </div>
-  <div>
-    継続日数：<%= habit.duration %>
-  </div>
-  <div>
-    最大継続日数：<%= habit.max_duration %>
-  </div>
-  <div>
-    タグ：<%= habit.tag.name %>
-  </div>
+
   <br>
 <% end %>
+
+
