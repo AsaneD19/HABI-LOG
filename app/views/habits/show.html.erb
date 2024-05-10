@@ -28,6 +28,8 @@
   <div>
     登録日：<%= @habit.created_at %>
   </div>
+  
+  <%= 
   <%= form_with model: @habit_progress, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
 
     <p>達成して一言</p>

@@ -86,7 +86,7 @@ class HabitsController < ApplicationController
 
     count = habit.count + 1
 
-    if habit.last_achievement != nil && Time.zone.today - habit.last_achievement > 1
+    if habit.last_achievement != nil && Date.today - habit.last_achievement > 1
       duration =  1
     else
       duration = habit.duration + 1
@@ -98,7 +98,7 @@ class HabitsController < ApplicationController
       max_duration = habit.max_duration
     end
 
-    last_achievement = Time.zone.today
+    last_achievement = Date.today
     return count, last_achievement, duration, max_duration
   end
 
