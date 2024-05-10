@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
     t.string "name", null: false
     t.integer "count", default: 0, null: false
     t.text "comment"
-    t.date "last_achievement"
+    t.datetime "last_achievement"
     t.integer "duration", default: 0, null: false
     t.integer "max_duration", default: 0, null: false
     t.integer "member_id", null: false

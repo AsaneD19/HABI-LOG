@@ -28,16 +28,20 @@
   <div>
     登録日：<%= @habit.created_at %>
   </div>
-  
-  <%= 
-  <%= form_with model: @habit_progress, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
 
-    <p>達成して一言</p>
-    <%= f.text_area :comment %>
-    <%= f.submit "達成！", data: { confirm: "ほんとにやった？"} %>
+  <% require 'date' %>
+  <% if @habit.last_achievement != nil && @habit.last_achievement.to_date == Time.zone.today %>
+    <div><font color="red">今日はもう行ないました</font></div>
+  <% else %>
+    <%= form_with model: @habit_progress, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
+
+      <p>達成して一言</p>
+      <%= f.text_area :comment %>
+      <%= f.submit "達成！", data: { confirm: "ほんとにやった？"} %>
+
+    <% end %>
 
   <% end %>
-
   <br>
 
   <% n = 1 %>
