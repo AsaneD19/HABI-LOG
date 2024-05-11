@@ -31,8 +31,8 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
   <div class="field">
-    <%= form.label :published %>
-    <%= form.check_box :published %>
+    <%= f.label :is_private, "アカウントを非公開にする" %>
+    <%= f.check_box :is_private %>
   </div>
   <div class="actions">
     <%= f.submit "Sign up" %>

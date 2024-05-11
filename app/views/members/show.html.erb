@@ -3,8 +3,8 @@
 <h1><%= @member.nickname %></h1>
 <div><%= @member.account_name %></div>
 
-<% if @member.is_private == true %>
-  <h1><%= 非公開メンバーです。 %></h1>
+<% if @member != current_member && @member.is_private == true %>
+  <h1>非公開メンバーです</h1>
 <% else %>
   <p>フォロー：<%= @member.follow_count %></p>
   <p>フォロワー：<%= @member.followed_count %></p>

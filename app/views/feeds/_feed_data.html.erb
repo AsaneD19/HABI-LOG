@@ -1,9 +1,15 @@
-<h1><%= feed.created_at %></h1>
-<h2>
-  <% case feed.feed_type %>
-    <% when CONST_FEED_TYPE_ENTRY %>
-      <%= feed.member.nickname %>さんが新しい習慣に取り組むようです：
-    <% when CONST_FEED_TYPE_PROGRESS %>
-      <%= feed.member.nickname %>さんが習慣に取り組みました：
-  <% end %>
-  <%= feed.habit.name %>
+<% if feed.member != current_member && feed.member.is_private == true %>
+  <h1>非公開！</h1>
+<% else %>
+  <h1><%= feed.created_at %></h1>
+  <h2>
+    <% case feed.feed_type %>
+      <% when CONST_FEED_TYPE_ENTRY %>
+        <%= feed.member.nickname %>さんが新しい習慣に取り組むようです：
+      <% when CONST_FEED_TYPE_PROGRESS %>
+        <%= feed.member.nickname %>さんが習慣に取り組みました：
+    <% end %>
+    <%= feed.habit.name %>
+  </h2>
+
+<% end %>
