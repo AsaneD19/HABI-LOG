@@ -1,0 +1,23 @@
+<h1>User info</h1>
+<% if @member.errors.any? %>
+  <%= render 'layouts/error_message', error_obj: @member %>
+<% end %>
+
+<%= form_with model: @member, url: member_path(@member.id), method: :patch do |f| %>
+  <p>アカウント名</p>
+  <%= f.text_field :account_name, value: @member.account_name %>
+  <br>
+  <p>Image</p>
+  <%= f.file_field :profile_image, accept: "image/*" %>
+  <p>Introduction</p>
+  <%= f.text_area :introduction, value: @member.introduction %>
+  <br>
+  <div class="field">
+    <p>アカウントを非公開にする</p>
+    <%= f.check_box :is_private %>
+  </div>
+
+  <%= f.submit '更新' %>
+<% end %>
+<%= link_to "戻る", member_path(@member.id) %>
+</div>

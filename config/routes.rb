@@ -9,6 +9,6 @@ Rails.application.routes.draw do
 
   resources :members do
     resources :habits
-    resources :posts
+    resources :feeds
   end
 end
