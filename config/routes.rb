@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root to: "homes#top"
   get "/about", to: "homes#about", as: "about"
-  get "/home",  to: "posts#timeline", as: "timeline"
+  get "/home",  to: "feeds#timeline", as: "timeline"
 
   resources :members do
     resources :habits

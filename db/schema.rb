@@ -40,9 +40,19 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "feeds", force: :cascade do |t|
+    t.integer "member_id", null: false
+    t.integer "habit_id", null: false
+    t.integer "feed_type", null: false
+    t.text "comment", null: false
+    t.integer "current_duration", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "habit_progresses", force: :cascade do |t|
     t.text "comment", null: false
-    t.integer "duration", null: false
+    t.integer "current_duration", null: false
     t.integer "habit_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -50,10 +60,10 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
 
   create_table "habits", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "count", default: 0, null: false
+    t.integer "achievement_count", default: 0, null: false
     t.text "comment"
     t.datetime "last_achievement"
-    t.integer "duration", default: 0, null: false
+    t.integer "current_duration", default: 0, null: false
     t.integer "max_duration", default: 0, null: false
     t.integer "member_id", null: false
     t.integer "tag_id", null: false
@@ -78,16 +88,6 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.integer "member_id", null: false
-    t.integer "habit_id", null: false
-    t.integer "type", null: false
-    t.text "comment", null: false
-    t.integer "duration", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tags", force: :cascade do |t|

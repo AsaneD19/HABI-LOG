@@ -1,8 +1,6 @@
 class HabitsController < ApplicationController
   before_action :is_matching_login_member, except: [:index, :show]
 
-  CONST_TYPE_ENTRY = 0
-  CONST_TYPE_ACHIEVEMENT = 1
 
   def new
     @habit = Habit.new
@@ -18,8 +16,9 @@ class HabitsController < ApplicationController
     else
       @member = current_member
       @habits = @member.habits
+      @tags = Tag.all
       flash[:alert] = @habit.errors.full_messages.join(", ")
-      render :index
+      render :new
     end
 
   end
@@ -42,33 +41,61 @@ class HabitsController < ApplicationController
   end
 
   def update
+
     @habit = Habit.find(params[:id])
-    count, last_achievement, duration, max_duration = set_achievement_data(@habit)
+    @habit.achievement_count += 1
+    if @habit.last_achievement != nil && Time.zone.today - @habit.last_achievement.to_date > 1
+      @habit.current_duration =  1
+    else
+      @habit.current_duration += 1
+    end
+    if @habit.current_duration > @habit.max_duration
+      @habit.max_duration = @habit.current_duration
+    end
+    @habit.last_achievement = DateTime.now
+
     @habit_progress = HabitProgress.new(habit_progress_params)
     @habit_progress.habit_id = @habit.id
-    @habit_progress.duration = duration
+    @habit_progress.current_duration = @habit.current_duration
 
-    if @habit_progress.save
-      @habit.update(count: count,
-                    duration: duration,
-                    max_duration: max_duration,
-                    last_achievement: last_achievement)
+    feed = Feed.new
+    feed_data = Feed.new
+    feed_data.habit_id = @habit.id
+    feed_data.member_id = current_member.id
+    feed_data.feed_type = CONST_FEED_TYPE_PROGRESS
+    feed_data.comment = @habit_progress.comment
+    feed_data.current_duration = @habit_progress.current_duration
+
+    habit_progress_saved = false
+    habit_updated = false
+    feed_saved = false
+    ActiveRecord::Base.transaction do
+      habit_progress_saved = @habit_progress.save
+      habit_updated = @habit.update(habit_progress_params)
+      feed_saved = feed.save
+    end
+
+    if habit_progress_saved && habit_updated && feed_saved
       flash[:notice] = "Your achievement has recorded successfully."
       redirect_to member_habits_path(current_member.id)
     else
-      flash[:alert] = @habit_progress.errors.full_messages.join(", ")
+      all_errors = [
+        @habit.errors.full_messages,
+        @habit_progress.errors.full_messages,
+        feed.errors.full_messages
+      ]
+      flash[:alert] = all_errors.errors.full_messages.join(", ")
       @habit = Habit.find(params[:id])
       @habit_progresses = @habit.habit_progresses
       render :show
     end
-  end
 
-  protected
+  end
 
   private
 
   def habit_params
-    params.require(:habit).permit(:name, :count, :comment, :last_achivement, :duration, :max_duration, :member_id, :tag_id, :profile_image)
+    params.require(:habit).permit(:name, :achievement_count, :comment, :last_achivement, :duration, :max_duration, :member_id, :tag_id, :profile_image)
   end
 
   def habit_progress_params
@@ -82,24 +109,15 @@ class HabitsController < ApplicationController
     end
   end
 
-  def set_achievement_data(habit)
 
-    count = habit.count + 1
+  def set_habit_progress_data(habit_progress, habit)
 
-    if habit.last_achievement != nil && Time.zone.today - habit.last_achievement.to_date > 1
-      duration =  1
-    else
-      duration = habit.duration + 1
-    end
+    return habit_progress
+  end
 
-    if duration > habit.max_duration
-      max_duration = duration
-    else
-      max_duration = habit.max_duration
-    end
+  def set_feed_data(feed_data, habit, feed_type)
 
-    last_achievement = DateTime.now
-    return count, last_achievement, duration, max_duration
+    return feed_data
   end
 
 end

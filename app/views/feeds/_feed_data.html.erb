@@ -1,0 +1,11 @@
+<h1><%= feed.created_at.to_date %></h1>
+<h2>
+  <%= feed.member.nickname %>さんが
+
+  <% case feed.feed_type %>
+    <% when CONST_FEED_TYPE_ENTRY %>
+      新しい習慣に取り組むようです：
+    <% when CONST_FEED_TYPE_PROGRESS %>
+      習慣に取り組みました：
+  <% end %>
+  <%= feed.habit.name %>
