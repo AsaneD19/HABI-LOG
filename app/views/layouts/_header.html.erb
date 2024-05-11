@@ -1,0 +1,22 @@
+<% if member_signed_in? %>
+  <li>
+    <%= link_to "log out", destroy_member_session_path, method: :delete %>
+  </li>
+  <li>
+    <%= link_to "ホーム", timeline_path %>
+  </li>
+  <li>
+    <%= link_to "プロフィール", member_path(current_member.id) %>
+  </li>
+
+<% else %>
+  <li>
+    <%= link_to "sign up", new_member_registration_path %>
+  </li>
+  <li>
+    <%= link_to "log in", new_member_session_path %>
+  </li>
+  <li>
+    <%= link_to "guest log in", guest_sign_in_path, method: :post %>
+  </li>
+<% end %>

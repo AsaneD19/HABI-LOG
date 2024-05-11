@@ -30,7 +30,10 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
-
+  <div class="field">
+    <%= form.label :published %>
+    <%= form.check_box :published %>
+  </div>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

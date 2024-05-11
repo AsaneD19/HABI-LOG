@@ -1,6 +1,11 @@
 class MembersController < ApplicationController
   before_action :is_matching_login_member, except: [:index, :show]
 
+  def show
+    @member = Member.find(params[:id])
+    @feeds = @member.feeds.order(created_at: :desc)
+  end
+
   private
 
   def member_params
