@@ -12,7 +12,6 @@ class HabitsController < ApplicationController
     @habit.member_id = current_member.id
 
     feed = Feed.new
-    feed.habit_id = @habit.id
     feed.member_id = current_member.id
     feed.feed_type = CONST_FEED_TYPE_ENTRY
     feed.comment = @habit.comment
@@ -21,8 +20,10 @@ class HabitsController < ApplicationController
     habit_saved = false
     feed_saved = false
     ActiveRecord::Base.transaction do
-      habit_saved = @habit.save
-      feed_saved = feed.save
+      if habit_saved = @habit.save
+        feed.habit_id = @habit.id
+        feed_saved = feed.save
+      end
     end
 
     if habit_saved && feed_saved
@@ -31,10 +32,9 @@ class HabitsController < ApplicationController
     else
       all_errors = [
         @habit.errors.full_messages,
-        @habit_progress.errors.full_messages,
         feed.errors.full_messages
       ]
-      flash[:alert] = all_errors.errors.full_messages.join(", ")
+      flash[:alert] = all_errors.join(", ")
       @member = current_member
       @habits = @member.habits
       @tags = Tag.all
@@ -103,7 +103,7 @@ class HabitsController < ApplicationController
         @habit_progress.errors.full_messages,
         feed.errors.full_messages
       ]
-      flash[:alert] = all_errors.errors.full_messages.join(", ")
+      flash[:alert] = all_errors.join(", ")
       @habit = Habit.find(params[:id])
       @habit_progresses = @habit.habit_progresses
       render :show

@@ -1,4 +1,7 @@
 <h1>新規投稿</h1>
+<% if @habit.errors.any? %>
+  <%= render 'layouts/error_message', error_obj: @habit %>
+<% end %>
 
 <%= form_with model: @habit, url: member_habits_path, method: :post do |f| %>
 

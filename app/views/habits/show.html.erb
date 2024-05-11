@@ -1,9 +1,9 @@
 <%= link_to "戻る", member_habits_path(current_member.id) %>
 
 <h1>習慣詳細</h1>
-<!-- if @habit_progress.errors.any? %>-->
-  <!--render 'layouts/error_message', error_obj: @habit_progress %>-->
-<!-- end %>-->
+<% if @habit_progress.errors.any? %>
+  <%= render 'layouts/error_message', error_obj: @habit_progress %>
+<% end %>
 
   <div>
     習慣名：<%= @habit.name %>
