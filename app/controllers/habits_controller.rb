@@ -10,14 +10,34 @@ class HabitsController < ApplicationController
   def create
     @habit = Habit.new(habit_params)
     @habit.member_id = current_member.id
-    if @habit.save
+
+    feed = Feed.new
+    feed.habit_id = @habit.id
+    feed.member_id = current_member.id
+    feed.feed_type = CONST_FEED_TYPE_ENTRY
+    feed.comment = @habit.comment
+    feed.current_duration = @habit.current_duration
+
+    habit_saved = false
+    feed_saved = false
+    ActiveRecord::Base.transaction do
+      habit_saved = @habit.save
+      feed_saved = feed.save
+    end
+
+    if habit_saved && feed_saved
       flash[:notice] = "You have entered a new habit successfully."
       redirect_to member_habits_path
     else
+      all_errors = [
+        @habit.errors.full_messages,
+        @habit_progress.errors.full_messages,
+        feed.errors.full_messages
+      ]
+      flash[:alert] = all_errors.errors.full_messages.join(", ")
       @member = current_member
       @habits = @member.habits
       @tags = Tag.all
-      flash[:alert] = @habit.errors.full_messages.join(", ")
       render :new
     end
 
@@ -59,12 +79,11 @@ class HabitsController < ApplicationController
     @habit_progress.current_duration = @habit.current_duration
 
     feed = Feed.new
-    feed_data = Feed.new
-    feed_data.habit_id = @habit.id
-    feed_data.member_id = current_member.id
-    feed_data.feed_type = CONST_FEED_TYPE_PROGRESS
-    feed_data.comment = @habit_progress.comment
-    feed_data.current_duration = @habit_progress.current_duration
+    feed.habit_id = @habit.id
+    feed.member_id = current_member.id
+    feed.feed_type = CONST_FEED_TYPE_PROGRESS
+    feed.comment = @habit_progress.comment
+    feed.current_duration = @habit_progress.current_duration
 
     habit_progress_saved = false
     habit_updated = false
