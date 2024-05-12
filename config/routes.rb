@@ -5,10 +5,10 @@ Rails.application.routes.draw do
 
   root to: "homes#top"
   get "/about", to: "homes#about", as: "about"
-  get "/home",  to: "feeds#timeline", as: "timeline"
+  get "/home",  to: "feeds#index", as: "home"
 
   resources :members do
     resources :habits
-    resources :feeds
+    resources :feeds, only: [:show, :destroy]
   end
 end

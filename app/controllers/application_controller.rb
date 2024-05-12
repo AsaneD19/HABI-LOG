@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_member!, except: [:top, :about, :show, :index, :timeline, :guest_sign_in]
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :check_member_is_active, only: [:create], if: :devise_controller/session?
+  before_action :check_member_is_active, only: [:create], if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    timeline_path
+    home_path
   end
 
   def after_sign_out_path_for(resource)
@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
 
   protected
   def check_member_is_active
-    byebug
     member = Member.find_by(account_name: params[:member][:account_name])
     return if member.nil?
     return unless member.valid_password?(params[:member][:password])

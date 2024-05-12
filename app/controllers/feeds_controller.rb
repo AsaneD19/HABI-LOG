@@ -1,25 +1,19 @@
 class FeedsController < ApplicationController
 
-  def new
-  end
-
-  def create
-  end
 
   def index
-    @feeds = @member.Feeds
+    @feeds = Feed.all
   end
 
   def show
-  end
-
-  def update
+    @feed = Feed.find(params[:id])
   end
 
   def destroy
+    feed = Feed.find(params[:id])
+    feed.destroy
+    flash[:notice] = "You have deleted a feed successfully."
+    redirect_to home_path
   end
 
-  def timeline
-    @feeds = Feed.all
-  end
 end

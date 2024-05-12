@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_action :is_matching_login_member, except: [:index, :show]
+  before_action :ensure_guest_member, only: [:edit]
 
   def show
     @member = Member.find(params[:id])
@@ -31,7 +32,15 @@ class MembersController < ApplicationController
   def is_matching_login_member
     member = Member.find(params[:id])
     unless member.id == current_member.id
-      redirect_to timeline_path
+      redirect_to home_path
+    end
+  end
+
+  def ensure_guest_member
+    if current_member.email == CONST_GUEST_USER_EMAIL
+      flash[:alert] = "A prohibited action by guest member. please log in or sign up"
+      sign_out(current_member)
+      redirect_to root_path
     end
   end
 

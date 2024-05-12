@@ -1,9 +1,9 @@
+<font color="red">
+  <h3><%= pluralize(error_obj.errors.count, "error") %> prohibited this obj from being saved:</h3>
 
-
-<h3><%= pluralize(error_obj.errors.count, "error") %> prohibited this obj from being saved:</h3>
-
-    <ul>
-      <% error_obj.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+  <ul>
+    <% error_obj.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</font>

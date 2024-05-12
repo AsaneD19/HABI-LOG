@@ -1,4 +1,4 @@
-<%= link_to "戻る", timeline_path %>
+<%= link_to "戻る", home_path %>
 
 <h1><%= @member.nickname %></h1>
 <div><%= @member.account_name %></div>
@@ -10,11 +10,13 @@
   <p>フォロー：<%= @member.follow_count %></p>
   <p>フォロワー：<%= @member.followed_count %></p>
   <p>自己紹介：<%= @member.introduction %></p>
-  <p>投稿数：<%= @member.feeds.length %></p>
 
   <% if @member == current_member %>
     <%= link_to "プロフィール編集", edit_member_path(@member.id) %>
   <% end %>
+
+  <h3>投稿数：<%= @member.feeds.length %></h4>
+
   <% @feeds.each do |feed| %>
    <%= render "feeds/feed_data", feed: feed %>
   <% end %>

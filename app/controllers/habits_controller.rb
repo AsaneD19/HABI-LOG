@@ -1,6 +1,6 @@
 class HabitsController < ApplicationController
   before_action :is_matching_login_member, except: [:index, :show]
-
+  before_action :ensure_guest_member, only: [:new, :create, :update, :destroy]
 
   def new
     @habit = Habit.new
@@ -128,15 +128,14 @@ class HabitsController < ApplicationController
     end
   end
 
-
-  def set_habit_progress_data(habit_progress, habit)
-
-    return habit_progress
+  def ensure_guest_member
+    if current_member.email == CONST_GUEST_USER_EMAIL
+      flash[:alert] = "A prohibited action by guest member. please log in or sign up"
+      sign_out(current_member)
+      redirect_to root_path
+    end
   end
 
-  def set_feed_data(feed_data, habit, feed_type)
 
-    return feed_data
-  end
 
 end

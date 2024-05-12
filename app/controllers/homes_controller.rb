@@ -13,7 +13,7 @@ class HomesController < ApplicationController
       member.nickname = "ゲストさん"
     end
     sign_in member
-    redirect_to timeline_path, notice: "guest login succeed"
+    redirect_to home_path, notice: "guest log in succeed"
   end
 
 end

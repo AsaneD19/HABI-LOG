@@ -1,1 +1,26 @@
+<%= link_to "戻る", home_path %>
 <h1>ポスト詳細</h1>
+
+<h2><%= @feed.member.nickname %></h2>
+<h4><%= @feed.member.account_name %></h4>
+<p><%= @feed.habit.name %>
+<% case @feed.feed_type %>
+<% when CONST_FEED_TYPE_ENTRY %>
+  に新しく取り組みます！
+<% when CONST_FEED_TYPE_PROGRESS %>
+  に
+  <% if @feed.habit.achievement_count == 0 %>
+    はじめて
+  <% elsif @feed.habit.achievement_count != 0 && @feed.current_duration > 1 %>
+    <%= @feed.current_duration %>日続けて
+  <% end %>
+  取り組みました！
+<% end %>
+</p>
+<p>コメント：<%= @feed.comment %></p>
+<p><%= @feed.created_at %></p>
+
+<% if @feed.member == current_member %>
+  <%= link_to "消す", member_feed_path(member_id: @feed.member_id, id: @feed.id), method: :delete, data: { confirm: "ほんとに？"} %>
+<% end %>
+
