@@ -23,3 +23,19 @@
   <%= link_to "消す", member_feed_path(member_id: @feed.member_id, id: @feed.id), method: :delete, data: { confirm: "ほんとに？"} %>
 <% end %>
 
+
+<% if @post_comments.count == 0 %>
+  <p><font color="red">まだコメントがありません</font></p>
+<% else %>
+  <% @post_comments.each do |post_comment| %>
+    <%= render "post_comments/comment", post_comment: post_comment %>
+  <% end %>
+<% end %>
+
+<%= form_with model: @post_comment, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
+
+  <p>達成して一言</p>
+  <%= f.text_area :comment %>
+  <%= f.submit "達成！", data: { confirm: "ほんとにやった？"} %>
+
+<% end %>

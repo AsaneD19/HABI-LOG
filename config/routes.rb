@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   resources :members do
     resources :habits
     resources :feeds, only: [:show, :destroy]
+    resources :post_comments
   end
 end
