@@ -121,7 +121,7 @@ class HabitsController < ApplicationController
   def is_matching_login_member
     member = Member.find(params[:member_id])
     unless member.id == current_member.id
-      redirect_to timeline_path
+      redirect_to home_path
     end
   end
 

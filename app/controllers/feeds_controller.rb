@@ -7,6 +7,7 @@ class FeedsController < ApplicationController
   def show
     @feed = Feed.find(params[:id])
     @post_comments = @feed.post_comments
+    @post_comment = PostComment.new
   end
 
   def destroy
