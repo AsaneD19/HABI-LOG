@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_07_072117) do
+ActiveRecord::Schema.define(version: 2024_05_13_124510) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,10 +40,17 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "member_id", null: false
+    t.integer "target_feed_id"
+    t.integer "tatget_post_comment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "feeds", force: :cascade do |t|
     t.integer "member_id", null: false
     t.integer "habit_id", null: false
-    t.integer "feed_type", null: false
     t.text "comment", null: false
     t.integer "current_duration", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -59,13 +66,13 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
   end
 
   create_table "habits", force: :cascade do |t|
+    t.integer "member_id", null: false
     t.string "name", null: false
-    t.integer "achievement_count", default: 0, null: false
+    t.integer "total_count", default: 0, null: false
     t.text "comment"
     t.datetime "last_achievement"
     t.integer "current_duration", default: 0, null: false
     t.integer "max_duration", default: 0, null: false
-    t.integer "member_id", null: false
     t.integer "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -80,14 +87,23 @@ ActiveRecord::Schema.define(version: 2024_05_07_072117) do
     t.string "account_name", null: false
     t.string "nickname", null: false
     t.text "introduction"
-    t.boolean "is_private", default: false, null: false
-    t.boolean "is_active", default: true, null: false
     t.integer "follow_count", default: 0, null: false
     t.integer "followed_count", default: 0, null: false
+    t.boolean "is_private", default: false, null: false
+    t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_members_on_email", unique: true
+    t.index ["email", "account_name"], name: "index_members_on_email_and_account_name", unique: true
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
+  end
+
+  create_table "post_comments", force: :cascade do |t|
+    t.integer "member_id", null: false
+    t.integer "target_feed_id"
+    t.integer "tatget_post_comment_id"
+    t.text "comment", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tags", force: :cascade do |t|

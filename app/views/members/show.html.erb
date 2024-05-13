@@ -12,7 +12,7 @@
   <p>自己紹介：<%= @member.introduction %></p>
 
   <% if @member == current_member %>
-    <%= link_to "プロフィール編集", edit_member_path(@member.id) %>
+    <%= link_to "プロフィール編集", edit_member_path(current_member.id) %>
   <% end %>
 
   <h3>投稿数：<%= @member.feeds.length %></h4>

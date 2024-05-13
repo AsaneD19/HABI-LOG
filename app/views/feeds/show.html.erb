@@ -4,14 +4,13 @@
 <h2><%= @feed.member.nickname %></h2>
 <h4><%= @feed.member.account_name %></h4>
 <p><%= @feed.habit.name %>
-<% case @feed.feed_type %>
-<% when CONST_FEED_TYPE_ENTRY %>
+<% if @feed.current_duration == 0 %>
   に新しく取り組みます！
-<% when CONST_FEED_TYPE_PROGRESS %>
+<% else %>
   に
-  <% if @feed.habit.achievement_count == 0 %>
+  <% if @feed.habit.total_count == 0 %>
     はじめて
-  <% elsif @feed.habit.achievement_count != 0 && @feed.current_duration > 1 %>
+  <% elsif @feed.habit.total_count != 0 && @feed.current_duration > 1 %>
     <%= @feed.current_duration %>日続けて
   <% end %>
   取り組みました！

@@ -3,11 +3,10 @@
 <% else %>
   <h4>
     <%= feed.created_at %>
-    <% case feed.feed_type %>
-      <% when CONST_FEED_TYPE_ENTRY %>
-        <%= feed.member.nickname %>さんが新しい習慣に取り組むようです：
-      <% when CONST_FEED_TYPE_PROGRESS %>
-        <%= feed.member.nickname %>さんが習慣に取り組みました：
+    <% if feed.current_duration == 0 %>
+      <%= feed.member.nickname %>さんが新しい習慣に取り組むようです：
+    <% else %>
+      <%= feed.member.nickname %>さんが習慣に取り組みました：
     <% end %>
     <%= link_to feed.habit.name, member_feed_path(feed.member_id, feed.id) %>
 

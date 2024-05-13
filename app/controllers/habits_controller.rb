@@ -13,7 +13,6 @@ class HabitsController < ApplicationController
 
     feed = Feed.new
     feed.member_id = current_member.id
-    feed.feed_type = CONST_FEED_TYPE_ENTRY
     feed.comment = @habit.comment
     feed.current_duration = @habit.current_duration
 
@@ -35,8 +34,7 @@ class HabitsController < ApplicationController
         feed.errors.full_messages
       ]
       flash[:alert] = all_errors.join(", ")
-      @member = current_member
-      @habits = @member.habits
+      @member = current_member.id
       @tags = Tag.all
       render :new
     end
@@ -63,7 +61,7 @@ class HabitsController < ApplicationController
   def update
 
     @habit = Habit.find(params[:id])
-    @habit.achievement_count += 1
+    @habit.total_count += 1
     if @habit.last_achievement != nil && Time.zone.today - @habit.last_achievement.to_date > 1
       @habit.current_duration =  1
     else
@@ -72,7 +70,7 @@ class HabitsController < ApplicationController
     if @habit.current_duration > @habit.max_duration
       @habit.max_duration = @habit.current_duration
     end
-    @habit.last_achievement = DateTime.now
+    @habit.last_achievement = Time.zone.now
 
     @habit_progress = HabitProgress.new(habit_progress_params)
     @habit_progress.habit_id = @habit.id
@@ -81,7 +79,6 @@ class HabitsController < ApplicationController
     feed = Feed.new
     feed.habit_id = @habit.id
     feed.member_id = current_member.id
-    feed.feed_type = CONST_FEED_TYPE_PROGRESS
     feed.comment = @habit_progress.comment
     feed.current_duration = @habit_progress.current_duration
 
@@ -114,11 +111,11 @@ class HabitsController < ApplicationController
   private
 
   def habit_params
-    params.require(:habit).permit(:name, :achievement_count, :comment, :last_achivement, :duration, :max_duration, :member_id, :tag_id, :profile_image)
+    params.require(:habit).permit(:name, :total_count, :comment, :last_achivement, :current_duration, :max_duration, :member_id, :tag_id)
   end
 
   def habit_progress_params
-    params.require(:habit_progress).permit(:habit_id, :comment, :duration)
+    params.require(:habit_progress).permit(:habit_id, :comment, :current_duration)
   end
 
   def is_matching_login_member
