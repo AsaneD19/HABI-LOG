@@ -133,6 +133,4 @@ class HabitsController < ApplicationController
     end
   end
 
-
-
 end
