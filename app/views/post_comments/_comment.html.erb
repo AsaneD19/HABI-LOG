@@ -1,0 +1,16 @@
+<% if post_comment.member != current_member && post_comment.member.is_private == true %>
+  <h1>非公開！</h1>
+<% else %>
+  <h4>
+    <%= post_comment.created_at %>
+    <%= post_comment.member.nickname %>
+    <%= post_comment.member.account_name %>
+    <%= post_comment.comment %>
+    <% if post_comment.member == current_member %>
+      <%= link_to "消す", feed_post_comment_path(post_comment.target_feed_id, post_comment.id), method: :delete, data: { confirm: "ほんとに？"} %>
+    <% end %>
+
+  </h4>
+
+
+<% end %>

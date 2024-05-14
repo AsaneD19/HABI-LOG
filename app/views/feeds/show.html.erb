@@ -1,5 +1,8 @@
 <%= link_to "戻る", home_path %>
 <h1>ポスト詳細</h1>
+<% if @post_comment.errors.any? %>
+  <%= render 'layouts/error_message', error_obj: @post_comment %>
+<% end %>
 
 <h2><%= @feed.member.nickname %></h2>
 <h4><%= @feed.member.account_name %></h4>
