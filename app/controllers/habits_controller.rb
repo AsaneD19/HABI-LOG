@@ -61,7 +61,7 @@ class HabitsController < ApplicationController
   def update
 
     @habit = Habit.find(params[:id])
-    @habit.total_count += 1
+    @habit.achievement_count += 1
     if @habit.last_achievement != nil && Time.zone.today - @habit.last_achievement.to_date > 1
       @habit.current_duration =  1
     else

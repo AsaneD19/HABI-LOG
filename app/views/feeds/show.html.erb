@@ -4,16 +4,16 @@
   <%= render 'layouts/error_message', error_obj: @post_comment %>
 <% end %>
 
-<h2><%= @feed.member.nickname %></h2>
-<h4><%= @feed.member.account_name %></h4>
+<h2><%= @feed.member.name %></h2>
+<h4><%= @feed.member.account_id %></h4>
 <p><%= @feed.habit.name %>
 <% if @feed.current_duration == 0 %>
   に新しく取り組みます！
 <% else %>
   に
-  <% if @feed.habit.total_count == 0 %>
+  <% if @feed.habit.achievement_count == 0 %>
     はじめて
-  <% elsif @feed.habit.total_count != 0 && @feed.current_duration > 1 %>
+  <% elsif @feed.habit.achievement_count != 0 && @feed.current_duration > 1 %>
     <%= @feed.current_duration %>日続けて
   <% end %>
   取り組みました！
@@ -38,20 +38,9 @@
 <%= form_with model: @post_comment, url: feed_post_comments_path(@feed.id), method: :post do |f| %>
 
   <p>コメントはこちら</p>
-  <%= f.text_area :comment %>
+  <%= f.text_area :content %>
   <%= f.submit "コメントする！" %>
 
 <% end %>
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const replyButtons = document.querySelectorAll(".reply-button");
-    replyButtons.forEach(button => {
-      button.addEventListener("click", function() {
-        const commentId = button.getAttribute("data-comment-id");
-        document.getElementById("comment_parent_id").value = commentId;
-      });
-    });
-  });
-</script>
