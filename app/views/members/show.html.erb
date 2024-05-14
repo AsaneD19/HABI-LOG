@@ -1,13 +1,13 @@
 <%= link_to "戻る", home_path %>
 
-<h1><%= @member.nickname %></h1>
-<div><%= @member.account_name %></div>
+<h1><%= @member.name %></h1>
+<div><%= @member.account_id %></div>
 <div><%= image_tag @member.get_profile_image(100,100) %></div>
 
 <% if @member != current_member && @member.is_private == true %>
   <h1>非公開メンバーです</h1>
 <% else %>
-  <p>フォロー：<%= @member.follow_count %></p>
+  <p>フォロー：<%= @member.follower_count %></p>
   <p>フォロワー：<%= @member.followed_count %></p>
   <p>自己紹介：<%= @member.introduction %></p>
 

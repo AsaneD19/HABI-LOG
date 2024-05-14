@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_13_124510) do
+ActiveRecord::Schema.define(version: 2024_05_14_223455) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2024_05_13_124510) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "habit_progresses", force: :cascade do |t|
+  create_table "habit_records", force: :cascade do |t|
     t.text "comment", null: false
     t.integer "current_duration", null: false
     t.integer "habit_id", null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2024_05_13_124510) do
   create_table "habits", force: :cascade do |t|
     t.integer "member_id", null: false
     t.string "name", null: false
-    t.integer "total_count", default: 0, null: false
+    t.integer "achievement_count", default: 0, null: false
     t.text "comment"
     t.datetime "last_achievement"
     t.integer "current_duration", default: 0, null: false
@@ -84,16 +84,16 @@ ActiveRecord::Schema.define(version: 2024_05_13_124510) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "account_name", null: false
-    t.string "nickname", null: false
+    t.string "account_id", null: false
+    t.string "name", null: false
     t.text "introduction"
-    t.integer "follow_count", default: 0, null: false
+    t.integer "follower_count", default: 0, null: false
     t.integer "followed_count", default: 0, null: false
     t.boolean "is_private", default: false, null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email", "account_name"], name: "index_members_on_email_and_account_name", unique: true
+    t.index ["email", "account_id"], name: "index_members_on_email_and_account_id", unique: true
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
   end
 
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2024_05_13_124510) do
     t.integer "member_id", null: false
     t.integer "target_feed_id"
     t.integer "tatget_post_comment_id"
-    t.text "comment", null: false
+    t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

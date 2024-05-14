@@ -3,13 +3,13 @@
 <% else %>
   <h4>
     <%= post_comment.created_at %>
-    <%= post_comment.member.nickname %>
-    <%= post_comment.member.account_name %>
+    <%= post_comment.member.name %>
+    <%= post_comment.member.account_id %>
     <%= post_comment.comment %>
     <% if post_comment.member == current_member %>
       <%= link_to "消す", feed_post_comment_path(post_comment.target_feed_id, post_comment.id), method: :delete, data: { confirm: "ほんとに？"} %>
     <% end %>
-
+    <button class="reply-button" data-comment-id="<%= post_comment.id %>">返信</button>
   </h4>
 
 

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def check_member_is_active
-    member = Member.find_by(account_name: params[:member][:account_name])
+    member = Member.find_by(account_id: params[:member][:account_id])
     return if member.nil?
     return unless member.valid_password?(params[:member][:password])
     unless member.is_active
@@ -24,6 +24,6 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:account_name, :email, :nickname, :is_private])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:account_id, :email, :name, :is_private])
   end
 end

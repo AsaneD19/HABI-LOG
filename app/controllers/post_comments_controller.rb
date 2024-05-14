@@ -31,6 +31,6 @@ class PostCommentsController < ApplicationController
 
   private
   def post_comment_params
-    params.require(:post_comment).permit(:member_id, :target_feed_id, :target_post_comment_id, :comment)
+    params.require(:post_comment).permit(:member_id, :target_feed_id, :target_post_comment_id, :content)
   end
 end

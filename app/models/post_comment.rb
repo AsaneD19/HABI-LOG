@@ -5,5 +5,5 @@ class PostComment < ApplicationRecord
 
     # has_many :replies, class_name: "PostComment", foreign_key: "target_post_comment_id", dependent: :destroy
 
-    validates :comment, presence: true
+    validates :content, presence: true
 end

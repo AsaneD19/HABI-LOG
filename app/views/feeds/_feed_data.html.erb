@@ -4,9 +4,9 @@
   <h4>
     <%= feed.created_at %>
     <% if feed.current_duration == 0 %>
-      <%= feed.member.nickname %>さんが新しい習慣に取り組むようです：
+      <%= feed.member.name %>さんが新しい習慣に取り組むようです：
     <% else %>
-      <%= feed.member.nickname %>さんが習慣に取り組みました：
+      <%= feed.member.name %>さんが習慣に取り組みました：
     <% end %>
     <%= link_to feed.habit.name, feed_path(feed.id) %>
 

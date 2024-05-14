@@ -47,8 +47,8 @@ class HabitsController < ApplicationController
 
   def show
     @habit = Habit.find(params[:id])
-    @habit_progresses = @habit.habit_progresses
-    @habit_progress = HabitProgress.new
+    @habit_records = @habit.habit_records
+    @habit_record = HabitRecord.new
   end
 
   def destroy
@@ -72,37 +72,37 @@ class HabitsController < ApplicationController
     end
     @habit.last_achievement = Time.zone.now
 
-    @habit_progress = HabitProgress.new(habit_progress_params)
-    @habit_progress.habit_id = @habit.id
-    @habit_progress.current_duration = @habit.current_duration
+    @habit_record = HabitRecord.new(habit_record_params)
+    @habit_record.habit_id = @habit.id
+    @habit_record.current_duration = @habit.current_duration
 
     feed = Feed.new
     feed.habit_id = @habit.id
     feed.member_id = current_member.id
-    feed.comment = @habit_progress.comment
-    feed.current_duration = @habit_progress.current_duration
+    feed.comment = @habit_record.comment
+    feed.current_duration = @habit_record.current_duration
 
-    habit_progress_saved = false
+    habit_record_saved = false
     habit_updated = false
     feed_saved = false
     ActiveRecord::Base.transaction do
-      habit_progress_saved = @habit_progress.save
-      habit_updated = @habit.update(habit_progress_params)
+      habit_record_saved = @habit_record.save
+      habit_updated = @habit.update(habit_record_params)
       feed_saved = feed.save
     end
 
-    if habit_progress_saved && habit_updated && feed_saved
+    if habit_record_saved && habit_updated && feed_saved
       flash[:notice] = "Your achievement has recorded successfully."
       redirect_to member_habits_path(current_member.id)
     else
       all_errors = [
         @habit.errors.full_messages,
-        @habit_progress.errors.full_messages,
+        @habit_record.errors.full_messages,
         feed.errors.full_messages
       ]
       flash[:alert] = all_errors.join(", ")
       @habit = Habit.find(params[:id])
-      @habit_progresses = @habit.habit_progresses
+      @habit_records = @habit.habit_records
       render :show
     end
 
@@ -111,11 +111,11 @@ class HabitsController < ApplicationController
   private
 
   def habit_params
-    params.require(:habit).permit(:name, :total_count, :comment, :last_achivement, :current_duration, :max_duration, :member_id, :tag_id)
+    params.require(:habit).permit(:name, :achievement_count, :comment, :last_achivement, :current_duration, :max_duration, :member_id, :tag_id)
   end
 
-  def habit_progress_params
-    params.require(:habit_progress).permit(:habit_id, :comment, :current_duration)
+  def habit_record_params
+    params.require(:habit_record).permit(:habit_id, :comment, :current_duration)
   end
 
   def is_matching_login_member

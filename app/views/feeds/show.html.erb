@@ -31,7 +31,7 @@
   <p><font color="red">まだコメントがありません</font></p>
 <% else %>
   <% @post_comments.each do |post_comment| %>
-    <%= render "post_comments/comment", post_comment: post_comment %>
+    <%= render "post_comments/comment_data", post_comment: post_comment %>
   <% end %>
 <% end %>
 
@@ -42,3 +42,16 @@
   <%= f.submit "コメントする！" %>
 
 <% end %>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const replyButtons = document.querySelectorAll(".reply-button");
+    replyButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        const commentId = button.getAttribute("data-comment-id");
+        document.getElementById("comment_parent_id").value = commentId;
+      });
+    });
+  });
+</script>

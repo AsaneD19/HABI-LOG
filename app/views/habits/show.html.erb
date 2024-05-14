@@ -11,7 +11,7 @@
     登録時のコメント：<%= @habit.comment %>
   </div>
   <div>
-    回数：<%= @habit.total_count %>
+    回数：<%= @habit.achievement_count %>
   </div>
   <div>
     継続日数：<%= @habit.current_duration %>
@@ -33,7 +33,7 @@
   <% if @habit.last_achievement != nil && @habit.last_achievement.to_date == Time.zone.today %>
     <div><font color="red">今日はもう行ないました</font></div>
   <% else %>
-    <%= form_with model: @habit_progress, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
+    <%= form_with model: @habit_record, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
 
       <p>達成して一言</p>
       <%= f.text_area :comment %>
@@ -46,16 +46,16 @@
 
   <h3>達成履歴</h3>
   <% n = 1 %>
-  <% @habit_progresses.each do |habit_progress| %>
+  <% @habit_records.each do |habit_record| %>
     <%= n %>回目
     <div>
-      実行日：<%= habit_progress.created_at %>
+      実行日：<%= habit_record.created_at %>
     </div>
     <div>
-      継続日数： <%= habit_progress.current_duration %>
+      継続日数： <%= habit_record.current_duration %>
     </div>
     <div>
-      コメント： <%= habit_progress.comment %>
+      コメント： <%= habit_record.comment %>
     </div>
     <% n += 1 %>
 
