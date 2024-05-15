@@ -1,0 +1,6 @@
+<%= form_with model: post_comment, url: feed_post_comments_path(@feed.id), method: :post, local: true do |f| %>
+  <p>返信コメント</p>
+  <%= f.hidden_field :parent_id, value: @parent_comment.id %>
+  <%= f.text_area :content %>
+  <%= f.submit "返信する" %>
+<% end %>

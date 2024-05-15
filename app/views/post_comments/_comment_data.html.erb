@@ -9,8 +9,6 @@
     <% if post_comment.member == current_member %>
       <%= link_to "消す", feed_post_comment_path(post_comment.target_feed_id, post_comment.id), method: :delete, data: { confirm: "ほんとに？"} %>
     <% end %>
-    <button class="reply-button" data-comment-id="<%= post_comment.id %>">返信</button>
   </h4>
-
 
 <% end %>
