@@ -1,0 +1,24 @@
+<%= link_to "戻る", home_path %>
+
+<h1>メンバー一覧</h1>
+
+<% @members.each do |member| %>
+  <div>
+    <h4>■<%= link_to member.name, member_path(member) %>さん</h4>
+  </div>
+  <div>
+    メンバーＩＤ：<%= member.account_id %>
+  </div>
+  <div>
+    登録日：<%= member.created_at %>
+  </div>
+<% end %>
+<h1>ユーザー検索</h1>
+<%= search_form_for @q, url: search_members_path do |f| %>
+  <%= f.label :name_cont, 'メンバー名' %>
+  <%= f.search_field :name_cont %>
+  <br>
+  <%= f.submit '検索' %>
+<% end %>
+
+

@@ -1,6 +1,15 @@
 class MembersController < ApplicationController
-  before_action :is_matching_login_member, except: [:index, :show]
+  before_action :is_matching_login_member, except: [:index, :show, :set_q, :search]
   before_action :ensure_guest_member, only: [:edit]
+  before_action :set_q, only: [:index, :search]
+
+  def search
+    @results = @q.result
+  end
+
+  def index
+    @members = Member.all
+  end
 
   def show
     @member = Member.find(params[:id])
@@ -11,10 +20,8 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
   end
 
-
   def update
     @member = Member.find(params[:id])
-
     if @member.update(member_params)
       flash[:notice] = "You profile has been updated successfully."
       redirect_to member_path(@member.id)
@@ -24,12 +31,9 @@ class MembersController < ApplicationController
     end
   end
 
-  private
-
   def member_params
     params.require(:member).permit(:account_id, :email, :name, :introduction, :is_private, :is_active, :profile_image)
   end
-
 
   def is_matching_login_member
     member = Member.find(params[:id])
@@ -45,5 +49,10 @@ class MembersController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def set_q
+    @q = Member.ransack(params[:q])
+  end
+
 
 end
