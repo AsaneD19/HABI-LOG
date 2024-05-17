@@ -10,35 +10,15 @@ class HabitsController < ApplicationController
   def create
     @habit = Habit.new(habit_params)
     @habit.member_id = current_member.id
-
-    feed = Feed.new
-    feed.member_id = current_member.id
-    feed.text_content = @habit.caption
-    feed.current_duration = 0
-
-    habit_saved = false
-    feed_saved = false
-    ActiveRecord::Base.transaction do
-      if habit_saved = @habit.save
-        feed.habit_id = @habit.id
-        feed_saved = feed.save
-      end
-    end
-
-    if habit_saved && feed_saved
+    if @habit.save
+      send_feed(@habit.id, @habit.caption, 0)
       flash[:notice] = "You have entered a new habit successfully."
       redirect_to member_habits_path
     else
-      all_errors = [
-        @habit.errors.full_messages,
-        feed.errors.full_messages
-      ]
-      flash[:alert] = all_errors.join(", ")
-      @member = current_member.id
+      flash[:alert] = @habit.errors.full_messages.join(", ")
       @tags = Tag.all
       render :new
     end
-
   end
 
   def index
@@ -59,55 +39,19 @@ class HabitsController < ApplicationController
   end
 
   def update
-
-    @habit = Habit.find(params[:id])
-    if @habit.last_achievement != nil && Time.zone.today - @habit.last_achievement.to_date > 1
-      current_duration =  1
-    else
-      current_duration = @habit.current_duration + 1
-    end
-    if @habit.current_duration == 0
-      max_duration = 1
-    elsif @habit.current_duration > @habit.max_duration
-      max_duration = @habit.current_duration
-    end
-
-    last_achievement = Time.zone.now
-
-    @habit_record = HabitRecord.new(habit_record_params)
-    @habit_record.habit_id = @habit.id
-    @habit_record.current_duration = @habit.current_duration
-
-    feed = Feed.new
-    feed.habit_id = @habit.id
-    feed.member_id = current_member.id
-    feed.text_content = @habit_record.comment
-    feed.current_duration = current_duration
-
-    habit_record_saved = false
-    habit_updated =false
-    feed_saved = false
-    ActiveRecord::Base.transaction do
-      habit_record_saved = @habit_record.save
-      habit_updated = @habit.update(achievement_count: @habit.achievement_count + 1, current_duration: current_duration, max_duration: max_duration, last_achievement: Time.zone.now)
-      feed_saved = feed.save
-    end
-
-    if habit_record_saved && habit_updated && feed_saved
+    @habit = set_habit_update_params(Habit.find(params[:id]))
+    @habit_record = set_habit_record_params(HabitRecord.new(habit_record_params), @habit.id, @habit.current_duration)
+    if @habit_record.save
+      @habit.update(achievement_count: @habit.achievement_count + 1, current_duration: @habit.current_duration, max_duration: @habit.max_duration, last_achievement: @habit.last_achievement)
+      send_feed(@habit.id, @habit_record.comment, @habit.current_duration)
       flash[:notice] = "Your achievement has recorded successfully."
       redirect_to member_habits_path(current_member.id)
     else
-      all_errors = [
-        @habit.errors.full_messages,
-        @habit_record.errors.full_messages,
-        feed.errors.full_messages
-      ]
-      flash[:alert] = all_errors.join(", ")
+      flash[:alert] = @habit_record.errors.full_messages.join(", ")
       @habit = Habit.find(params[:id])
       @habit_records = @habit.habit_records
       render :show
     end
-
   end
 
   private
@@ -118,6 +62,36 @@ class HabitsController < ApplicationController
 
   def habit_record_params
     params.require(:habit_record).permit(:habit_id, :comment, :current_duration)
+  end
+
+  def send_feed(habit_id, text_content, current_duration)
+    feed = Feed.new
+    feed.habit_id = habit_id
+    feed.member_id = current_member.id
+    feed.text_content = text_content
+    feed.current_duration = current_duration
+    feed.save
+  end
+
+  def set_habit_update_params(habit)
+    if habit.last_achievement != nil && Time.zone.today - habit.last_achievement.to_date > 1
+      habit.current_duration =  1
+    else
+      habit.current_duration += 1
+    end
+    if habit.current_duration == 0
+      habit.max_duration = 1
+    elsif habit.current_duration > habit.max_duration
+      habit.max_duration = habit.current_duration
+    end
+    habit.last_achievement = Time.zone.now
+    return habit
+  end
+
+  def set_habit_record_params(habit_record, habit_id, current_duration)
+    habit_record.habit_id = habit_id
+    habit_record.current_duration = current_duration
+    return habit_record
   end
 
   def is_matching_login_member
