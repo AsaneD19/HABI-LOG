@@ -3,7 +3,7 @@
 <% else %>
   <h4>
     <%= post_comment.created_at %>
-    <%= post_comment.member.name %>
+    <%= link_to post_comment.member.name, member_path(post_comment.member) %>
     <%= post_comment.member.account_id %>
     <%= post_comment.content %>
     <% if post_comment.member == current_member %>

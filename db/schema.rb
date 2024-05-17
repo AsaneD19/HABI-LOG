@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_14_223455) do
+ActiveRecord::Schema.define(version: 2024_05_17_022255) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2024_05_14_223455) do
   create_table "feeds", force: :cascade do |t|
     t.integer "member_id", null: false
     t.integer "habit_id", null: false
-    t.text "comment", null: false
+    t.text "text_content", null: false
     t.integer "current_duration", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2024_05_14_223455) do
     t.integer "member_id", null: false
     t.string "name", null: false
     t.integer "achievement_count", default: 0, null: false
-    t.text "comment"
+    t.text "caption"
     t.datetime "last_achievement"
     t.integer "current_duration", default: 0, null: false
     t.integer "max_duration", default: 0, null: false
@@ -87,8 +87,6 @@ ActiveRecord::Schema.define(version: 2024_05_14_223455) do
     t.string "account_id", null: false
     t.string "name", null: false
     t.text "introduction"
-    t.integer "follower_count", default: 0, null: false
-    t.integer "followed_count", default: 0, null: false
     t.boolean "is_private", default: false, null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -102,6 +100,13 @@ ActiveRecord::Schema.define(version: 2024_05_14_223455) do
     t.integer "target_feed_id"
     t.integer "tatget_post_comment_id"
     t.text "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

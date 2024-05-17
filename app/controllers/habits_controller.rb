@@ -13,8 +13,8 @@ class HabitsController < ApplicationController
 
     feed = Feed.new
     feed.member_id = current_member.id
-    feed.comment = @habit.comment
-    feed.current_duration = @habit.current_duration
+    feed.text_content = @habit.caption
+    feed.current_duration = 0
 
     habit_saved = false
     feed_saved = false
@@ -61,16 +61,18 @@ class HabitsController < ApplicationController
   def update
 
     @habit = Habit.find(params[:id])
-    @habit.achievement_count += 1
     if @habit.last_achievement != nil && Time.zone.today - @habit.last_achievement.to_date > 1
-      @habit.current_duration =  1
+      current_duration =  1
     else
-      @habit.current_duration += 1
+      current_duration = @habit.current_duration + 1
     end
-    if @habit.current_duration > @habit.max_duration
-      @habit.max_duration = @habit.current_duration
+    if @habit.current_duration == 0
+      max_duration = 1
+    elsif @habit.current_duration > @habit.max_duration
+      max_duration = @habit.current_duration
     end
-    @habit.last_achievement = Time.zone.now
+
+    last_achievement = Time.zone.now
 
     @habit_record = HabitRecord.new(habit_record_params)
     @habit_record.habit_id = @habit.id
@@ -79,15 +81,15 @@ class HabitsController < ApplicationController
     feed = Feed.new
     feed.habit_id = @habit.id
     feed.member_id = current_member.id
-    feed.comment = @habit_record.comment
-    feed.current_duration = @habit_record.current_duration
+    feed.text_content = @habit_record.comment
+    feed.current_duration = current_duration
 
     habit_record_saved = false
-    habit_updated = false
+    habit_updated =false
     feed_saved = false
     ActiveRecord::Base.transaction do
       habit_record_saved = @habit_record.save
-      habit_updated = @habit.update(habit_record_params)
+      habit_updated = @habit.update(achievement_count: @habit.achievement_count + 1, current_duration: current_duration, max_duration: max_duration, last_achievement: Time.zone.now)
       feed_saved = feed.save
     end
 
@@ -111,7 +113,7 @@ class HabitsController < ApplicationController
   private
 
   def habit_params
-    params.require(:habit).permit(:name, :achievement_count, :comment, :last_achivement, :current_duration, :max_duration, :member_id, :tag_id)
+    params.require(:habit).permit(:name, :achievement_count, :caption, :last_achivement, :current_duration, :max_duration, :member_id, :tag_id)
   end
 
   def habit_record_params

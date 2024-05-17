@@ -8,6 +8,11 @@ class Member < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
   has_one_attached :profile_image
 
   def get_profile_image(width, height)
@@ -18,4 +23,15 @@ class Member < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
+  def follow(member_id)
+    active_relationships.create(followed_id: member_id)
+  end
+
+  def unfollow(member_id)
+    active_relationships.find_by(followed_id: member_id).destroy
+  end
+
+  def following?(member)
+    followings.include?(member)
+  end
 end

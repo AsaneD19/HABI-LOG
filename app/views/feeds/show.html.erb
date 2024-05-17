@@ -19,7 +19,7 @@
   取り組みました！
 <% end %>
 </p>
-<p>コメント：<%= @feed.comment %></p>
+<p>コメント：<%= @feed.text_content %></p>
 <p><%= @feed.created_at %></p>
 
 <% if @feed.member == current_member %>

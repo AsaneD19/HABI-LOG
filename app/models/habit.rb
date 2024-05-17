@@ -5,6 +5,6 @@ class Habit < ApplicationRecord
   has_many :habit_records, dependent: :destroy
 
   validates :name, presence: true
-  validates :comment, presence: true
+  validates :caption, presence: true
 
 end

@@ -4,13 +4,12 @@
   <h4>
     <%= feed.created_at %>
     <% if feed.current_duration == 0 %>
-      <%= feed.member.name %>さんが新しい習慣に取り組むようです：
+      <%= link_to feed.member.name, member_path(feed.member) %>さんが新しい習慣に取り組むようです：
     <% else %>
-      <%= feed.member.name %>さんが習慣に取り組みました：
+      <%= link_to feed.member.name, member_path(feed.member) %>さんが習慣に取り組みました：
     <% end %>
     <%= link_to feed.habit.name, feed_path(feed.id) %>
 
   </h4>
-
 
 <% end %>

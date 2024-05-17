@@ -23,9 +23,11 @@ class MembersController < ApplicationController
       render :edit
     end
   end
+
   private
+
   def member_params
-    params.require(:member).permit(:account_id, :email, :name, :introduction, :is_private, :is_active, :follow_count, :followed_count, :profile_image)
+    params.require(:member).permit(:account_id, :email, :name, :introduction, :is_private, :is_active, :profile_image)
   end
 
 

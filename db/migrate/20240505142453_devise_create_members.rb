@@ -35,8 +35,6 @@ class DeviseCreateMembers < ActiveRecord::Migration[6.1]
       t.string  :account_id,      null: false
       t.string  :name,            null: false
       t.text    :introduction
-      t.integer :follower_count,  null: false, default: 0
-      t.integer :followed_count,  null: false, default: 0
       t.boolean :is_private,      null: false, default: false
       t.boolean :is_active,       null: false, default: true
 

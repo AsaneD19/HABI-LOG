@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   resources :members do
     resources :habits
+    resource :relationships, only: [:create, :destroy]
+      get "followings" => "relationships#followings", as: "followings"
+      get "followers" => "relationships#followers", as: "followers"
   end
 
   resources :feeds, only: [:show, :destroy] do
