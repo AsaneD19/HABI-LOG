@@ -8,6 +8,8 @@
     <%= post_comment.content %>
     <% if post_comment.member == current_member %>
       <%= link_to "消す", feed_post_comment_path(post_comment.target_feed_id, post_comment.id), method: :delete, data: { confirm: "ほんとに？"} %>
+    <% else %>
+
     <% end %>
   </h4>
 
