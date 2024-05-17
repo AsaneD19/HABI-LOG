@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :feeds, only: [:show, :destroy] do
     resources :post_comments
+    resource :favorites, only: [:create, :destroy]
   end
 
 end

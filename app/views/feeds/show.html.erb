@@ -26,6 +26,23 @@
   <%= link_to "消す", feed_path(@feed.id), method: :delete, data: { confirm: "ほんとに？"} %>
 <% end %>
 
+  <% if @feed.member == current_member %>
+    <p>♥<%= @feed.favorites.count %> いいね</p>
+  <% else %>
+    <% if @feed.favorited_by?(current_member) %>
+      <p>
+        <%= link_to feed_favorites_path(@feed.id), method: :delete do %>
+          ♥<%= @feed.favorites.count %> いいね
+        <% end %>
+      </p>
+    <% else %>
+      <p>
+        <%= link_to feed_favorites_path(@feed.id), method: :post do %>
+          ♡<%= @feed.favorites.count %> いいね
+        <% end %>
+      </p>
+    <% end %>
+  <% end %>
 
 <% if @post_comments.count == 0 %>
   <p><font color="red">まだコメントがありません</font></p>

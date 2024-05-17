@@ -6,6 +6,8 @@ class Member < ApplicationRecord
   has_many :feeds, dependent: :destroy
   has_many :habits, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
   has_one_attached :profile_image
 
   def get_profile_image(width, height)
