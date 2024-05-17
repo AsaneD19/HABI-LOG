@@ -36,6 +36,6 @@ class Member < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name"]
+    ["name", "account_id"]
   end
 end

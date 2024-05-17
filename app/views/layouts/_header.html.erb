@@ -9,7 +9,7 @@
     <%= link_to "プロフィール", member_path(current_member.id) %>
   </li>
   <li>
-    <%= link_to "メンバー検索", members_path %>
+    <%= render 'searches/search_form' %>
   </li>
 
 

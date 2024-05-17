@@ -1,8 +1,11 @@
-<%= link_to "戻る", home_path %>
+<%= link_to "戻る", members_path %>
 
-<h1>メンバー一覧</h1>
+<h1>検索結果</h1>
 
-<% @members.each do |member| %>
+
+<h3>メンバー </h3>
+
+<% @results.each do |member| %>
   <div>
     <h4>■<%= link_to member.name, member_path(member) %>さん</h4>
   </div>
@@ -12,4 +15,4 @@
   <div>
     登録日：<%= member.created_at %>
   </div>
-
+<% end %>

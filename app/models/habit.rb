@@ -7,4 +7,8 @@ class Habit < ApplicationRecord
   validates :name, presence: true
   validates :caption, presence: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["name", "tag_id"]
+  end
+
 end
