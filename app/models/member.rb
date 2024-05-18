@@ -35,7 +35,4 @@ class Member < ApplicationRecord
     followings.include?(member)
   end
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["name", "account_id"]
-  end
 end
