@@ -1,6 +1,4 @@
-<%= search_form_for @q, url: searches_path do |f| %>
-  <%= f.label :name_or_account_id_cont, "検索" %>
-  <%= f.text_field :name_or_account_id_cont %>
-
-  <%= f.submit "Search" %>
+<%= form_with url: search_path, method: :get do |f| %>
+  <%= f.text_field :search, class: "form-control", placeholder: "キーワード検索" %>
+  <%= f.submit "検索" %>
 <% end %>

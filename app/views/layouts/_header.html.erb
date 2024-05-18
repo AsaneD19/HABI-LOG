@@ -8,10 +8,7 @@
   <li>
     <%= link_to "プロフィール", member_path(current_member.id) %>
   </li>
-  <li>
-    <%= render 'searches/search_form' %>
-  </li>
-
+  <%= render 'searches/search_form' %>
 
 <% else %>
   <li>

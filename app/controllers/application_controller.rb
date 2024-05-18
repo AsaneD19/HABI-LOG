@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_member!, except: [:top, :about, :show, :index, :guest_sign_in]
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :check_member_is_active, only: [:create], if: :devise_controller?
-  before_action :set_search
+  # before_action :set_search
 
   def after_sign_in_path_for(resource)
     home_path
@@ -28,9 +28,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:account_id, :email, :name, :is_private])
   end
 
-  def set_search
-    @q = Member.ransack(params[:q])
-  end
+  # def set_search
+  #   @q = Member.ransack(params[:q])
+  # end
 
   def self.ransackable_associations(auth_object = nil)
       ["member", "habit"]

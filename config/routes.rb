@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   devise_for :members
   post "/guest_sign_in", to: "homes#guest_sign_in"
-  resources :searches, only: [:index]
+  get "/search", to: "searches#search"
+  get "/show_habits", to: "searches#show_habits"
+  get "/show_members", to: "searches#show_members"
 
   root to: "homes#top"
   get "/about", to: "homes#about"
