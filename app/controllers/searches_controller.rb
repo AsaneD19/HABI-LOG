@@ -14,6 +14,8 @@ class SearchesController < ApplicationController
         @member_results += Member.where('name LIKE(?)', "%#{keyword}%").or(Member.where('account_id LIKE(?)', "%#{keyword}%"))
         @habit_results += Habit.where('name LIKE(?)', "%#{keyword}%")
       end
+      @member_results.uniq! if @member_results.count > 1
+      @habit_results.uniq! if @habit_results.count > 1
     else
       single_keyword = keyword_str
       @member_results = Member.where('name LIKE(?)', "%#{single_keyword}%").or(Member.where('account_id LIKE(?)', "%#{single_keyword}%"))
