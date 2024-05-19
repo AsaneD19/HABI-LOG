@@ -1,6 +1,10 @@
 class PostComment < ApplicationRecord
-    belongs_to :member
-    belongs_to :target_feed, class_name: "Feed", foreign_key: "target_feed_id"
+  belongs_to :member
+  belongs_to :feed
+  has_many :favorites, as: :favorable, dependent: :destroy
+  validates :content, presence: true
+  def favorited_by?(member)
+    favorites.exists?(member_id: member.id)
+  end
 
-    validates :content, presence: true
 end

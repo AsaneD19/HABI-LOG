@@ -1,24 +1,20 @@
 class FavoritesController < ApplicationController
 
   def create
-
-    feed = Feed.find(params[:feed_id])
-    favorite = current_member.favorites.new
-    favorite.target_feed_id = feed.id
-    favorite.save
-    redirect_to feed_path(feed)
+    @favorable = find_favorable
+    current_member.favorites.create(favorable: @favorable)
+    redirect_back(fallback_location: home_path)
   end
 
   def destroy
-    feed = Feed.find(params[:feed_id])
-    favorite = current_member.favorites.find_by(target_feed_id: feed.id)
-    favorite.destroy
-    redirect_to feed_path(feed)
+    @favorable = find_favorable
+    current_member.favorites.find_by(favorable: @favorable).destroy
+    redirect_back(fallback_location: home_path)
   end
 
   private
-  def habit_params
-    params.require(:favorite).permit(:member_id, :target_feed_id, :target_post_comment_id)
-  end
 
+  def find_favorable
+    params[:favorable_type].constantize.find(params[:favorable_id])
+  end
 end

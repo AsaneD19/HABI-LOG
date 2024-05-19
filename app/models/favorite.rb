@@ -1,8 +1,8 @@
 class Favorite < ApplicationRecord
 
   belongs_to :member
-  belongs_to :feed, foreign_key: "target_feed_id"
+  belongs_to :favorable, polymorphic: true
 
-  validates :member_id, uniqueness: {scope: :target_feed_id}
+  validates_uniqueness_of :member_id, scope: [:favorable_type, :favorable_id]
 
 end

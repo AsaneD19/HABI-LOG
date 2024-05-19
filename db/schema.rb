@@ -42,10 +42,12 @@ ActiveRecord::Schema.define(version: 2024_05_17_022255) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "member_id", null: false
-    t.integer "target_feed_id"
-    t.integer "tatget_post_comment_id"
+    t.string "favorable_type", null: false
+    t.integer "favorable_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["favorable_type", "favorable_id"], name: "index_favorites_on_favorable"
+    t.index ["member_id"], name: "index_favorites_on_member_id"
   end
 
   create_table "feeds", force: :cascade do |t|
@@ -97,8 +99,8 @@ ActiveRecord::Schema.define(version: 2024_05_17_022255) do
 
   create_table "post_comments", force: :cascade do |t|
     t.integer "member_id", null: false
-    t.integer "target_feed_id"
-    t.integer "tatget_post_comment_id"
+    t.integer "feed_id"
+    t.integer "post_comment_id"
     t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -119,4 +121,5 @@ ActiveRecord::Schema.define(version: 2024_05_17_022255) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "favorites", "members"
 end

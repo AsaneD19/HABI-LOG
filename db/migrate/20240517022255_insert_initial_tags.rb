@@ -5,6 +5,6 @@ class InsertInitialTags < ActiveRecord::Migration[6.1]
     id: n + 1,
     name: "タグ#{n + 1}"
   )
-end
+    end
   end
 end

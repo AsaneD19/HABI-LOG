@@ -21,12 +21,12 @@ class PostCommentsController < ApplicationController
 
   private
   def post_comment_params
-    params.require(:post_comment).permit(:member_id, :target_feed_id, :target_post_comment_id, :content)
+    params.require(:post_comment).permit(:member_id, :feed_id, :post_comment_id, :content)
   end
 
   def set_post_comment_params(post_comment, feed_id)
     post_comment.member_id = current_member.id
-    post_comment.target_feed_id = feed_id
+    post_comment.feed_id = feed_id
     return post_comment
   end
 

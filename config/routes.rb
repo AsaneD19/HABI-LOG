@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   devise_for :members
   post "/guest_sign_in", to: "homes#guest_sign_in"
   get "/search", to: "searches#search"
-  get "/show_habits", to: "searches#show_habits"
-  get "/show_members", to: "searches#show_members"
 
   root to: "homes#top"
   get "/about", to: "homes#about"
@@ -16,10 +14,12 @@ Rails.application.routes.draw do
       get "followings" => "relationships#followings", as: "followings"
       get "followers" => "relationships#followers", as: "followers"
   end
-
+  resources :favorites, only: [:create, :destroy]
   resources :feeds, only: [:show, :destroy] do
-    resources :post_comments
-    resource :favorites, only: [:create, :destroy]
+    resources :favorites, only: [:create, :destroy], defaults: { favoritable_type: 'Feed' }
+    resources :post_comments, only: [:create, :destroy] do
+      resources :favorites, only: [:create, :destroy], defaults: { favoritable_type: 'PostComment' }
+    end
   end
 
 end
