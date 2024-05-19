@@ -8,8 +8,9 @@
   <li>
     <%= link_to "プロフィール", member_path(current_member.id) %>
   </li>
-  <%= render 'searches/search_form' %>
-
+  <li>
+    <%= render 'searches/search_form' %>
+  </li>
 <% else %>
   <li>
     <%= link_to "sign up", new_member_registration_path %>

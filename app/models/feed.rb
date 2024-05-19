@@ -4,7 +4,7 @@ class Feed < ApplicationRecord
 
   has_many :post_comments, dependent: :destroy
   has_many :favorites, as: :favorable, dependent: :destroy
-  has_many :notifications, as: :notificable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   def favorited_by?(member)
     favorites.exists?(member_id: member.id)
