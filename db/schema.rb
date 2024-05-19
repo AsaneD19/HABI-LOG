@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_17_022255) do
+ActiveRecord::Schema.define(version: 2024_05_19_164229) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -97,6 +97,17 @@ ActiveRecord::Schema.define(version: 2024_05_17_022255) do
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "member_id"
+    t.string "notificable_type"
+    t.integer "notificable_id"
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_notifications_on_member_id"
+    t.index ["notificable_type", "notificable_id"], name: "index_notifications_on_notificable"
+  end
+
   create_table "post_comments", force: :cascade do |t|
     t.integer "member_id", null: false
     t.integer "feed_id"
@@ -122,4 +133,5 @@ ActiveRecord::Schema.define(version: 2024_05_17_022255) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "favorites", "members"
+  add_foreign_key "notifications", "members"
 end
