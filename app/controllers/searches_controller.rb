@@ -1,10 +1,9 @@
 class SearchesController < ApplicationController
 
   def search
-    keyword_str = params[:search]
-    redirect_back fallback_location: home_path if keyword_str == ""
-    if keyword_str.include?(" ") || keyword_str.include?("　")
-      split_keywords = keyword_str.split(/[[:blank:]]+/)
+    redirect_back(fallback_location: home_path, notice: "no words search") if params[:search] == ""
+    if params[:search].include?(" ") || params[:search].include?("　")
+      split_keywords = params[:search].split(/[[:blank:]]+/)
       @member_results = []
       @habit_results = []
       split_keywords.each do |keyword|
@@ -17,11 +16,9 @@ class SearchesController < ApplicationController
       @member_results.uniq! if @member_results.count > 1
       @habit_results.uniq! if @habit_results.count > 1
     else
-      single_keyword = keyword_str
+      single_keyword = params[:search]
       @member_results = Member.where('name LIKE(?)', "%#{single_keyword}%").or(Member.where('account_id LIKE(?)', "%#{single_keyword}%"))
       @habit_results = Habit.where('name LIKE(?)', "%#{single_keyword}%")
     end
-
   end
-
 end
