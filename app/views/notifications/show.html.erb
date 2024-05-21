@@ -1,0 +1,18 @@
+<%= link_to "戻る", home_path %>
+
+<h2>通知詳細</h2>
+<% if @notification.notifiable_type == "PostComment" %>
+  <h4>コメントされました。</h4>
+  <%= render 'feeds/data', feed: @notification.notifiable.feed %>
+  <h4>↓</h4>
+  <%= render 'post_comments/data', post_comment: @notification.notifiable %>
+<% else %>
+  <h4>いいねされました。</h4>
+  <% if @notification.notifiable.favorable_type == "Feed" %>
+    <%= render 'feeds/data', feed: @notification.notifiable.favorable %>
+  <% else %>
+    <%= render 'post_comments/data', post_comment: @notification.notifiable.favorable %>
+  <% end %>
+  <h4>↓</h4>
+  <%= render 'members/data', member: @notification.notifiable.member %>
+<% end %>

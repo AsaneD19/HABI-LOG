@@ -6,17 +6,7 @@
 <% if @member_results.count == 0 %>
   <p><font color="red">メンバーはいません</font></p>
 <% else %>
-  <% @member_results.each do |member| %>
-    <div>
-      <h4>■<%= link_to member.name, member_path(member) %>さん</h4>
-    </div>
-    <div>
-      メンバーＩＤ：<%= member.account_id %>
-    </div>
-    <div>
-      登録日：<%= member.created_at %>
-    </div>
-  <% end %>
+  <%= render "members/list", members: @member_results %>
 <% end %>
 
 <h3>習慣</h3>
@@ -24,15 +14,5 @@
 <% if @habit_results.count == 0 %>
   <p><font color="red">習慣はありません</font></p>
 <% else %>
-<%  @habit_results.each do |habit| %>
-    <div>
-      <h4>■<%= habit.name %></h4>
-    </div>
-    <div>
-      登録者：<%= link_to habit.member.name, member_path(habit.member) %>さん
-    </div>
-    <div>
-      登録日：<%= habit.created_at %>
-    </div>
-  <% end %>
+  <%= render "habits/list", members: @habit_results %>
 <% end %>

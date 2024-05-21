@@ -8,7 +8,6 @@ class MembersController < ApplicationController
 
   def show
     @member = Member.find(params[:id])
-    @feeds = @member.feeds.order(created_at: :desc)
   end
 
   def edit

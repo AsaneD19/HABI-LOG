@@ -1,0 +1,13 @@
+<div>
+  習慣名：<%= habit.name %>
+</div>
+<div>
+  最終達成日：<%= habit.last_achievement %>
+</div>
+<div>
+  <%= link_to "詳細", member_habit_path(member_id: habit.member_id, id: habit.id) %>
+</div>
+<div>
+  <%= link_to "消す", member_habit_path(member_id: habit.member_id, id: habit.id), method: :delete, data: { confirm: "ほんとに？"} %>
+</div>
+<br>

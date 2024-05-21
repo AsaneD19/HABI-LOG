@@ -1,0 +1,9 @@
+<% if current_member.notifications.where(read: false).any? %>
+  <% current_member.notifications.where(read: false).order(created_at: :desc).each do |notification| %>
+    <li>
+      <%= link_to notification_message(notification), notification_path(notification), method: :patch %>
+    </li>
+  <% end %>
+<% else %>
+  <p>未読の通知はありません</p>
+<% end %>

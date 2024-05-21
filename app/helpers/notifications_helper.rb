@@ -3,7 +3,7 @@ module NotificationsHelper
   def notification_message(notification)
     case notification.notifiable_type
     when "Relationship"
-      "#{notification.notifiable.member.name}さんにふぉろーされました。"
+      "#{notification.notifiable.follower.name}さんにふぉろーされました。"
     when "PostComment"
       "#{notification.notifiable.member.name}さんにコメントされました。"
     when "Favorite"

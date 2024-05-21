@@ -1,30 +1,3 @@
 <%= link_to "戻る", home_path %>
 
-<h1><%= @member.name %></h1>
-<div><%= @member.account_id %></div>
-<div><%= image_tag @member.get_profile_image(100,100) %></div>
-
-<% if @member != current_member && @member.is_private == true %>
-  <h1>非公開メンバーです</h1>
-<% else %>
-  <p>フォロー：<%= @member.followings.count %></p>
-  <p>フォロワー：<%= @member.followers.count %></p>
-  <p>自己紹介：<%= @member.introduction %></p>
-
-
-  <% if @member == current_member %>
-    <%= link_to "プロフィール編集", edit_member_path(current_member.id) %>
-  <% else %>
-    <% if current_member.following?(@member) %>
-      <%= link_to "フォロー解除", member_relationships_path(@member), method: :DELETE %>
-    <% else %>
-      <%= link_to 'フォローする', member_relationships_path(@member), method: :POST %>
-    <% end %>
-  <% end %>
-
-  <h4>投稿数：<%= @member.feeds.count %></h4>
-
-  <% @feeds.each do |feed| %>
-   <%= render "feeds/feed_data", feed: feed %>
-  <% end %>
-<% end %>
+<%= render "members/profile", member: @member %>

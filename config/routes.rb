@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get "/about", to: "homes#about"
   get "/home",  to: "feeds#index"
-
+  resources :notifications, only: [:update, :show]
   resources :members do
     resources :habits
     resource :relationships, only: [:create, :destroy]
@@ -16,11 +16,9 @@ Rails.application.routes.draw do
   end
   resources :favorites, only: [:create, :destroy]
   resources :feeds, only: [:show, :destroy] do
-    resources :favorites, only: [:create, :destroy], defaults: { favoritable_type: 'Feed' }
+    resources :favorites, only: [:create, :destroy, :index], defaults: { favoritable_type: 'Feed' }
     resources :post_comments, only: [:create, :destroy] do
-      resources :favorites, only: [:create, :destroy], defaults: { favoritable_type: 'PostComment' }
+      resources :favorites, only: [:create, :destroy, :index], defaults: { favoritable_type: 'PostComment' }
     end
   end
-
-  resources :notifications, only: [:update]
 end

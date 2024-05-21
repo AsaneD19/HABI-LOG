@@ -12,6 +12,10 @@ class FavoritesController < ApplicationController
     redirect_back(fallback_location: home_path)
   end
 
+  def index
+    @favorables = find_favorable
+  end
+
   private
 
   def find_favorable

@@ -9,7 +9,16 @@
     <%= link_to "プロフィール", member_path(current_member.id) %>
   </li>
   <li>
-    <%= render 'searches/search_form' %>
+    <%= render 'searches/form' %>
+  </li>
+  <li>
+    <%= render 'members/login_info' %>
+  </li>
+  <li>
+    <%= link_to "習慣の登録", new_member_habit_path(current_member.id) %>
+  </li>
+  <li>
+    <%= link_to "習慣の一覧", member_habits_path(current_member.id) %>
   </li>
 <% else %>
   <li>

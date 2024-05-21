@@ -25,13 +25,11 @@
 <% if @feed.member == current_member %>
   <%= link_to "消す", feed_path(@feed.id), method: :delete, data: { confirm: "ほんとに？"} %>
 <% end %>
-<p><%= render 'favorites/favorite_form', favorable: @feed %></p>
+<p><%= render 'favorites/form', favorable: @feed %></p>
 <% if @post_comments.count == 0 %>
   <p><font color="red">まだコメントがありません</font></p>
 <% else %>
-  <% @post_comments.each do |post_comment| %>
-    <%= render "post_comments/comment_data", post_comment: post_comment %>
-  <% end %>
+  <%= render "post_comments/list", post_comments: @post_comments %>
 <% end %>
 
 <%= form_with model: @post_comment, url: feed_post_comments_path(@feed.id), method: :post do |f| %>

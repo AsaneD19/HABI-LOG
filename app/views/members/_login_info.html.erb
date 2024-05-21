@@ -1,0 +1,14 @@
+<% if current_member != nil %>
+
+  <div>
+    アカウント名：<%= current_member.account_id %>
+  </div>
+  <div>
+    メールアドレス：<%= current_member.email %>
+  </div>
+  <div>
+    ニックネーム：<%= current_member.name %>
+  </div>
+  <%= render 'notifications/list' %>
+
+<% end %>

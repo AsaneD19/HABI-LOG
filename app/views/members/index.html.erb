@@ -2,14 +2,4 @@
 
 <h1>メンバー一覧</h1>
 
-<% @members.each do |member| %>
-  <div>
-    <h4>■<%= link_to member.name, member_path(member) %>さん</h4>
-  </div>
-  <div>
-    メンバーＩＤ：<%= member.account_id %>
-  </div>
-  <div>
-    登録日：<%= member.created_at %>
-  </div>
-
+<%= render "members/list", members: @members %>

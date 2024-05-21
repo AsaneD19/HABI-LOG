@@ -6,21 +6,5 @@
   <div><font color="red">まだ習慣は登録されていません。</font></div>
   <%= link_to "習慣の登録", new_member_habit_path(current_member.id) %>
 <% else %>
-  <% @habits.each do |habit| %>
-    <div>
-      習慣名：<%= habit.name %>
-    </div>
-    <div>
-      最終達成日：<%= habit.last_achievement %>
-    </div>
-    <div>
-      <%= link_to "詳細", member_habit_path(member_id: habit.member_id, id: habit.id) %>
-    </div>
-    <div>
-      <%= link_to "消す", member_habit_path(member_id: habit.member_id, id: habit.id), method: :delete, data: { confirm: "ほんとに？"} %>
-    </div>
-
-    <br>
-  <% end %>
-
+  <%= render "habits/list", habits: @habits %>
 <% end %>
