@@ -1,11 +1,15 @@
 <%= link_to "戻る", home_path %>
 
 <h2>通知詳細</h2>
-<% if @notification.notifiable_type == "PostComment" %>
+<% case @notification.notifiable_type %>
+<% when "PostComment" %>
   <h4>コメントされました。</h4>
   <%= render 'feeds/data', feed: @notification.notifiable.feed %>
   <h4>↓</h4>
   <%= render 'post_comments/data', post_comment: @notification.notifiable %>
+<% when "Relationship" %>
+  <h4>フォローされました。</h4>
+  <%= render 'members/data', member: @notification.notifiable.follower %>
 <% else %>
   <h4>いいねされました。</h4>
   <% if @notification.notifiable.favorable_type == "Feed" %>

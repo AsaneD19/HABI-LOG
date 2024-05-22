@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get "/about", to: "homes#about"
   get "/home",  to: "feeds#index"
-  resources :notifications, only: [:update, :show]
+  resources :notifications, only: [:update, :show, :index]
   resources :members do
     resources :habits
+    resource :follow_request, only: [:create, :destroy]
     resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
       get "followers" => "relationships#followers", as: "followers"

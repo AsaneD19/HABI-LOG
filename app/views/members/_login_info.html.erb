@@ -9,6 +9,15 @@
   <div>
     ニックネーム：<%= current_member.name %>
   </div>
-  <%= render 'notifications/list' %>
+  <div>
+    <%= link_to notifications_path do %>
+      <%= current_member.notifications.count %>件の未読通知
+    <% end %>
+  </div>
+  <div>
+    <%= link_to "習慣の登録", new_member_habit_path(current_member.id) %>
+    /
+    <%= link_to "習慣の一覧", member_habits_path(current_member.id) %>
+  </div>
 
 <% end %>

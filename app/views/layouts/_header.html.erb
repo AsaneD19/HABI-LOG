@@ -11,15 +11,9 @@
   <li>
     <%= render 'searches/form' %>
   </li>
-  <li>
+  <div>
     <%= render 'members/login_info' %>
-  </li>
-  <li>
-    <%= link_to "習慣の登録", new_member_habit_path(current_member.id) %>
-  </li>
-  <li>
-    <%= link_to "習慣の一覧", member_habits_path(current_member.id) %>
-  </li>
+  </div>
 <% else %>
   <li>
     <%= link_to "sign up", new_member_registration_path %>

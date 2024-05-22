@@ -10,6 +10,9 @@ class Member < ApplicationRecord
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :active_follow_request, class_name: "FollowRequest", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_follow_request, class_name: "FollowRequest", foreign_key: "followed_id", dependent: :destroy
+
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :notifications, dependent: :destroy
@@ -30,6 +33,10 @@ class Member < ApplicationRecord
 
   def unfollow(member_id)
     active_relationships.find_by(followed_id: member_id).destroy
+  end
+
+  def follow_request(member_id)
+    active_follow_requests.create(followed_id: member_id)
   end
 
   def following?(member)

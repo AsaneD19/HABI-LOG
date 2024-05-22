@@ -1,9 +1,5 @@
-<% if member.is_private %>
-  <!-- link_to "フォローリクエスト", *****, method: :post %>-->
+<% if current_member.following?(member)  %>
+  <%= link_to "フォロー解除", member_relationships_path(member), method: :delete %>
 <% else %>
-  <% if current_member.following?(member)  %>
-    <%= link_to "フォロー解除", member_relationships_path(member), method: :DELETE %>
-  <% else %>
-    <%= link_to 'フォローする', member_relationships_path(member), method: :POST %>
-  <% end %>
+  <%= link_to 'フォローする', member_relationships_path(member), method: :post %>
 <% end %>

@@ -1,0 +1,8 @@
+<% case notification.notifiable_type %>
+<% when "Relationship" %>
+  <%= notification.notifiable.follower.name %>さんにフォローされました。
+<% when "PostComment" %>
+  <%= notification.notifiable.member.name %>さんにコメントされました。
+<% when "Favorite" %>
+  <%= notification.notifiable.member.name %>さんにいいねされました。
+<% end %>
