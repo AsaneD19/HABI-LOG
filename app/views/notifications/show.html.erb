@@ -10,6 +10,15 @@
 <% when "Relationship" %>
   <h4>フォローされました。</h4>
   <%= render 'members/data', member: @notification.notifiable.follower %>
+<% when "FollowRequest" %>
+  <% if @notification.notifiable.is_approval == true %>
+    <h4>フォローが承認されました！</h4>
+    <%= render 'members/data', member: @notification.notifiable.follower %>
+  <% else %>
+    <h4>フォローリクエスト！</h4>
+    <%= render 'members/data', member: @notification.notifiable.follower %>
+    <%= render 'follow_requests/form', member: @notification.notifiable.follower %>
+  <% end %>
 <% else %>
   <h4>いいねされました。</h4>
   <% if @notification.notifiable.favorable_type == "Feed" %>

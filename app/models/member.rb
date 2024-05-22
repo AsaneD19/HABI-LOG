@@ -10,8 +10,8 @@ class Member < ApplicationRecord
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  has_many :active_follow_request, class_name: "FollowRequest", foreign_key: "follower_id", dependent: :destroy
-  has_many :passive_follow_request, class_name: "FollowRequest", foreign_key: "followed_id", dependent: :destroy
+  has_many :active_follow_requests, class_name: "FollowRequest", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_follow_requests, class_name: "FollowRequest", foreign_key: "followed_id", dependent: :destroy
 
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
@@ -28,19 +28,32 @@ class Member < ApplicationRecord
   end
 
   def follow(member_id)
-    active_relationships.create(followed_id: member_id)
+    is_approval = true
+    if Member.find(member_id).is_privated == true
+      is_approval = false
+    end
+    active_relationships.create(followed_id: member_id, is_approval: is_approval)
   end
 
   def unfollow(member_id)
     active_relationships.find_by(followed_id: member_id).destroy
   end
 
-  def follow_request(member_id)
+  def create_follow_request(member_id)
     active_follow_requests.create(followed_id: member_id)
   end
 
+  def destroy_follow_request(member_id)
+    active_follow_requests.find_by(followed_id: member_id).destroy
+  end
+
+
   def following?(member)
     followings.include?(member)
+  end
+
+  def requested?(member)
+    active_follow_requests.exists?(followed_id: member.id)
   end
 
 end

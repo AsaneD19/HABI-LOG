@@ -1,6 +1,13 @@
 <% case notification.notifiable_type %>
 <% when "Relationship" %>
   <%= notification.notifiable.follower.name %>さんにフォローされました。
+<% when "FollowRequest" %>
+  <% case notification.notifiable.is_approval %>
+  <% when false %>
+    <%= notification.notifiable.follower.name %>さんのフォローリクエストがあります。
+  <% when true %>
+    <%= notification.notifiable.followed.name %>さんにフォローが承認されました。
+  <% end %>
 <% when "PostComment" %>
   <%= notification.notifiable.member.name %>さんにコメントされました。
 <% when "Favorite" %>

@@ -10,16 +10,16 @@ Rails.application.routes.draw do
   resources :notifications, only: [:update, :show, :index]
   resources :members do
     resources :habits
-    resource :follow_request, only: [:create, :destroy]
-    resource :relationships, only: [:create, :destroy]
+    resource :follow_request, only: [:create, :update, :destroy]
+    resource :relationship, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
       get "followers" => "relationships#followers", as: "followers"
   end
-  resources :favorites, only: [:create, :destroy]
+  resource :favorite, only: [:create, :destroy]
   resources :feeds, only: [:show, :destroy] do
-    resources :favorites, only: [:create, :destroy, :index], defaults: { favoritable_type: 'Feed' }
+    resource :favorite, only: [:create, :destroy, :index], defaults: { favoritable_type: 'Feed' }
     resources :post_comments, only: [:create, :destroy] do
-      resources :favorites, only: [:create, :destroy, :index], defaults: { favoritable_type: 'PostComment' }
+      resource :favorite, only: [:create, :destroy, :index], defaults: { favoritable_type: 'PostComment' }
     end
   end
 end

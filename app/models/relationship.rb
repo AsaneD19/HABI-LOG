@@ -10,4 +10,6 @@ class Relationship < ApplicationRecord
   after_create do
     notifications.create(member_id: followed.id)
   end
+  
+  
 end

@@ -10,7 +10,7 @@
     </p>
   <% else %>
     <p>
-      <%= link_to favorites_path(favorable_type: favorable.class.name, favorable_id: favorable.id), method: :post do %>
+      <%= link_to favorite_path(favorable_type: favorable.class.name, favorable_id: favorable.id), method: :post do %>
         ♡<%= favorable.favorites.count %> いいね
       <% end %>
     </p>
