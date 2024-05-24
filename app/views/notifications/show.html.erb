@@ -8,17 +8,17 @@
   <h4>↓</h4>
   <%= render 'post_comments/data', post_comment: @notification.notifiable %>
 <% when "Relationship" %>
-  <h4>フォローされました。</h4>
-  <%= render 'members/data', member: @notification.notifiable.follower %>
-<% when "FollowRequest" %>
-  <% if @notification.notifiable.is_approval == true %>
-    <h4>フォローが承認されました！</h4>
-    <%= render 'members/data', member: @notification.notifiable.follower %>
+  <% if notification.notifiable.follower == current_member %>
+    <h4>フォロー承認されました。</h4>
+    <%= render 'members/data', member: @notification.notifiable.followed %>
   <% else %>
-    <h4>フォローリクエスト！</h4>
+    <h4>フォローされました。</h4>
     <%= render 'members/data', member: @notification.notifiable.follower %>
-    <%= render 'follow_requests/form', member: @notification.notifiable.follower %>
   <% end %>
+<% when "FollowRequest" %>
+  <h4>フォローリクエスト！</h4>
+  <%= render 'members/data', member: @notification.notifiable.follower %>
+  <%= render 'follow_requests/form', member: @notification.notifiable.follower %>
 <% else %>
   <h4>いいねされました。</h4>
   <% if @notification.notifiable.favorable_type == "Feed" %>

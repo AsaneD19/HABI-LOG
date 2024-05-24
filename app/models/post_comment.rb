@@ -9,8 +9,4 @@ class PostComment < ApplicationRecord
     favorites.exists?(member_id: member.id)
   end
 
-  after_create do
-    notifications.create(member_id: feed.member_id)
-  end
-
 end

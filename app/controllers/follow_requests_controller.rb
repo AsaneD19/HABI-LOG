@@ -1,22 +1,23 @@
 class FollowRequestsController < ApplicationController
 
   def create
-    current_member.create_follow_request(params[:member_id])
-    redirect_to member_path(params[:member_id])
+    member = Member.find(params[:member_id])
+    follow_request = current_member.active_follow_requests.create(followed_id: member.id)
+    follow_request.notifications.create(member_id: member.id)
+    redirect_to member_path(member)
   end
 
-  def update
+  def approve
     member = Member.find(params[:member_id])
-    member.follow(current_member.id)
-    byebug
-    follow_request = FollowRequest.where(follower_id: member.id, followed_id: current_member.id)
-    follow_request.update(is_approval: true)
+    relationship = member.active_relationships.create(followed_id: current_member.id)
+    relationship.notifications.create(member_id: member.id)
+    member.active_follow_requests.find_by(followed_id: current_member.id).destroy
     redirect_to member_path(member)
   end
 
   def destroy
       member = Member.find(params[:member_id])
-      member.destroy_follow_request(current_member.id)
+      member.active_follow_requests.find_by(followed_id: current_member.id).destroy
       redirect_to home_path
   end
 end

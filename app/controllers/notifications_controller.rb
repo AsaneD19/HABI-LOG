@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
 
   def update
     notification = current_member.notifications.find(params[:id])
-    unless notification.notifiable_type == "FollowRequest" && notification.notifiable.is_approval == nil
+    unless notification.notifiable_type == "FollowRequest"
       notification.update(read: true)
     end
     redirect_to notification_path(notification)

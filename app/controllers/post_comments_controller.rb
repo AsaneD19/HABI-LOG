@@ -4,6 +4,9 @@ class PostCommentsController < ApplicationController
     @post_comment = set_post_comment_params(PostComment.new(post_comment_params), params[:feed_id])
     if @post_comment.save
       flash[:notice] = "Your comment to feed has succeeded."
+      unless @post_comment.feed.member == @post_comment.member
+        @post_comment.notifications.create(member_id: @post_comment.feed.member_id)
+      end
       redirect_to feed_path(params[:feed_id])
     else
       flash[:alert] = @post_comment.errors.full_messages.join(", ")

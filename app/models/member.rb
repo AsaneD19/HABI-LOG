@@ -27,29 +27,12 @@ class Member < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def follow(member_id)
-    is_approval = true
-    if Member.find(member_id).is_privated == true
-      is_approval = false
-    end
-    active_relationships.create(followed_id: member_id, is_approval: is_approval)
-  end
-
-  def unfollow(member_id)
-    active_relationships.find_by(followed_id: member_id).destroy
-  end
-
-  def create_follow_request(member_id)
-    active_follow_requests.create(followed_id: member_id)
-  end
-
-  def destroy_follow_request(member_id)
-    active_follow_requests.find_by(followed_id: member_id).destroy
-  end
-
-
   def following?(member)
     followings.include?(member)
+  end
+
+  def follow_request_approved?(member)
+    approvals.include?(member)
   end
 
   def requested?(member)

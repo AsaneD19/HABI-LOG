@@ -4,12 +4,12 @@
 <p>フォロー：<%= member.followings.count %></p>
 <p>フォロワー：<%= member.followers.count %></p>
 <% if member == current_member %>
-  <%= link_to "プロフィール編集", edit_member_path(current_member.id) %>
+  <%= link_to "プロフィール編集", profile_path %>
 <% else %>
   <%= render "relationships/form", member: member %>
 <% end %>
 
-<% if member != current_member && member.is_private && member.passive_relationships.is_approval == false %>
+<% if member.is_private && current_member.following?(member) == false %>
   <h1>非公開メンバーです</h1>
 <% else %>
   <p>自己紹介：<%= member.introduction %></p>

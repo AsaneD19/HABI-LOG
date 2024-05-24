@@ -11,7 +11,7 @@
   </div>
   <div>
     <%= link_to notifications_path do %>
-      <%= current_member.notifications.count %>件の未読通知
+      <%= current_member.notifications.where(read: false).count %>件の未読通知
     <% end %>
   </div>
   <div>

@@ -1,4 +1,4 @@
 <h4>承認しますか？</h4>
 
-<%= link_to "承認する", member_follow_request_path(member), method: :patch %>
-<%= link_to "拒否する", member_follow_request_path(member_id: member.id, is_approval: false), method: :delete %>
+<%= link_to "承認する", approve_path(member), method: :delete %>
+<%= link_to "拒否する", member_follow_request_path(member), method: :delete %>

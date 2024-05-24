@@ -1,8 +1,9 @@
 class FavoritesController < ApplicationController
 
   def create
-    @favorable = find_favorable
-    current_member.favorites.create(favorable: @favorable)
+    favorable = find_favorable
+    current_member.favorites.create(favorable: favorable)
+    favorable.notifications.create(member_id: @favorable.member_id)
     redirect_back(fallback_location: home_path)
   end
 

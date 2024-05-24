@@ -2,22 +2,24 @@ class RelationshipsController < ApplicationController
   before_action :authenticate_member!
 
   def create
-    current_member.follow(params[:member_id])
+    member = Member.find(params[:member_id])
+    relationship = current_member.active_relationships.create(followed_id: member.id)
+    relationship.notifications.create(member_id: member.id)
     redirect_to member_path(params[:member_id])
   end
 
   def destroy
-    current_member.unfollow(params[:member_id])
+    current_member.active_relationships.find_by(followed_id: params[:member_id]).destroy
     redirect_to member_path(params[:member_id])
   end
 
   def follower
-    member = member.find(params[:member_id])
+    member = Member.find(params[:member_id])
     @members = member.followings
   end
 
   def followed
-    member = member.find(params[:member_id])
+    member = Member.find(params[:member_id])
     @members = member.followers
   end
 

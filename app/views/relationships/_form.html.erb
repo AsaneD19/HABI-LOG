@@ -5,7 +5,7 @@
     <% if current_member.requested?(member) %>
       フォローリクエスト済
     <% else %>
-      <%= link_to 'フォローリクエスト', member_relationship_path(member), method: :post %>
+      <%= link_to 'フォローリクエスト', member_follow_request_path(member), method: :post %>
     <% end %>
   <% else %>
     <%= link_to 'フォローする', member_relationship_path(member), method: :post %>

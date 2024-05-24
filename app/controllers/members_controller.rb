@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :is_matching_login_member, except: [:index, :show]
+  before_action :is_matching_login_member, except: [:index, :show, :edit]
   before_action :ensure_guest_member, only: [:edit]
 
   def index
@@ -11,11 +11,11 @@ class MembersController < ApplicationController
   end
 
   def edit
-    @member = Member.find(params[:id])
+    @member = Member.find(current_member.id)
   end
 
   def update
-    @member = Member.find(params[:id])
+    @member = Member.find(current_member.id)
     if @member.update(member_params)
       flash[:notice] = "You profile has been updated successfully."
       redirect_to member_path(@member.id)

@@ -1,6 +1,6 @@
 <h2>通知</h2>
 
-<% unless @notifications == nil %>
+<% unless @notifications.count == 0 %>
   <%= render "notifications/list", notifications: @notifications %>
 <% else %>
   <p>未読の通知はありません</p>

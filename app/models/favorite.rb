@@ -5,8 +5,4 @@ class Favorite < ApplicationRecord
   has_one :notification, as: :notifiable, dependent: :destroy
   validates_uniqueness_of :member_id, scope: [:favorable_type, :favorable_id]
 
-  after_create do
-    create_notification(member_id: favorable.member_id)
-  end
-
 end
