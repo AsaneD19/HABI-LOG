@@ -1,0 +1,43 @@
+<%= link_to "戻る", home_path %>
+<h1>ポスト詳細</h1>
+<% if @post_comment.errors.any? %>
+  <%= render 'layouts/error_message', error_obj: @post_comment %>
+<% end %>
+
+<h2><%= @feed.member.name %></h2>
+<h4><%= @feed.member.account_id %></h4>
+<p><%= @feed.habit.name %>
+<% if @feed.current_duration == 0 %>
+  に新しく取り組みます！
+<% else %>
+  に
+  <% if @feed.habit.achievement_count == 0 %>
+    はじめて
+  <% elsif @feed.habit.achievement_count != 0 && @feed.current_duration > 1 %>
+    <%= @feed.current_duration %>日続けて
+  <% end %>
+  取り組みました！
+<% end %>
+</p>
+<p>コメント：<%= @feed.text_content %></p>
+<p><%= @feed.created_at %></p>
+
+<% if @feed.member == current_member %>
+  <%= link_to "消す", feed_path(@feed.id), method: :delete, data: { confirm: "ほんとに？"} %>
+<% end %>
+<p><%= render 'public/favorites/form', favorable: @feed %></p>
+<% if @post_comments.count == 0 %>
+  <p><font color="red">まだコメントがありません</font></p>
+<% else %>
+  <%= render "public/post_comments/list", post_comments: @post_comments %>
+<% end %>
+
+<%= form_with model: @post_comment, url: feed_post_comments_path(@feed.id), method: :post do |f| %>
+
+  <p>コメントはこちら</p>
+  <%= f.text_area :content %>
+  <%= f.submit "コメントする！" %>
+
+<% end %>
+
+

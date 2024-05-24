@@ -1,0 +1,8 @@
+<h1>タイムライン</h1>
+
+<% if @feeds.count == 0 %>
+  <p><font color=red>タイムラインに投稿がありません</p>
+<% else %>
+  <%= render 'public/feeds/list', feeds: @feeds %>
+<% end %>
+<br>

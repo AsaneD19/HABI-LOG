@@ -1,0 +1,10 @@
+<%= link_to "戻る", home_path %>
+
+<h1>習慣一覧</h1>
+
+<% if @habits.count == 0 %>
+  <div><font color="red">まだ習慣は登録されていません。</font></div>
+  <%= link_to "習慣の登録", new_member_habit_path(current_member.id) %>
+<% else %>
+  <%= render "public/habits/list", habits: @habits %>
+<% end %>

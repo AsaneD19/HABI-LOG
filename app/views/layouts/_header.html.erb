@@ -9,10 +9,10 @@
     <%= link_to "プロフィール", member_path(current_member.id) %>
   </li>
   <li>
-    <%= render 'searches/form' %>
+    <%= render 'public/searches/form' %>
   </li>
   <div>
-    <%= render 'members/login_info' %>
+    <%= render 'public/members/login_info' %>
   </div>
 <% else %>
   <li>

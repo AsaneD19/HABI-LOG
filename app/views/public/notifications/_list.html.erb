@@ -1,0 +1,7 @@
+<% notifications.order(created_at: :desc).each do |notification| %>
+  <li>
+    <%= link_to notification_path(notification), method: :patch do %>
+      <%= render "public/notifications/data", notification: notification %>
+    <% end %>
+  </li>
+<% end %>
