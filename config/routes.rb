@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
 
-  devise_for :admin, controllers: {
+  devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: "admin/sessions"
   }
+  namespace :admin do
+    get "dashboards", to: "dashboards#index"
+    resources :members, only: [:destroy]
+  end
+
   devise_for :members
   post "/guest_sign_in", to: "homes#guest_sign_in"
   get "/search", to: "searches#search"

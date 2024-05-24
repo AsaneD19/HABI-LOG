@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_member!, except: [:top, :about, :show, :index, :guest_sign_in]
+  before_action :authenticate_member!, except: [:top, :about, :show, :index, :guest_sign_in], unless: :admin_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :check_member_is_active, only: [:create], if: :devise_controller?
+  before_action :check_member_is_active, only: [:create], if: :devise_controller?, unless: :admin_controller?
 
   def after_sign_in_path_for(resource)
     home_path
@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:account_id, :email, :name, :is_private])
   end
 
+  private
+  def admin_controller?
+    self.class.module_parent_name == "Admin"
+  end
 end

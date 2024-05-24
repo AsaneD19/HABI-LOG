@@ -1,0 +1,9 @@
+<h1>登録メンバー一覧</h1>
+<ul>
+  <% @members.each do |member| %>
+  <li>
+    <%= member.name %> - <%= member.account_id %> - <%= member.email %> - <%= member.created_at %>
+    <%= link_to "削除", admin_member_path(member), method: :delete, data: "#{member.account_id}を削除します。よろしいですか？" %>
+  </li>
+  <% end %>
+</ul>
