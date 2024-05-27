@@ -1,0 +1,11 @@
+<h1><%= @member.name %>(<%= @member.account_id %>)の投稿一覧</h1>
+<% if @feeds.count == 0 %>
+  <div><font color="red">投稿はありません。</font></div>
+<% else %>
+  <% @feeds.each do |feed| %>
+    <div>
+        <%= feed.habit.name %> - <%= feed.text_content %> -
+        <%= link_to "削除", admin_member_feed_path(feed), method: :destroy %>
+    </div>
+  <% end %>
+<% end %>

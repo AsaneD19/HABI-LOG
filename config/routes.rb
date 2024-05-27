@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   }
   namespace :admin do
     get "dashboards", to: "dashboards#index"
-    resources :members, only: [:show, :update, :destroy]
-    resources :habits, only: [:index, :show, :destroy]
-    resources :post_comments, only: [:index, :show, :destroy]
-    resources :feeds, only: [:index, :show, :destroy]
+    resources :members, only: [:show, :update, :destroy] do
+      resources :habits, only: [:index, :show, :destroy]
+      resources :post_comments, only: [:index, :show, :destroy]
+      resources :feeds, only: [:index, :show, :destroy]
+    end
   end
 
   scope module: :public do
