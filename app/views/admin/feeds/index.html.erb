@@ -4,8 +4,12 @@
 <% else %>
   <% @feeds.each do |feed| %>
     <div>
-        <%= feed.habit.name %> - <%= feed.text_content %> -
-        <%= link_to "削除", admin_member_feed_path(feed), method: :destroy %>
+      <%= feed.created_at %> -
+      <%= link_to admin_feed_path(feed) do %>
+        <b><%= feed.habit.name %></b>
+      <% end %>
+      - <%= feed.text_content %> -
+      <%= link_to "削除", admin_feed_path(feed), method: :delete, data: {confirm: "削除します。よろしいですか？"} %>
     </div>
   <% end %>
 <% end %>

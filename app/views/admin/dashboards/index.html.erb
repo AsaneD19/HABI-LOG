@@ -6,7 +6,7 @@
       <%= member.name %>
     <% end %>
      - <%= member.account_id %> - <%= member.email %> -
-    <%= link_to "削除", admin_member_path(member), method: :delete, data: "#{member.account_id}を削除します。よろしいですか？" %>
+    <%= link_to "削除", admin_member_path(member), method: :delete, data: { confirm: "#{member.account_id}を削除します。よろしいですか？" } %>
   </li>
   <% end %>
 </ul>
