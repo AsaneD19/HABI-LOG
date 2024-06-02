@@ -3,13 +3,13 @@ class Public::FavoritesController < ApplicationController
   def create
     favorable = find_favorable
     current_member.favorites.create(favorable: favorable)
-    favorable.notifications.create(member_id: @favorable.member_id)
+    Notification.create(member_id: favorable.member_id, notifiable_type: "Favorite", notifiable_id: favorable.id)
     redirect_back(fallback_location: home_path)
   end
 
   def destroy
-    @favorable = find_favorable
-    current_member.favorites.find_by(favorable: @favorable).destroy
+    favorable = find_favorable
+    current_member.favorites.find_by(favorable: favorable).destroy
     redirect_back(fallback_location: home_path)
   end
 

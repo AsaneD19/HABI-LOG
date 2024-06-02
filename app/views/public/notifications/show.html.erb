@@ -8,7 +8,7 @@
   <h4>↓</h4>
   <%= render 'public/post_comments/data', post_comment: @notification.notifiable %>
 <% when "Relationship" %>
-  <% if notification.notifiable.follower == current_member %>
+  <% if @notification.notifiable.follower == current_member %>
     <h4>フォロー承認されました。</h4>
     <%= render 'public/members/data', member: @notification.notifiable.followed %>
   <% else %>
