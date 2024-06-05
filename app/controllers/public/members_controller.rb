@@ -10,7 +10,7 @@ class Public::MembersController < ApplicationController
     if current_member.email == CONST_GUEST_USER_EMAIL
       guest_logout
     else
-      @member = current_member
+      @member = Member.find(params[:id])
     end
   end
 
