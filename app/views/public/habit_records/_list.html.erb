@@ -1,0 +1,6 @@
+<% n = 1 %>
+<% habit_records.each do |habit_record| %>
+  <%= n %>回目
+  <%= render "public/habit_records/data", habit_record: habit_record %>
+  <% n += 1 %>
+<% end %>

@@ -23,10 +23,10 @@
     タグ：<%= @habit.tag.name %>
   </div>
   <div>
-    最終達成日：<%= @habit.last_achievement %>
+    最終達成日：<%= l @habit.last_achievement %>
   </div>
   <div>
-    登録日：<%= @habit.created_at %>
+    登録日：<%= l @habit.created_at %>
   </div>
 
   <% require 'date' %>
@@ -45,20 +45,5 @@
   <br>
 
   <h3>達成履歴</h3>
-  <% n = 1 %>
-  <% @habit_records.each do |habit_record| %>
-    <%= n %>回目
-    <div>
-      実行日：<%= habit_record.created_at %>
-    </div>
-    <div>
-      継続日数： <%= habit_record.current_duration %>
-    </div>
-    <div>
-      コメント： <%= habit_record.comment %>
-    </div>
-    <% n += 1 %>
-
-    <br>
-  <% end %>
+  <%= render "public/habit_records/list", habit_records: @habit_records %>
 
