@@ -2,7 +2,7 @@
   <h1>非公開！</h1>
 <% else %>
   <h4>
-    <%= feed.created_at %>
+    <%= l feed.created_at %>
     <% if feed.current_duration == 0 %>
       <%= link_to feed.member.name, member_path(feed.member) %>さんが新しい習慣に取り組むようです：
     <% else %>

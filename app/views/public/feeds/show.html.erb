@@ -19,13 +19,14 @@
   取り組みました！
 <% end %>
 </p>
-<p>コメント：<%= @feed.text_content %></p>
-<p><%= @feed.created_at %></p>
+<p>一言：<%= @feed.text_content %></p>
+<p><%= l @feed.created_at %></p>
 
 <% if @feed.member == current_member %>
   <%= link_to "消す", feed_path(@feed.id), method: :delete, data: { confirm: "ほんとに？"} %>
 <% end %>
 <p><%= render 'public/favorites/form', favorable: @feed %></p>
+<h1>コメント一覧</h1>
 <% if @post_comments.count == 0 %>
   <p><font color="red">まだコメントがありません</font></p>
 <% else %>
