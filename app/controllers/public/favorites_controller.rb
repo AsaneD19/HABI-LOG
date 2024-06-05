@@ -1,4 +1,6 @@
 class Public::FavoritesController < ApplicationController
+  include CheckMember
+  before_action :is_guest_member?
 
   def create
     favorable = find_favorable
@@ -22,4 +24,5 @@ class Public::FavoritesController < ApplicationController
   def find_favorable
     params[:favorable_type].constantize.find(params[:favorable_id])
   end
+
 end

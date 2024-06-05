@@ -1,4 +1,6 @@
 class Public::FollowRequestsController < ApplicationController
+  include CheckMember
+  before_action :is_guest_member?
 
   def create
     member = Member.find(params[:member_id])
@@ -20,4 +22,5 @@ class Public::FollowRequestsController < ApplicationController
       member.active_follow_requests.find_by(followed_id: current_member.id).destroy
       redirect_to home_path
   end
+
 end

@@ -19,8 +19,8 @@ class Public::SessionsController < Devise::SessionsController
     return if member.nil?
     return unless member.valid_password?(params[:member][:password])
     unless member.is_active
-      flash[:alert] = "your account is deactivated."
-      redirect_to new_member_registration_path
+      flash[:alert] = "your account has been deactivated."
+      redirect_to root_path
     end
   end
 

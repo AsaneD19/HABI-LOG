@@ -1,4 +1,6 @@
 class Public::NotificationsController < ApplicationController
+  include CheckMember
+  before_action :is_guest_member?
 
   def update
     notification = current_member.notifications.find(params[:id])
@@ -14,6 +16,5 @@ class Public::NotificationsController < ApplicationController
 
   def index
     @notifications = current_member.notifications.where(read: false)
-    byebug
   end
 end

@@ -16,11 +16,11 @@
   <%= f.text_area :introduction, value: @member.introduction %>
   <br>
   <div class="field">
-    <p>アカウントを非公開にする</p>
-    <%= f.check_box :is_private %>
+    <%= f.check_box :is_private %>アカウントを非公開にする
   </div>
 
   <%= f.submit '更新' %>
 <% end %>
 <%= link_to "戻る", member_path(@member.id) %>
-</div>
+
+<h3><%= link_to "退会する", confirm_path %></h3>

@@ -1,5 +1,6 @@
 class Public::RelationshipsController < ApplicationController
-  before_action :authenticate_member!
+  include CheckMember
+  before_action :is_guest_member?
 
   def create
     member = Member.find(params[:member_id])

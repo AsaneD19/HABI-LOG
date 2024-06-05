@@ -1,6 +1,7 @@
 class Public::HabitsController < ApplicationController
-  before_action :is_matching_login_member, except: [:index, :show]
-  before_action :ensure_guest_member, only: [:new, :create, :update, :destroy]
+  include CheckMember
+  before_action :is_guest_member?, only: [:new, :create, :update, :destroy]
+  before_action ->{is_matching_login_member(Member.find(params[:member_id]))}, except: [:index, :show]
 
   def new
     @habit = Habit.new
@@ -92,21 +93,6 @@ class Public::HabitsController < ApplicationController
     habit_record.habit_id = habit_id
     habit_record.current_duration = current_duration
     return habit_record
-  end
-
-  def is_matching_login_member
-    member = Member.find(params[:member_id])
-    unless member.id == current_member.id
-      redirect_to home_path
-    end
-  end
-
-  def ensure_guest_member
-    if current_member.email == CONST_GUEST_USER_EMAIL
-      flash[:alert] = "A prohibited action by guest member. please log in or sign up"
-      sign_out(current_member)
-      redirect_to root_path
-    end
   end
 
 end

@@ -1,4 +1,7 @@
 class Public::HabitRecordsController < ApplicationController
+  include CheckMember
+  before_action :is_guest_member?, only: [:destroy]
+  before_action ->{is_matching_login_member(HabitRecord.find(params[:id]).habit.member)}, only: [:destroy]
 
   def index
     @habit_records = HabitRecord.all

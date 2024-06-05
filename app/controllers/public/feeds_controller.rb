@@ -1,8 +1,7 @@
 class Public::FeedsController < ApplicationController
-
-  def create
-
-  end
+  include CheckMember
+  before_action :is_guest_member?, only: [:destroy]
+  before_action :is_matching_login_member, only: [:destroy]
 
   def index
     @feeds = Feed.all.order(created_at: :desc)

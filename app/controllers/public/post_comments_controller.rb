@@ -1,4 +1,6 @@
 class Public::PostCommentsController < ApplicationController
+  include CheckMember
+  before_action :is_guest_member?
 
   def create
     @post_comment = set_post_comment_params(PostComment.new(post_comment_params), params[:feed_id])

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     get "/about", to: "homes#about"
     get "/home",  to: "feeds#index"
     get "/profile", to: "members#edit", as: "profile"
+    get "/confirm", to: "members#confirm", as: "confirm"
+    patch "/withdraw", to:"members#withdraw", as: "withdraw"
     resources :notifications, only: [:update, :show, :index]
     resources :members, except: [:edit] do
       resources :habits
