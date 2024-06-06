@@ -23,7 +23,7 @@
     タグ：<%= @habit.tag.name %>
   </div>
   <div>
-    最終達成日：<%= l @habit.last_achievement %>
+    最終達成日：<%= render "display_last_achievement", last_achievement: @habit.last_achievement %>
   </div>
   <div>
     登録日：<%= l @habit.created_at %>

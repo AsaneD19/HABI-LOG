@@ -2,7 +2,7 @@
   習慣名：<%= habit.name %>
 </div>
 <div>
-  最終達成日：<%= l habit.last_achievement %>
+  最終達成日：<%= render "display_last_achievement", last_achievement: habit.last_achievement %>
 </div>
 <div>
   <%= link_to "詳細", member_habit_path(member_id: habit.member_id, id: habit.id) %>
