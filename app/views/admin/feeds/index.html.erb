@@ -4,7 +4,7 @@
 <% else %>
   <% @feeds.each do |feed| %>
     <div>
-      <%= feed.created_at %> -
+      <%= l feed.created_at %> -
       <%= link_to admin_feed_path(feed) do %>
         <b><%= feed.habit.name %></b>
       <% end %>

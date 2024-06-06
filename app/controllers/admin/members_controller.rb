@@ -1,4 +1,5 @@
 class Admin::MembersController < ApplicationController
+  layout "admin"
   def destroy
     @member = Member.find(params[:id])
     @member.destroy
