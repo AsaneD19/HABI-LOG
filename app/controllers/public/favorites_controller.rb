@@ -1,5 +1,5 @@
 class Public::FavoritesController < ApplicationController
-  include CheckMember
+  include CheckMemberStatus
   before_action :is_guest_member?
 
   def create

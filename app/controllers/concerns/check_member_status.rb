@@ -1,4 +1,4 @@
-module CheckMember
+module CheckMemberStatus
   extend ActiveSupport::Concern
 
   def is_matching_login_member(member)
@@ -14,9 +14,17 @@ module CheckMember
   end
 
   def guest_logout
-    flash[:notice] = "サインイン、あるいはログインしてください"
+    flash[:notice] = "メンバー登録が必要です"
     sign_out(current_member)
     redirect_to root_path
+  end
+
+  def check_activation
+    if current_member.is_active == false
+      reset_session
+      flash[:notice] = "退会済です"
+      redirect_to root_path
+    end
   end
 
 end

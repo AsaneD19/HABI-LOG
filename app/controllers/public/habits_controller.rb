@@ -1,5 +1,5 @@
 class Public::HabitsController < ApplicationController
-  include CheckMember
+  include CheckMemberStatus
   before_action :is_guest_member?, only: [:new, :create, :update, :destroy]
   before_action ->{is_matching_login_member(Member.find(params[:member_id]))}, except: [:index, :show]
 

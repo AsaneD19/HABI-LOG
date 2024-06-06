@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include CheckMemberStatus
   before_action :configure_authentication
 
   private
@@ -20,11 +21,4 @@ class ApplicationController < ActionController::Base
     controller_name == "homes" && (action_name == "top" || "about")
   end
 
-  def check_activation
-    if current_member.is_active == false
-      reset_session
-      flash[:notice] = "退会済です"
-      redirect_to root_path
-    end
-  end
 end

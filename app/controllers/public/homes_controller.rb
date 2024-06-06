@@ -14,7 +14,7 @@ class Public::HomesController < ApplicationController
       member.name = "ゲストさん"
     end
     sign_in member
-    redirect_to home_path, notice: "guest log in succeed"
+    redirect_to home_path, notice: "ゲストログインしました。投稿等のアクションが制限されています。"
   end
 
 end

@@ -1,5 +1,5 @@
 class Public::FeedsController < ApplicationController
-  include CheckMember
+  include CheckMemberStatus
   before_action :is_guest_member?, only: [:destroy]
   before_action :is_matching_login_member, only: [:destroy]
 
