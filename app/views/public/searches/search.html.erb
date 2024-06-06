@@ -14,5 +14,5 @@
 <% if @habit_results.count == 0 %>
   <p><font color="red">習慣はありません</font></p>
 <% else %>
-  <%= render "public/habits/list", members: @habit_results %>
+  <%= render "public/habits/list", habits: @habit_results %>
 <% end %>
