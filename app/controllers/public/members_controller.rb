@@ -35,8 +35,8 @@ class Public::MembersController < ApplicationController
 
   def withdraw
     current_member.update(is_active: false)
+    reset_session
     flash[:notice] = "退会しました."
-    sign_out(current_member)
     redirect_to root_path
   end
 

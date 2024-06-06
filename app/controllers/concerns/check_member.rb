@@ -14,9 +14,9 @@ module CheckMember
   end
 
   def guest_logout
-      flash[:alert] = "A prohibited action by guest member. Please log in or sign up"
-      sign_out(current_member)
-      redirect_to root_path
+    flash[:notice] = "サインイン、あるいはログインしてください"
+    sign_out(current_member)
+    redirect_to root_path
   end
 
 end

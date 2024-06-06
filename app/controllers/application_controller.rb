@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
       authenticate_admin!
     else
       authenticate_member! unless action_is_public?
+      check_activation unless current_member == nil
     end
   end
 
@@ -19,4 +20,11 @@ class ApplicationController < ActionController::Base
     controller_name == "homes" && (action_name == "top" || "about")
   end
 
+  def check_activation
+    if current_member.is_active == false
+      reset_session
+      flash[:notice] = "退会済です"
+      redirect_to root_path
+    end
+  end
 end
