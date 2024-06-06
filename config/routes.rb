@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     get "/confirm", to: "members#confirm", as: "confirm"
     patch "/withdraw", to:"members#withdraw", as: "withdraw"
     resources :notifications, only: [:update, :show, :index]
-    resources :members, except: [:edit] do
+    resources :members, except: [:index, :edit] do
       resources :habits
       resource :follow_request, only: [:create, :destroy]
       resource :relationship, only: [:create, :destroy]
