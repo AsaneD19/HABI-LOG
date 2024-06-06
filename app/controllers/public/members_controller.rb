@@ -1,17 +1,9 @@
 class Public::MembersController < ApplicationController
   include CheckMemberStatus
-  before_action :is_guest_member?, except: [:index, :show]
-
-  def index
-    @members = Member.all
-  end
+  before_action :is_guest_member?, except: [:show]
 
   def show
-    if current_member.email == CONST_GUEST_USER_EMAIL
-      guest_logout
-    else
-      @member = Member.find(params[:id])
-    end
+    @member = Member.find(params[:id])
   end
 
   def edit

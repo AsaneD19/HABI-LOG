@@ -1,14 +1,10 @@
-<% if feed.member != current_member && feed.member.is_private == true %>
-  <h1>非公開！</h1>
-<% else %>
-  <h4>
-    <%= l feed.created_at %>
-    <% if feed.current_duration == 0 %>
-      <%= link_to feed.member.name, member_path(feed.member) %>さんが新しい習慣に取り組むようです：
-    <% else %>
-      <%= link_to feed.member.name, member_path(feed.member) %>さんが習慣に取り組みました：
-    <% end %>
-    <%= link_to feed.habit.name, feed_path(feed.id) %>
+<h4>
+  <%= l feed.created_at %>
+  <% if feed.current_duration == 0 %>
+    <%= link_to feed.member.name, member_path(feed.member) %>さんが新しい習慣に取り組むようです：
+  <% else %>
+    <%= link_to feed.member.name, member_path(feed.member) %>さんが習慣に取り組みました：
+  <% end %>
+  <%= link_to feed.habit.name, feed_path(feed.id) %>
 
-  </h4>
-<% end %>
+</h4>

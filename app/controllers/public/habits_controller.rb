@@ -2,6 +2,7 @@ class Public::HabitsController < ApplicationController
   include CheckMemberStatus
   before_action :is_guest_member?, only: [:new, :create, :update, :destroy]
   before_action ->{is_matching_login_member(Member.find(params[:member_id]))}, except: [:index, :show]
+  before_action ->{is_private_member?(Member.find(params[:member_id]))}, only: [:index, :show]
 
   def new
     @habit = Habit.new

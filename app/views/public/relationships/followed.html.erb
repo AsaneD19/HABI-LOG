@@ -1,0 +1,9 @@
+<%= link_to "戻る", member_path(@member) %>
+
+<h1>フォロワー一覧</h1>
+
+<% if @members.count == 0 %>
+  <font color="red">フォロワーはいません</font>
+<% else %>
+  <%= render "public/members/list", members: @members %>
+<% end %>

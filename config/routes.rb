@@ -29,8 +29,11 @@ Rails.application.routes.draw do
       resources :habits
       resource :follow_request, only: [:create, :destroy]
       resource :relationship, only: [:create, :destroy]
-        get "followings" => "relationships#followings", as: "followings"
-        get "followers" => "relationships#followers", as: "followers"
+        # get "followings" => "relationships#followings", as: "followings"
+        # get "followers" => "relationships#followers", as: "followers"
+        get "follower" => "relationships#follower", as: "follower"
+        get "followed" => "relationships#followed", as: "followed"
+
     end
     resource :favorite, only: [:create, :destroy]
     resources :feeds, only: [:show, :destroy] do

@@ -1,6 +1,7 @@
 class Public::RelationshipsController < ApplicationController
   include CheckMemberStatus
   before_action :is_guest_member?
+  before_action ->{is_private_member?(Member.find(params[:member_id]))}, only: [:follower, :followed]
 
   def create
     member = Member.find(params[:member_id])
@@ -15,13 +16,13 @@ class Public::RelationshipsController < ApplicationController
   end
 
   def follower
-    member = Member.find(params[:member_id])
-    @members = member.followings
+    @member = Member.find(params[:member_id])
+    @members = @member.followings
   end
 
   def followed
-    member = Member.find(params[:member_id])
-    @members = member.followers
+    @member = Member.find(params[:member_id])
+    @members = @member.followers
   end
 
 end

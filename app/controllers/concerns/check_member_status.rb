@@ -13,6 +13,13 @@ module CheckMemberStatus
     end
   end
 
+  def is_private_member?(member)
+    if member != current_member && member.is_private == true
+      flash[:notice] = "非公開設定のメンバーの情報は閲覧できません"
+      redirect_to home_path
+    end
+  end
+
   def guest_logout
     flash[:notice] = "メンバー登録が必要です"
     sign_out(current_member)

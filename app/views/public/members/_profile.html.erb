@@ -1,19 +1,27 @@
 <h1><%= member.name %></h1>
 <div><%= member.account_id %></div>
 <div><%= image_tag member.get_profile_image(100,100) %></div>
-<p>フォロー：<%= member.followings.count %></p>
-<p>フォロワー：<%= member.followers.count %></p>
+<p>フォロー：
+  <%= link_to member_follower_path(member) do %>
+    <%= member.followings.count %>
+  <% end %>
+</p>
+<p>フォロワー：
+  <%= link_to member_followed_path(member) do %>
+    <%= member.followers.count %>
+  <% end %>
+</p>
+
 <% if member == current_member %>
   <%= link_to "プロフィール編集", profile_path %>
 <% else %>
   <%= render "public/relationships/form", member: member %>
 <% end %>
+<p>自己紹介：<%= member.introduction %></p>
 
-<% if member.is_private && current_member.following?(member) == false %>
-  <h1>非公開メンバーです</h1>
-<% else %>
-  <p>自己紹介：<%= member.introduction %></p>
+<% if member == current_member || current_member.following?(member) == true %>
   <h4>投稿数：<%= member.feeds.count %></h4>
   <%= render "public/feeds/list", feeds: member.feeds.order(created_at: :desc) %>
+<% else %>
+  <h5>非公開メンバーです</h5>
 <% end %>
-
