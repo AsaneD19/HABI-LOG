@@ -1,6 +1,7 @@
 class Public::PostCommentsController < ApplicationController
   include CheckMemberStatus
   before_action :is_guest_member?
+  before_action ->{is_matching_login_member(PostComment.find(params[:id]).member)}, only: [:destroy]
 
   def create
     @post_comment = set_post_comment_params(PostComment.new(post_comment_params), params[:feed_id])

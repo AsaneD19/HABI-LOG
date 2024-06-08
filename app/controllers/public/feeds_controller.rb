@@ -1,7 +1,7 @@
 class Public::FeedsController < ApplicationController
   include CheckMemberStatus
   before_action :is_guest_member?, only: [:destroy]
-  before_action :is_matching_login_member, only: [:destroy]
+  before_action ->{is_matching_login_member(Feed.find(params[:id]).member)}, only: [:destroy]
 
   def index
     @feeds = Feed.joins(:member).where(members: { is_active: true }).where(members: { is_private: false }).order(created_at: :desc)
