@@ -33,12 +33,6 @@
   <%= render "public/post_comments/list", post_comments: @post_comments %>
 <% end %>
 
-<%= form_with model: @post_comment, url: feed_post_comments_path(@feed.id), method: :post do |f| %>
-
-  <p>コメントはこちら</p>
-  <%= f.text_area :content %>
-  <%= f.submit "コメントする！" %>
-
-<% end %>
+<%= render "public/post_comments/form", post_comment: @post_comment, feed_id: @feed.id %>
 
 

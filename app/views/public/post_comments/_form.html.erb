@@ -1,0 +1,7 @@
+<%= form_with model: post_comment, url: feed_post_comments_path(feed_id), method: :post do |f| %>
+
+  <p>コメントはこちら</p>
+  <%= f.text_area :content %>
+  <%= f.submit "コメントする！" %>
+
+<% end %>

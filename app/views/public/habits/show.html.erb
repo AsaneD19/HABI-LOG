@@ -23,25 +23,13 @@
     タグ：<%= @habit.tag.name %>
   </div>
   <div>
-    最終達成日：<%= render "display_last_achievement", last_achievement: @habit.last_achievement %>
+    最終達成日：<%= render "public/habits/display_last_achievement", last_achievement: @habit.last_achievement %>
   </div>
   <div>
     登録日：<%= l @habit.created_at %>
   </div>
 
-  <% require 'date' %>
-  <% if @habit.last_achievement != nil && @habit.last_achievement.to_date == Time.zone.today %>
-    <div><font color="red">今日はもう行ないました</font></div>
-  <% else %>
-    <%= form_with model: @habit_record, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
-
-      <p>達成して一言</p>
-      <%= f.text_area :comment %>
-      <%= f.submit "達成！", data: { confirm: "ほんとにやった？"} %>
-
-    <% end %>
-
-  <% end %>
+  <%= render "public/habits/record_form", habit: @habit, habit_record: @habit_record %>
   <br>
 
   <h3>達成履歴</h3>

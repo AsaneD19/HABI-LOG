@@ -7,10 +7,7 @@
 
   <p><%= render 'public/favorites/form', favorable: post_comment %>
   <% if post_comment.member == current_member %>
-    <%= link_to "消す", feed_post_comment_path(post_comment.feed_id, post_comment.id), method: :delete, data: { confirm: "ほんとに？"} %>
-  <% else %>
-  </p>
-
+    <%= link_to "消す", feed_post_comment_path(post_comment.feed_id, post_comment.id), method: :delete, data: { confirm: "本当に削除しますか？"} %>
   <% end %>
 
 <% end %>
