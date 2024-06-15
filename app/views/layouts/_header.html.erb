@@ -1,25 +1,16 @@
 <% if member_signed_in? %>
-  <li>
-    <%= link_to "log out", destroy_member_session_path, method: :delete %>
-  </li>
-  <li>
-    <%= link_to "ホーム", home_path %>
-  </li>
-  <li>
-    <%= link_to "プロフィール", member_path(current_member.id) %>
-  </li>
-    <%= render 'public/searches/form' %>
+  <br>
+  <%= link_to destroy_member_session_path, method: :delete do %>
+    <i class="fa-solid fa-right-from-bracket"></i>
+  <% end %>
+  <%= link_to home_path do %>
+    <i class="fa-solid fa-house"></i>
+  <% end %>
+  <%= link_to member_path(current_member.id) do %>
+    <i class="fa-solid fa-user"></i>
+  <% end %>
+  <%= render 'public/searches/form' %>
   <div>
     <%= render 'public/members/login_info' %>
   </div>
-<% else %>
-  <li>
-    <%= link_to "sign up", new_member_registration_path %>
-  </li>
-  <li>
-    <%= link_to "log in", new_member_session_path %>
-  </li>
-  <li>
-    <%= link_to "guest log in", guest_sign_in_path, method: :post %>
-  </li>
 <% end %>

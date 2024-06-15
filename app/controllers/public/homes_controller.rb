@@ -1,6 +1,9 @@
 class Public::HomesController < ApplicationController
 
   def top
+    @member = Member.new
+    @devise_mapping = Devise.mappings[:member]
+    @resource_name = :member
   end
 
   def about
