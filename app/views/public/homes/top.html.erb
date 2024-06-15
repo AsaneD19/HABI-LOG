@@ -1,9 +1,17 @@
 <% if flash[:alert].present? %>
   <%= alert %>
 <% end %>
-
-<h1>HABI-LOG</h1>
-<%= render "public/sessions/form", member: @member, devise_mapping: @devise_mapping, resource_name: @resource_name %>
-<%= link_to "アカウント登録", new_member_registration_path %>
-<%= link_to "お試し利用（ゲストログイン）", guest_sign_in_path, method: :post %>
-<%= link_to "HABI-LOGについて", about_path %>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <h1>HABI-LOG</h1>
+  </div>
+  <div class="row justify-content-center">
+    <%= render "public/sessions/form", member: @member, devise_mapping: @devise_mapping, resource_name: @resource_name %>
+  </div>
+  <div class="row justify-content-center">
+    <b><%= link_to "アカウント登録", new_member_registration_path %></b>
+  </div>
+  <div class="row justify-content-center">
+    <%= link_to "HABI-LOGについて", about_path %>
+  </div>
+</div>
