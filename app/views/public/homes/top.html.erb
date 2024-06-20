@@ -6,7 +6,32 @@
     <h1>HABI-LOG</h1>
   </div>
   <div class="row justify-content-center">
-    <%= render "public/sessions/form", member: @member, devise_mapping: @devise_mapping, resource_name: @resource_name %>
+    <%= form_with model: @member, url: member_session_path do |f| %>
+      <div class="field">
+        <%= f.label :"アカウントＩＤ", class: "form-label" %><br />
+        <%= f.text_field :account_id, class: "form-control form-control-lg", autofocus: true, autocomplete: "account_id" %>
+      </div>
+      <br />
+      <div class="field">
+        <%= f.label "パスワード", class: "form-label" %><br />
+        <%= f.password_field :password, class: "form-control form-control-lg", autocomplete: "current-password" %>
+      </div>
+      <% if @devise_mapping.rememberable? %>
+        <div class="form-check">
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label :remember_me, class: "form-check-label" %>
+        </div>
+      <% end %>
+      <div>
+        <%= f.submit "Log in", class: "btn btn-primary" %>
+      </div>
+      <div>
+        メンバー登録は<b><%= link_to "こちら", new_member_registration_path %></b>
+      </div>
+      <div>
+        <%= link_to "お試し利用（ゲストログイン）", guest_sign_in_path, method: :post %>
+      </div>
+    <% end %>
   </div>
   <div class="row justify-content-center">
     <%= link_to "HABI-LOGについて", about_path %>
