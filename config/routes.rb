@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-    devise_for :members
+    devise_for :members, controllers: {
+      registrations: 'public/registrations'
+    }
     post "/guest_sign_in", to: "homes#guest_sign_in"
     get "/search", to: "searches#search"
     delete "/members/:member_id/approve" => "follow_requests#approve", as: "approve"
