@@ -24,6 +24,8 @@
       <% end %>
       <div>
         <%= f.submit "Log in", class: "btn btn-primary" %>
+        <%= render "public/shared/links", resource_name: @resource_name, devise_mapping: @devise_mapping %>
+
       </div>
       <div>
         メンバー登録は<b><%= link_to "こちら", new_member_registration_path %></b>

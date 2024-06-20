@@ -40,9 +40,8 @@
       </div>
       <div class="actions">
         <%= f.submit "Sign up" %>
+        <%= render "public/shared/links", resource_name: @resource_name, devise_mapping: @devise_mapping %>
       </div>
     <% end %>
   </div>
-
-  <%= render "devise/shared/links" %>
 </div>
