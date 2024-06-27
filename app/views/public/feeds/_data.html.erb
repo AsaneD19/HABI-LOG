@@ -1,10 +1,20 @@
-<h4>
-  <%= l feed.created_at %>
-  <% if feed.current_duration == 0 %>
-    <%= link_to feed.member.name, member_path(feed.member) %>さんが新しい習慣に取り組むようです：
-  <% else %>
-    <%= link_to feed.member.name, member_path(feed.member) %>さんが習慣に取り組みました：
-  <% end %>
-  <%= link_to feed.habit.name, feed_path(feed.id) %>
-
-</h4>
+<div class="card mb-2">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h5 class="card-title"><%= feed.member.account_id %></h5>
+        <h6 class="text-muted">　<%= l feed.created_at %></h6>
+      </div>
+    </div>
+    <h4 class="card-title">
+      <% if feed.current_duration == 0 %>
+        習慣登録:
+      <% else %>
+        習慣実行:
+      <% end %>
+      <%= feed.habit.name %>
+    </h4>
+    <p class="card-text"><%= feed.text_content %></p>
+    <h6 class="text-muted">　<%= l feed.created_at %></h6>
+  </div>
+</div>
