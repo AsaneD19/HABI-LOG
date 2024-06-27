@@ -11,6 +11,18 @@
   <%= link_to member_path(current_member.id) do %>
     <i class="fa-solid fa-user"></i>Profile
   <% end %>
+  <div>
+    <%= link_to notifications_path do %>
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <%= current_member.notifications.where(read: false).count %>件の未読通知
+    <% end %>
+  </div>
+  <div>
+    <%= link_to "習慣の登録", new_member_habit_path(current_member.id) %>
+    /
+    <%= link_to "習慣の一覧", member_habits_path(current_member.id) %>
+  </div>
+
   <%= render 'public/searches/form' %>
 <% end %>
 
