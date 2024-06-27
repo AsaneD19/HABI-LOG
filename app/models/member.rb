@@ -19,6 +19,12 @@ class Member < ApplicationRecord
 
   has_one_attached :profile_image
 
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, {presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }}
+  validates :account_id, presence: true, uniqueness: true, length: { in: 4..15 }
+  validates :name, presence: true, length: { in: 1..50 }
+  validates :introduction, length: { maximum: 160 }
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
