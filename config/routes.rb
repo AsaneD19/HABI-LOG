@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     devise_for :members, controllers: {
       registrations: 'public/registrations'
     }
+    authenticated :member do
+      root to: 'feeds#index', as: :authenticated_root
+    end
     post "/guest_sign_in", to: "homes#guest_sign_in"
     get "/search", to: "searches#search"
     delete "/members/:member_id/approve" => "follow_requests#approve", as: "approve"
