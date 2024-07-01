@@ -1,6 +1,6 @@
 <% if member_signed_in? %>
   <br>
-  <b><%= current_member.name %>さん</b>
+  <b><%= current_member.name %>(<%= current_member.account_id %>)さん</b>
   <br>
   <%= link_to destroy_member_session_path, method: :delete do %>
     <i class="fa-solid fa-right-from-bracket"></i>LogOut
