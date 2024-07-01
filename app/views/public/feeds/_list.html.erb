@@ -2,7 +2,9 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <% feeds.each do |feed| %>
-         <%= render 'public/feeds/data', feed: feed %>
+        <%= link_to feed_path(feed), class: "text-decoration-none" do %>
+          <%= render 'public/feeds/data', feed: feed %>
+        <% end %>
       <% end %>
     </div>
   </div>

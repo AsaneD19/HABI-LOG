@@ -1,16 +1,16 @@
 <div class="card mb-2">
   <div class="card-body">
     <div class="card-header">
-      <div class="d-flex justify-content-between">
-        <h5 class="card-title"><%= feed.member.account_id %></h5>
-        <h6 class="text-muted">　<%= l feed.created_at %></h6>
+      <div class="d-flex">
+        <h5 class="card-title"><%= feed.member.name %></h5>
+        <h5 class="card-title text-muted">　<%= feed.member.account_id %></h5>
       </div>
     </div>
     <h4 class="card-title">
       <% if feed.current_duration == 0 %>
-        習慣登録:
+        New Habit:
       <% else %>
-        習慣実行:
+        Record:
       <% end %>
       <%= feed.habit.name %>
     </h4>
