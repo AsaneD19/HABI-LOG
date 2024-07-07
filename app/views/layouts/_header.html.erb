@@ -14,7 +14,7 @@
   <div>
     <%= link_to notifications_path do %>
       <i class="fa-solid fa-circle-exclamation"></i>
-      <%= current_member.notifications.where(read: false).count %>件の未読通知
+      <%= current_member.notifications.where(read: false).count %>
     <% end %>
   </div>
   <div>
