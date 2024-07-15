@@ -1,11 +1,18 @@
 <% if post_comment.member != current_member && post_comment.member.is_private == true %>
   <p>非公開！</p>
 <% else %>
-  <p>■<%= l post_comment.created_at %></p>
+
+
+
+
+
+
+  <p>■<%= l post_comment.created_at %>
     <%= render 'public/members/name_with_id', member: post_comment.member %>：
     <%= post_comment.content %>
+  </p>
+  <p><%= render 'public/favorites/form', favorable: post_comment %></p>
 
-  <p><%= render 'public/favorites/form', favorable: post_comment %>
   <% if post_comment.member == current_member %>
     <%= link_to "消す", feed_post_comment_path(post_comment.feed_id, post_comment.id), method: :delete, data: { confirm: "本当に削除しますか？"} %>
   <% end %>

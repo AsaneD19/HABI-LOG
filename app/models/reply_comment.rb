@@ -1,0 +1,2 @@
+class ReplyComment < ApplicationRecord
+end

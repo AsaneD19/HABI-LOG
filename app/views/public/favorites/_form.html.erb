@@ -1,5 +1,5 @@
 <% if favorable.member == current_member %>
-  ♥<%= favorable.favorites.count %>
+  <i class="fa-solid fa-heart"></i><%= favorable.favorites.count %>
 <% else %>
   <% if favorable.favorited_by?(current_member) %>
     <%= link_to favorite_path(favorable_type: favorable.class.name, favorable_id: favorable.id), method: :delete do %>
@@ -7,7 +7,7 @@
     <% end %>
   <% else %>
     <%= link_to favorite_path(favorable_type: favorable.class.name, favorable_id: favorable.id), method: :post do %>
-      ♡<%= favorable.favorites.count %>
+      <i class="fa-regular fa-heart"></i><%= favorable.favorites.count %>
     <% end %>
   <% end %>
 <% end %>
