@@ -12,6 +12,10 @@
   box-sizing: border-box;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .flash-message {
   border-radius: 5px;
   padding: 16px 24px;

@@ -1,4 +1,6 @@
 <%= form_with url: search_path, method: :get do |f| %>
   <%= f.text_field :search, class: "form-control", placeholder: "キーワード検索" %>
-  <%= f.submit "検索" %>
+  <div class="btn btn-outline-success">
+    <%= f.submit "検索" %>
+  </div>
 <% end %>
