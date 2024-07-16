@@ -43,9 +43,10 @@ Rails.application.routes.draw do
     resource :favorite, only: [:create, :destroy]
     resources :feeds, only: [:show, :destroy] do
       resource :favorite, only: [:create, :destroy, :index], defaults: { favoritable_type: 'Feed' }
-      resources :post_comments, only: [:create, :destroy] do
+      resources :post_comments, only: [:create, :show, :destroy] do
         resource :favorite, only: [:create, :destroy, :index], defaults: { favoritable_type: 'PostComment' }
       end
     end
+    resources :reply_comments, only: [:create, :destroy]
   end
 end

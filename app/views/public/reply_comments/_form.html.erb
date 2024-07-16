@@ -1,0 +1,7 @@
+<%= form_with model: reply_comment, url: reply_comments_path, method: :post do |f| %>
+
+  <p>返信はこちら</p>
+  <%= f.text_area :content %>
+  <%= f.submit "返信する！" %>
+
+<% end %>

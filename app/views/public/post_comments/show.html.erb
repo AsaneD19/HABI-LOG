@@ -1,0 +1,11 @@
+<h1>コメント詳細</h1>
+<%= render "public/post_comments/data", post_comment: @post_comment %>
+
+<h1>コメントへの返信</h1>
+<% if @reply_comments.count == 0 %>
+  <div><font color="red">返信はありません</font></div>
+<% else %>
+  <%= render "public/reply_comments/list", reply_comments: @reply_comments %>
+<% end %>
+
+<%= render "public/reply_comments/form", reply_comment: @reply_comment %>

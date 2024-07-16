@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <% reply_comments.each do |reply_comment| %>
+          <%= render "public/reply_comments/data", reply_comment: reply_comment %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
