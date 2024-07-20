@@ -4,9 +4,7 @@ class Public::ReplyCommentsController < ApplicationController
   before_action ->{is_matching_login_member(ReplyComment.find(params[:id]).member)}, only: [:destroy]
 
   def create
-    byebug
     @reply_comment = set_reply_comment_params(ReplyComment.new(reply_comment_params), params[:post_comment_id])
-    byebug
     if @reply_comment.save
       flash[:notice] = "Your reply to post comment has succeeded."
       unless @reply_comment.post_comment.member == @reply_comment.member
