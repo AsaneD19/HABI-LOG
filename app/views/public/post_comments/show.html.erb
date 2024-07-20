@@ -8,4 +8,4 @@
   <%= render "public/reply_comments/list", reply_comments: @reply_comments %>
 <% end %>
 
-<%= render "public/reply_comments/form", reply_comment: @reply_comment %>
+<%= render "public/reply_comments/form", reply_comment: @reply_comment, post_comment_id: @post_comment.id, feed_id: @post_comment.feed_id %>

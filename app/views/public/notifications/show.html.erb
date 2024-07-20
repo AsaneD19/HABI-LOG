@@ -7,6 +7,12 @@
   <%= render 'public/feeds/data', feed: @notification.notifiable.feed %>
   <h4>↓</h4>
   <%= render 'public/post_comments/data', post_comment: @notification.notifiable %>
+<% when "ReplyComment" %>
+  <h4>返信されました。</h4>
+  <%= render 'public/post_comments/data', post_comment: @notification.notifiable.post_comment %>
+  <h4>↓</h4>
+  <%= render 'public/reply_comments/data', reply_comment: @notification.notifiable %>
+
 <% when "Relationship" %>
   <% if @notification.notifiable.follower == current_member %>
     <h4>フォロー承認されました。</h4>

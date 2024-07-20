@@ -6,6 +6,7 @@ class Public::ReplyCommentsController < ApplicationController
   def create
     byebug
     @reply_comment = set_reply_comment_params(ReplyComment.new(reply_comment_params), params[:post_comment_id])
+    byebug
     if @reply_comment.save
       flash[:notice] = "Your reply to post comment has succeeded."
       unless @reply_comment.post_comment.member == @reply_comment.member
@@ -15,13 +16,18 @@ class Public::ReplyCommentsController < ApplicationController
     else
       flash[:alert] = @reply_comment.errors.full_messages.join(", ")
       @post_comment = PostComment.find(@reply_comment.post_comment_id)
-      @reply_comments = @post_comment.reply_comments
+      @reply_comments = @ponextst_comment.reply_comments
       @reply_comment = ReplyComment.new(post_comment_id: @post_comment.id)
       render "post_comments/show"
     end
   end
 
   def destroy
+    reply_comment = ReplyComment.find(params[:id])
+    reply_comment.destroy
+    flash[:notice] = "Your comment has been deleted successfully."
+    redirect_to feed_post_comment_path(params[:post_comment_id])
+
   end
 
   private

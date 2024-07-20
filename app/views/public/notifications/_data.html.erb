@@ -9,6 +9,8 @@
     <%= notification.notifiable.follower.name %>さんのフォローリクエストがあります。
 <% when "PostComment" %>
   <%= notification.notifiable.member.name %>さんにコメントされました。
+<% when "ReplyComment" %>
+  <%= notification.notifiable.member.name %>さんから返信がありました。
 <% when "Favorite" %>
   <%= notification.notifiable.member.name %>さんにいいねされました。
 <% end %>
