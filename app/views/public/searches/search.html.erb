@@ -1,18 +1,30 @@
-<h1>検索結果</h1>
-
-
-<h3>メンバー</h3>
-
-<% if @member_results.count == 0 %>
-  <p><font color="red">メンバーはいません</font></p>
-<% else %>
-  <%= render "public/members/list", members: @member_results %>
-<% end %>
-
-<h3>習慣</h3>
-
-<% if @habit_results.count == 0 %>
-  <p><font color="red">習慣はありません</font></p>
-<% else %>
-  <%= render "public/habits/list", habits: @habit_results %>
-<% end %>
+<div class="container-fruid">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <%= render "public/searches/search_tabs" %>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="members" role="tabpanel" aria-labelledby="members-tab">
+          <% if @member_results.count == 0 %>
+            <p><font color="red">メンバーはいません</font></p>
+          <% else %>
+            <%= render "public/members/list", members: @member_results %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="habits" role="tabpanel" aria-labelledby="habits-tab">
+          <% if @habit_results.count == 0 %>
+            <p><font color="red">習慣はありません</font></p>
+          <% else %>
+            <%= render "public/habits/list", habits: @habit_results %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="feeds" role="tabpanel" aria-labelledby="feeds-tab">
+          <% if @feed_results.count == 0 %>
+            <p><font color="red">投稿はありません</font></p>
+          <% else %>
+            <%= render "public/feeds/list", feeds: @feed_results %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     delete "/members/:member_id/approve" => "follow_requests#approve", as: "approve"
 
     root to: "homes#top"
+    resources :tags, only: [:show]
     get "/about", to: "homes#about"
     get "/home",  to: "feeds#index"
     get "/profile", to: "members#edit", as: "profile"
