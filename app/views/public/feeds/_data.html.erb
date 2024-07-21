@@ -16,7 +16,11 @@
     <p class="card-text text-dark">
       <%= feed.text_content %>
     </p>
-    <h6 class="text-muted text-right">#<%= feed.habit.tag.name %></h6>
+    <h6 class="text-muted text-right">
+      <%= link_to tag_path(feed.habit.tag) do %>
+        #<%= feed.habit.tag.name %>
+      <% end %>
+    </h6>
     <h6 class="text-muted text-right"><%= l feed.created_at %></h6>
     <div class="d-flex">
       <p><%= render 'public/favorites/form', favorable: feed %>　</p>
