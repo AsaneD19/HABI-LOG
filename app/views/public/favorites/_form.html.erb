@@ -1,12 +1,13 @@
+
 <% if favorable.member == current_member %>
-  <i class="fa-solid fa-heart"></i><%= favorable.favorites.count %>
+  <i class="fa-solid fa-heart text-dark"></i><%= favorable.favorites.count %>
 <% else %>
   <% if favorable.favorited_by?(current_member) %>
-    <%= link_to favorite_path(favorable_type: favorable.class.name, favorable_id: favorable.id), method: :delete do %>
+    <%= link_to favorite_path(favorable_type: favorable.class.name, favorable_id: favorable.id), class: "text-dark", method: :delete do %>
       <i class="fa-solid fa-heart"></i><%= favorable.favorites.count %>
     <% end %>
   <% else %>
-    <%= link_to favorite_path(favorable_type: favorable.class.name, favorable_id: favorable.id), method: :post do %>
+    <%= link_to favorite_path(favorable_type: favorable.class.name, favorable_id: favorable.id), class: "text-dark", method: :post do %>
       <i class="fa-regular fa-heart"></i><%= favorable.favorites.count %>
     <% end %>
   <% end %>
