@@ -1,20 +1,5 @@
-<div class="card mb-2">
-  <div class="card-body">
-    <div class="card-header">
-      <div class="d-flex">
-        <h5 class="card-title"><%= feed.member.name %></h5>
-        <h5 class="card-title text-muted">　<%= feed.member.account_id %></h5>
-      </div>
-    </div>
-    <h4 class="card-title">
-      <% if feed.current_duration == 0 %>
-        New Habit:
-      <% else %>
-        Record:
-      <% end %>
-      <%= feed.habit.name %>
-    </h4>
-    <p class="card-text"><%= feed.text_content %></p>
-    <h6 class="text-muted">　<%= l feed.created_at %></h6>
-  </div>
-</div>
+<% if feed.current_duration == 0 %>
+  <%= render 'public/feeds/new_habit', feed: feed %>
+<% else %>
+  <%= render 'public/feeds/record', feed: feed %>
+<% end %>
