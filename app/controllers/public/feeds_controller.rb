@@ -4,7 +4,7 @@ class Public::FeedsController < ApplicationController
   before_action ->{is_matching_login_member(Feed.find(params[:id]).member)}, only: [:destroy]
 
   def index
-    @feeds = Feed.all.order(created_at: :desc)
+    @feeds = Feed.where.order(created_at: :desc)
 
   end
 

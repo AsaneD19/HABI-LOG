@@ -1,7 +1,7 @@
 class Public::ReplyCommentsController < ApplicationController
   include CheckMemberStatus
   before_action :is_guest_member?
-  before_action ->{is_matching_login_member(ReplyComment.find(params[:id]).member)}, only: [:destroy]
+  before_action ->{is_matching_login_member(ReplyComment.find(params[:id]).member)}
 
   def create
     @reply_comment = set_reply_comment_params(ReplyComment.new(reply_comment_params), params[:post_comment_id])

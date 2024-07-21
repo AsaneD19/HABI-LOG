@@ -1,3 +1,11 @@
-<% habits.each do |habit| %>
-  <%= render "public/habits/data", habit: habit %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <% habits.each do |habit| %>
+        <% if habit.member == current_member || habit.member.is_private == false || current_member.following?(habit.member) || habit.member.is_active == true %>
+          <%= render "public/habits/data", habit: habit %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

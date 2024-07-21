@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <% feeds.each do |feed| %>
-        <% if feed.member == current_member || feed.member.is_private == false || current_member.following?(feed.member) || feed.member.is_active == true %>
+        <% if (feed.member == current_member || current_member.following?(feed.member) || feed.member.is_private == false) && feed.member.is_active == true %>
           <%= link_to feed_path(feed), class: "text-decoration-none" do %>
             <%= render 'public/feeds/data', feed: feed %>
           <% end %>
