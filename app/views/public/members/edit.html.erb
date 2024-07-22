@@ -1,26 +1,33 @@
-<h1>User info</h1>
 <% if @member.errors.any? %>
   <%= render 'layouts/error_message', error_obj: @member %>
 <% end %>
 
-<%= form_with model: @member, url: member_path(@member.id), method: :patch do |f| %>
-  <p>アカウント名</p>
-  <%= f.text_field :account_id, value: @member.account_id %>
-  <br>
-  <p>ニックネーム</p>
-  <%= f.text_field :name, value: @member.name %>
-  <br>
-  <p>Image</p>
-  <%= f.file_field :profile_image, accept: "image/*" %>
-  <p>Introduction</p>
-  <%= f.text_area :introduction, value: @member.introduction %>
-  <br>
-  <div class="field">
-    <%= f.check_box :is_private %>アカウントを非公開にする
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card mb-3">
+        <h1>User info</h1>
+        <%= form_with model: @member, url: member_path(@member.id), method: :patch do |f| %>
+          <p>アカウント名</p>
+          <%= f.text_field :account_id, value: @member.account_id, class: "form-control" %>
+          <br>
+          <p>ニックネーム</p>
+          <%= f.text_field :name, value: @member.name, class: "form-control" %>
+          <br>
+          <p>アイコン</p>
+          <p><%= f.file_field :profile_image, accept: "image/*" %></p>
+          <br>
+          <p>自己紹介文</p>
+          <p><%= f.text_area :introduction, value: @member.introduction, class: "form-control" %></p>
+          <br>
+          <p><%= f.check_box :is_private %>アカウントを非公開にする</p>
+          <p><%= f.submit '更新' %></p>
+        <% end %>
+
+        <p><%= link_to "戻る", member_path(@member.id) %></p>
+        <h3><%= link_to "退会する", confirm_path %></h3>
+      </div>
+    </div>
   </div>
+</div>
 
-  <%= f.submit '更新' %>
-<% end %>
-<%= link_to "戻る", member_path(@member.id) %>
-
-<h3><%= link_to "退会する", confirm_path %></h3>

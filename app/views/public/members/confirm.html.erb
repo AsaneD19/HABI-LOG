@@ -1,6 +1,17 @@
-<h1>退会前の確認</h1>
-
-<h3>文章</h3>
-
-<%= link_to "同意したうえで退会する", withdraw_path, method: :patch %>
-<%= link_to "タイムラインにもどる", home_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card mb-3 text-center">
+        <h1 class="text-danger">退会前の確認</h1>
+        <h3>退会ボタンを押すと、<h3>
+        <h3>このアカウントでログインすることが</h3>
+        <h3>できなくなります。</h3>
+        <br>
+        <p>上記に同意したうえで、</p>
+        <p><%= link_to "退会", withdraw_path, method: :patch, class: "btn btn-outline-danger" %></p>
+        <br>
+        <p><%= link_to "タイムラインにもどる", home_path, class: "btn btn-outline-success" %></p>
+      </div>
+    </div>
+  </div>
+</div>
