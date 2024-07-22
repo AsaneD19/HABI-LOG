@@ -1,7 +1,10 @@
-<%= link_to "戻る", member_path(@member) %>
-
-<h1>フォロー中一覧</h1>
-
+<div class="container-fruid">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="text-center">フォロー中一覧</h1>
+    </div>
+  </div>
+</div>
 <% if @members.count == 0 %>
   <font color="red">フォローしていません</font>
 <% else %>
