@@ -1,20 +1,29 @@
-<% case notification.notifiable_type %>
-<% when "Relationship" %>
-  <% if notification.notifiable.follower == current_member %>
-    <%= render "layouts/time_display", time_data: notification.created_at %>　フォロー承認されました。
-  <% else %>
-    <%= render "layouts/time_display", time_data: notification.created_at %>　フォローされました。
-  <% end %>
-<% when "FollowRequest" %>
-  <%= render "layouts/time_display", time_data: notification.created_at %>　フォローリクエストがあります。
-<% when "PostComment" %>
-  <%= render "layouts/time_display", time_data: notification.created_at %>　投稿対するコメントがあります。
-<% when "ReplyComment" %>
-  <% if notification.notifiable.post_comment.member == current_member %>
-    <%= render "layouts/time_display", time_data: notification.created_at %>　コメントに対する返信がありました。
-  <% else %>
-    <%= render "layouts/time_display", time_data: notification.created_at %>　返信したコメントに新しく返信がありました。
-  <% end %>
-<% when "Favorite" %>
-  <%= render "layouts/time_display", time_data: notification.created_at %>　いいねされました。
+<%= link_to notification_path(notification), method: :patch do %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="text-primary">
+
+        <% case notification.notifiable_type %>
+        <% when "Relationship" %>
+          <% if notification.notifiable.follower == current_member %>
+            <%= render "layouts/time_display", time_data: notification.created_at %>　フォロー承認されました。
+          <% else %>
+            <%= render "layouts/time_display", time_data: notification.created_at %>　フォローされました。
+          <% end %>
+        <% when "FollowRequest" %>
+          <%= render "layouts/time_display", time_data: notification.created_at %>　フォローリクエストがあります。
+        <% when "PostComment" %>
+          <%= render "layouts/time_display", time_data: notification.created_at %>　投稿対するコメントがあります。
+        <% when "ReplyComment" %>
+          <% if notification.notifiable.post_comment.member == current_member %>
+            <%= render "layouts/time_display", time_data: notification.created_at %>　コメントに対する返信がありました。
+          <% else %>
+            <%= render "layouts/time_display", time_data: notification.created_at %>　返信したコメントに新しく返信がありました。
+          <% end %>
+        <% when "Favorite" %>
+          <%= render "layouts/time_display", time_data: notification.created_at %>　いいねされました。
+        <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>

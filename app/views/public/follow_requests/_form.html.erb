@@ -1,6 +1,6 @@
-<h4>承認しますか？</h4>
-
 <%= render "public/members/data", member: %>
-
-<%= link_to "承認する", approve_path(member), method: :delete %>
-<%= link_to "拒否する", member_follow_request_path(member), method: :delete %>
+<div class="row justify-content-center d-flex">
+<div ><%= link_to "承認する", approve_path(member), class: "btn btn-outline-primary", method: :delete %></div>
+<div>　</div>
+<div><%= link_to "拒否する", member_follow_request_path(member),  class:"btn btn-outline-danger", method: :delete %></div>
+</div>

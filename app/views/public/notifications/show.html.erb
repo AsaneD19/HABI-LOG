@@ -4,30 +4,29 @@
       <h2 class="text-center">通知詳細</h2>
       <% case @notification.notifiable_type %>
       <% when "PostComment" %>
-        <h4>コメントされました。</h4>
+        <h4 class="text-center">コメントされました。</h4>
         <%= render 'public/feeds/data', feed: @notification.notifiable.feed %>
         <h4 class="text-center">↓</h4>
         <%= render 'public/post_comments/data', post_comment: @notification.notifiable %>
       <% when "ReplyComment" %>
-        <h4>返信されました。</h4>
+        <h4 class="text-center">新しい返信があります。</h4>
         <%= render 'public/post_comments/data', post_comment: @notification.notifiable.post_comment %>
         <h4 class="center">↓</h4>
         <%= render 'public/reply_comments/data', reply_comment: @notification.notifiable %>
 
       <% when "Relationship" %>
         <% if @notification.notifiable.follower == current_member %>
-          <h4>フォロー承認されました。</h4>
+          <h4 class="text-center">フォロー承認されました。</h4>
           <%= render 'public/members/data', member: @notification.notifiable.followed %>
         <% else %>
-          <h4>フォローされました。</h4>
+          <h4 class="text-center">フォローされました。</h4>
           <%= render 'public/members/data', member: @notification.notifiable.follower %>
         <% end %>
       <% when "FollowRequest" %>
-        <h4>フォローリクエスト！</h4>
-        <%= render 'public/members/data', member: @notification.notifiable.follower %>
+        <h4 class="text-center">フォローリクエストがあります。</h4>
         <%= render 'public/follow_requests/form', member: @notification.notifiable.follower %>
       <% else %>
-        <h4>いいねされました。</h4>
+        <h4 class="text-center">いいねされました。</h4>
         <% if @notification.notifiable.favorable_type == "Feed" %>
           <%= render 'public/feeds/data', feed: @notification.notifiable.favorable %>
         <% elsif @notification.notifiable.favorable_type == "PostComment" %>

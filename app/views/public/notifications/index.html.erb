@@ -1,7 +1,12 @@
-<h2>通知</h2>
-
-<% unless @notifications.count == 0 %>
-  <%= render "public/notifications/list", notifications: @notifications %>
-<% else %>
-  <p>未読の通知はありません</p>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="text-center">通知</h2>
+      <% unless @notifications.count == 0 %>
+        <%= render "public/notifications/list", notifications: @notifications %>
+      <% else %>
+        <p>未読の通知はありません</p>
+      <% end %>
+    </div>
+  </div>
+</div>
