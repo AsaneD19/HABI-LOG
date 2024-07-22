@@ -1,7 +1,7 @@
 <% if reply_comment.member != current_member && reply_comment.member.is_private == true %>
   <p>非公開！</p>
 <% else %>
-  <div class="card mb-3">
+  <div class="card">
     <div class="card-body">
       <div class="d-flex text-dark">
         <div><%= reply_comment.member.name %></div>
