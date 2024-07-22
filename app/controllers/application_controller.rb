@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include CheckMemberStatus
   before_action :configure_authentication
 
-  private
+  protected
 
   def configure_authentication
     if admin_controller?
@@ -18,7 +18,13 @@ class ApplicationController < ActionController::Base
   end
 
   def action_is_public?
-    controller_name == "homes" && (action_name == "top" || "about")
+    controller_name == "homes" || "registrations"
   end
 
+  def authenticate_member!
+    unless member_signed_in? || action_is_public?
+      flash[:alert] = "You need to sign in or sign up before continuing."
+      redirect_to root_path
+    end
+  end
 end

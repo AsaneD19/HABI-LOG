@@ -14,7 +14,7 @@ module CheckMemberStatus
   end
 
   def is_private_member?(member)
-    if member != current_member && member.is_private == true
+    unless (member == current_member || current_member.following?(member) || member.is_private == false) && member.is_active == true
       flash[:notice] = "非公開設定のメンバーの情報は閲覧できません"
       redirect_to home_path
     end
