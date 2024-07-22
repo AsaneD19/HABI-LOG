@@ -1,0 +1,6 @@
+<%= member.name %>(<%= member.account_id %>)
+<% if with_lock_icon == true %>
+  <% if member.is_private == true %>
+    <i class="fa-solid fa-lock fa-xs"></i>
+  <% end %>
+<% end %>

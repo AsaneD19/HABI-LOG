@@ -1,6 +1,3 @@
-<% if @habit.errors.any? %>
-  <%= render 'layouts/error_message', error_obj: @habit %>
-<% end %>
 <div class="container-fruid">
   <div class="row">
     <div class="col-md-8 offset-md-2">
@@ -17,7 +14,7 @@
             <%= f.radio_button :tag_id, tag.id %>
             <%= f.label :tag_name, tag.name %>
           <% end %>
-          <p><%= f.submit "登録する" %></p>
+          <p><%= f.submit "登録する", class: "btn btn-primary" %></p>
         <% end %>
         <%= link_to "戻る", home_path %>
       </div>

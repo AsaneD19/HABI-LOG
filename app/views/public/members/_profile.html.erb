@@ -5,8 +5,7 @@
         <div class="card-img-top"><%= image_tag member.get_profile_image(100,100) %></div>
         <div class="card-body">
           <h5 class="card-title">
-            <%= member.name %>
-            (<%= member.account_id %>)
+            <%= render "public/members/display_name", member: member, with_lock_icon: true %>
           </h5>
           <h5 class="card-text">
             フォロー：

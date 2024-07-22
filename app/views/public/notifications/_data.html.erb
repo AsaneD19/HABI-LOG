@@ -1,16 +1,16 @@
 <% case notification.notifiable_type %>
 <% when "Relationship" %>
   <% if notification.notifiable.follower == current_member %>
-    <%= notification.notifiable.followed.name %>さんにフォロー承認されました。
+    <%= render "public/members/display_name", member: notification.notifiable.followed, with_lock_icon: false %>さんにフォロー承認されました。
   <% else %>
-    <%= notification.notifiable.follower.name %>さんにフォローされました。
+    <%= render "public/members/display_name", member: notification.notifiable.follower, with_lock_icon: false %>さんにフォローされました。
   <% end %>
 <% when "FollowRequest" %>
-    <%= notification.notifiable.follower.name %>さんのフォローリクエストがあります。
+  <%= render "public/members/display_name", member: notification.notifiable.follower, with_lock_icon: false %>さんのフォローリクエストがあります。
 <% when "PostComment" %>
-  <%= notification.notifiable.member.name %>さんにコメントされました。
+  <%= render "public/members/display_name", member: notification.notifiable.member, with_lock_icon: false %>さんにコメントされました。
 <% when "ReplyComment" %>
-  <%= notification.notifiable.member.name %>さんから返信がありました。
+  <%= render "public/members/display_name", member: notification.notifiable.member, with_lock_icon: false %>さんから返信がありました。
 <% when "Favorite" %>
-  <%= notification.notifiable.member.name %>さんにいいねされました。
+  <%= render "public/members/display_name", member: notification.notifiable.member, with_lock_icon: false %>さんにいいねされました。
 <% end %>

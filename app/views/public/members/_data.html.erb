@@ -5,14 +5,8 @@
     </div>
     <div class="col-md-10">
       <div class="card-body">
-        <h5 class="card-title d-flex">
-          <% if member.is_active == false %>
-            <div><i class="fa-solid fa-ban"></i></i></div>
-          <% elsif member.is_private == true %>
-            <div><i class="fa-solid fa-lock"></i></div>
-          <% end %>
-          <div><%= member.name %></div>
-          <div class="text-muted">(<%= member.account_id %>)</div>
+        <h5 class="card-title">
+          <%= render "public/members/display_name", member: member, with_lock_icon: true %>
         </h5>
         <p class="card-text text-truncate"><small><%= member.introduction %></small></p>
         <p class="card-text text-right"><small class="text-body-secondary">signed up : <%= render "layouts/time_display", time_data: member.created_at %> </small></p>

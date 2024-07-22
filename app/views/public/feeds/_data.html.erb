@@ -9,9 +9,8 @@
   </div>
 <% end %>
   <div class="card-body bg-light">
-    <h4 class="card-title d-flex text-dark">
-      <div class="card-title"><%= feed.member.name %></div>
-      <div class="card-title text-muted">(<%= feed.member.account_id %>)</div>
+    <h4 class="card-title text-dark">
+      <%= render "public/members/display_name", member: feed.member, with_lock_icon: true %>
     </h4>
     <p class="card-text text-dark">
       <%= feed.text_content %>
