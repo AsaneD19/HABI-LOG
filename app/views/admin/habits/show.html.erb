@@ -1,9 +1,6 @@
 <%= link_to "戻る", member_habits_path(@habit.member_id) %>
 
 <h1>習慣詳細</h1>
-<% if @habit_record.errors.any? %>
-  <%= render 'layouts/error_message', error_obj: @habit_record %>
-<% end %>
 
   <div>
     習慣名：<%= @habit.name %>
@@ -29,19 +26,6 @@
     登録日：<%= l @habit.created_at %>
   </div>
 
-  <% require 'date' %>
-  <% if @habit.last_achievement != nil && @habit.last_achievement.to_date == Time.zone.today %>
-    <div><font color="red">今日はもう行ないました</font></div>
-  <% else %>
-    <%= form_with model: @habit_record, url: member_habit_path(member_id: @habit.member_id, id: @habit.id), method: :patch do |f| %>
-
-      <p>達成して一言</p>
-      <%= f.text_area :comment %>
-      <%= f.submit "達成！", data: { confirm: "ほんとにやった？"} %>
-
-    <% end %>
-
-  <% end %>
   <br>
 
   <h3>達成履歴</h3>

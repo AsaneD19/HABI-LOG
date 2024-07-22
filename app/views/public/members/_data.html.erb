@@ -15,7 +15,7 @@
           <div class="text-muted">(<%= member.account_id %>)</div>
         </h5>
         <p class="card-text text-truncate"><small><%= member.introduction %></small></p>
-        <p class="card-text text-right"><small class="text-body-secondary">signed up : <%= l member.created_at %> </small></p>
+        <p class="card-text text-right"><small class="text-body-secondary">signed up : <%= render "layouts/time_display", time_data: member.created_at %> </small></p>
       </div>
     </div>
   </div>

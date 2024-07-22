@@ -26,7 +26,7 @@
     最終達成日：<%= render "public/habits/display_last_achievement", last_achievement: @habit.last_achievement %>
   </div>
   <div>
-    登録日：<%= l @habit.created_at %>
+    登録日：<%= render "layouts/time_display", time_data: @habit.created_at %>
   </div>
 
   <%= render "public/habits/record_form", habit: @habit, habit_record: @habit_record %>

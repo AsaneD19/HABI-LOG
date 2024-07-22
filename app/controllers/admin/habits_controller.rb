@@ -8,5 +8,6 @@ class Admin::HabitsController < ApplicationController
 
   def show
     @habit = Habit.find(params[:id])
+    @habit_records = @habit.habit_records
   end
 end

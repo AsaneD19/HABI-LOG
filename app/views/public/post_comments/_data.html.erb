@@ -12,7 +12,7 @@
       <h4 class="card-title">あああ
       </h4>
       <p class="card-text"><%= post_comment.content %></p>
-      <h6 class="text-muted">　<%= l post_comment.created_at %></h6>
+      <h6 class="text-muted">　<%= render "layouts/time_display", time_data: post_comment.created_at %></h6>
     </div>
   </div>
 

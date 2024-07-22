@@ -25,7 +25,7 @@
             <i class="fa-regular fa-message"></i>　<%= @feed.text_content %>
           </p>
           <h6 class="text-muted text-right">#<%= @feed.habit.tag.name %></h6>
-          <h6 class="text-muted text-right"><%= l @feed.created_at %></h6>
+          <h6 class="text-muted text-right"><%= render "layouts/time_display", time_data: @feed.created_at %></h6>
           <p><%= render 'public/favorites/form', favorable: @feed %></p>
         </div>
       </div>

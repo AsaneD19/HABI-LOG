@@ -21,7 +21,7 @@
         #<%= feed.habit.tag.name %>
       <% end %>
     </h6>
-    <h6 class="text-muted text-right"><%= l feed.created_at %></h6>
+    <h6 class="text-muted text-right"><%= render "layouts/time_display", time_data: feed.created_at%></h6>
     <div class="d-flex">
       <p><%= render 'public/favorites/form', favorable: feed %>　</p>
       <p><i class="fa-regular fa-message"></i><%= feed.post_comments.count %></p>
