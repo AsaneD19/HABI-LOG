@@ -1,21 +1,27 @@
-<% if reply_comment.member != current_member && reply_comment.member.is_private == true %>
-  <p>非公開！</p>
-<% else %>
-  <div class="card">
+<% unless (reply_comment.member == current_member || current_member.following?(reply_comment.member) || reply_comment.member.is_private == false) && reply_comment.member.is_active == true %>
+  <div class="card mb-1">
     <div class="card-body">
-      <div class="d-flex text-dark">
-        <div><%= reply_comment.member.name %></div>
-        <div class="text-muted">(<%= reply_comment.member.account_id %>)</div>
+      <p class="text-muted">この返信は見ることができません</p>
+    </div>
+  </div>
+<% else %>
+  <div class="card mb-1">
+    <div class="card-body">
+      <div class="card-text text-dark d-flex justify-content-between">
+        <div><%= render "public/members/display_name", member: reply_comment.member, with_lock_icon: false %>'s Reply</div>
+        <div class="text-muted">　<%= render "layouts/time_display", time_data: reply_comment.created_at%></div>
       </div>
       <br>
       <div class="card-text text-dark">
         <%= reply_comment.content %>
       </div>
-      <h6 class="text-muted text-right"><%= render "layouts/time_display", time_data: reply_comment.created_at%></h6>
-      <p><%= render 'public/favorites/form', favorable: reply_comment %></p>
-      <% if reply_comment.member == current_member %>
-        <%= link_to "削除", feed_post_comment_reply_comment_path(reply_comment.post_comment.feed_id, reply_comment.post_comment, reply_comment), method: :delete, data: { confirm: "本当に削除しますか？"} %>
-      <% end %>
+      <div class="text-right"><%= render 'public/favorites/form', favorable: reply_comment %></div>
+      <div class="text-right">
+        <% if reply_comment.member == current_member %>
+          <%= link_to "削除", feed_post_comment_reply_comment_path(reply_comment.post_comment.feed_id, reply_comment.post_comment, reply_comment), method: :delete, data: { confirm: "本当に削除しますか？"} %>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
+

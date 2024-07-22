@@ -1,7 +1,7 @@
 <%= link_to member_habit_path(member_id: habit.member_id, id: habit.id), class: "text-decoration-none" do %>
   <div class="card mb-3">
     <div class="card-header text-white bg-info h3">
-      Habit：<%= habit.name %>
+      <%= render "public/members/display_name", member: habit.member, with_lock_icon: false %>'s Habit：<%= habit.name %>
     </div>
     <div>
       最終達成日：<%= render "public/habits/display_last_achievement", last_achievement: habit.last_achievement %>
