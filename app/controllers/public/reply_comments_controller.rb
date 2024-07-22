@@ -7,10 +7,7 @@ class Public::ReplyCommentsController < ApplicationController
     @reply_comment = set_reply_comment_params(ReplyComment.new(reply_comment_params), params[:post_comment_id])
     if @reply_comment.save
       flash[:notice] = "Your reply to post comment has succeeded."
-      byebug
-      unless @reply_comment.post_comment.member == @reply_comment.member
-        @reply_comment.notifications.create(member_id: @reply_comment.post_comment.member_id)
-      end
+      notify_members(@reply_comment)
       redirect_to feed_post_comment_path(params[:feed_id], params[:post_comment_id])
     else
       flash[:alert] = @reply_comment.errors.full_messages.join(", ")
@@ -39,5 +36,14 @@ class Public::ReplyCommentsController < ApplicationController
     reply_comment.post_comment_id = post_comment_id
     return reply_comment
   end
-
+  def notify_members(reply_comment)
+    post_comment_member = reply_comment.post_comment.member
+    unless post_comment_member == reply_comment.member
+      reply_comment.notifications.create(member_id: post_comment_member.id)
+      reply_members = Member.joins(:reply_comments).where(reply_comments: { post_comment_id: reply_comment.post_comment_id }).distinct
+      reply_members.each do |reply_member|
+        reply_comment.notifications.create(member_id: reply_member.id) unless reply_member == reply_comment.member
+      end
+    end
+  end
 end

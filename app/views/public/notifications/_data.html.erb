@@ -1,16 +1,20 @@
 <% case notification.notifiable_type %>
 <% when "Relationship" %>
   <% if notification.notifiable.follower == current_member %>
-    <%= render "public/members/display_name", member: notification.notifiable.followed, with_lock_icon: false %>さんにフォロー承認されました。
+    <%= render "layouts/time_display", time_data: notification.created_at %>　フォロー承認されました。
   <% else %>
-    <%= render "public/members/display_name", member: notification.notifiable.follower, with_lock_icon: false %>さんにフォローされました。
+    <%= render "layouts/time_display", time_data: notification.created_at %>　フォローされました。
   <% end %>
 <% when "FollowRequest" %>
-  <%= render "public/members/display_name", member: notification.notifiable.follower, with_lock_icon: false %>さんのフォローリクエストがあります。
+  <%= render "layouts/time_display", time_data: notification.created_at %>　フォローリクエストがあります。
 <% when "PostComment" %>
-  <%= render "public/members/display_name", member: notification.notifiable.member, with_lock_icon: false %>さんにコメントされました。
+  <%= render "layouts/time_display", time_data: notification.created_at %>　投稿対するコメントがあります。
 <% when "ReplyComment" %>
-  <%= render "public/members/display_name", member: notification.notifiable.member, with_lock_icon: false %>さんから返信がありました。
+  <% if notification.notifiable.post_comment.member == current_member %>
+    <%= render "layouts/time_display", time_data: notification.created_at %>　コメントに対する返信がありました。
+  <% else %>
+    <%= render "layouts/time_display", time_data: notification.created_at %>　返信したコメントに新しく返信がありました。
+  <% end %>
 <% when "Favorite" %>
-  <%= render "public/members/display_name", member: notification.notifiable.member, with_lock_icon: false %>さんにいいねされました。
+  <%= render "layouts/time_display", time_data: notification.created_at %>　いいねされました。
 <% end %>
