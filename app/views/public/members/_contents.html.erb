@@ -1,0 +1,24 @@
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="feeds" role="tabpanel" aria-labelledby="feeds-tab">
+    <%= render "public/feeds/list", feeds: member.feeds.order(created_at: :desc) %>
+  </div>
+  <div class="tab-pane fade" id="habits" role="tabpanel" aria-labelledby="habits-tab">
+    <%= render "public/habits/list", habits: member.habits.order(created_at: :desc) %>
+  </div>
+  <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+    <%= render "public/favorites/list", favorites: member.favorites.order(created_at: :desc) %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

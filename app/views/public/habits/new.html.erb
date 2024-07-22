@@ -1,18 +1,26 @@
-<h1>新規投稿</h1>
 <% if @habit.errors.any? %>
   <%= render 'layouts/error_message', error_obj: @habit %>
 <% end %>
-<%= form_with model: @habit, url: member_habits_path, method: :post do |f| %>
-  <p>習慣名</p>
-  <%= f.text_field :name %>
-  <p>習慣の説明</p>
-  <%= f.text_area :caption %>
-  <br>
-  <p>タグ</p>
-  <% @tags.each do |tag| %>
-    <%= f.radio_button :tag_id, tag.id %>
-    <%= f.label :tag_name, tag.name %>
-  <% end %>
-  <p><%= f.submit "登録する" %></p>
-<% end %>
-<%= link_to "戻る", home_path %>
+<div class="container-fruid">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card mb-3">
+        <h1>New Entry</h1>
+        <%= form_with model: @habit, url: member_habits_path, method: :post do |f| %>
+          <p>習慣名</p>
+          <%= f.text_field :name, class: "form-control", placeholder: "○○する、○○しない" %>
+          <p>習慣の説明</p>
+          <%= f.text_area :caption, class: "form-control" %>
+          <br>
+          <p>タグ</p>
+          <% @tags.each do |tag| %>
+            <%= f.radio_button :tag_id, tag.id %>
+            <%= f.label :tag_name, tag.name %>
+          <% end %>
+          <p><%= f.submit "登録する" %></p>
+        <% end %>
+        <%= link_to "戻る", home_path %>
+      </div>
+    </div>
+  </div>
+</div>

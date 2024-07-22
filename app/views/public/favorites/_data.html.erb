@@ -1,0 +1,14 @@
+<% case favorite.favorable_type %>
+<% when "Feed" %>
+  <%= link_to feed_path(favorite.favorable) do %>
+    <%= render "public/feeds/data", feed: favorite.favorable %>
+  <% end %>
+<% when "PostComment" %>
+  <%= link_to feed_post_comment_path(favorite.favorable) do %>
+    <%= render "public/post_comments/data", post_comment: favorite.favorable %>
+  <% end %>
+<% when "ReplyComment" %>
+<%= link_to feed_post_comment_path(favorite.favorable.post_comment) do %>
+  <%= render "public/reply_comments/data", reply_comment: favorite.favorable %>
+<% end %>
+<% end %>
