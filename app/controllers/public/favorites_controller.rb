@@ -4,8 +4,8 @@ class Public::FavoritesController < ApplicationController
 
   def create
     favorable = find_favorable
-    current_member.favorites.create(favorable: favorable)
-    Notification.create(member_id: favorable.member_id, notifiable_type: "Favorite", notifiable_id: favorable.id)
+    favorite = current_member.favorites.create(favorable: favorable)
+    Notification.create(member_id: favorable.member_id, notifiable_type: "Favorite", notifiable_id: favorite.id)
     redirect_back(fallback_location: home_path)
   end
 
