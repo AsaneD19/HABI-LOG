@@ -9,7 +9,7 @@
   </head>
   <body>
     <% if admin_signed_in? %>
-      <div class="text-right">
+      <div class="text-center">
         <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
       </div>
     <% end %>

@@ -7,9 +7,10 @@ Rails.application.routes.draw do
     get "dashboards", to: "dashboards#index"
     resources :members, only: [:show, :update, :destroy] do
       resources :habits, only: [:index, :show, :destroy]
+      resources :post_comments, only: [:index, :destroy]
+      resources :reply_comments, only: [:index, :destroy]
+      resources :feeds, only: [:index, :destroy]
     end
-    resources :post_comments, only: [:index, :show, :destroy]
-    resources :feeds, only: [:index, :show, :destroy]
   end
 
   scope module: :public do

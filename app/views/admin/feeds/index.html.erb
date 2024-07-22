@@ -1,15 +1,14 @@
 <h1><%= @member.name %>(<%= @member.account_id %>)の投稿一覧</h1>
+<%= link_to "戻る", admin_member_path(@member) %>
 <% if @feeds.count == 0 %>
   <div><font color="red">投稿はありません。</font></div>
 <% else %>
   <% @feeds.each do |feed| %>
     <div>
-      <%= l feed.created_at %> -
-      <%= link_to admin_feed_path(feed) do %>
-        <b><%= feed.habit.name %></b>
-      <% end %>
+      <%= feed.created_at %> -
+      <b><%= feed.habit.name %></b>
       - <%= feed.text_content %> -
-      <%= link_to "削除", admin_feed_path(feed), method: :delete, data: {confirm: "削除します。よろしいですか？"} %>
+      <%= link_to "削除", admin_member_feed_path(@member, feed), method: :delete, data: {confirm: "削除します。よろしいですか？"} %>
     </div>
   <% end %>
 <% end %>

@@ -1,4 +1,4 @@
-<%= link_to "戻る", member_habits_path(@habit.member_id) %>
+<%= link_to "戻る", admin_member_habits_path(@habit.member) %>
 
 <h1>習慣詳細</h1>
 
@@ -20,14 +20,17 @@
     タグ：<%= @habit.tag.name %>
   </div>
   <div>
-    最終達成日：<%= render "display_last_achievement", last_achievement: @habit.last_achievement %>
+    最終達成日：<%= render "admin/habits/display_last_achievement", last_achievement: @habit.last_achievement %>
   </div>
   <div>
-    登録日：<%= l @habit.created_at %>
+    登録日：<%= @habit.created_at %>
+  </div>
+  <div>
+    <%= link_to "削除", admin_member_habit_path(@habit.member, @habit), method: :delete, data: { confirm: "削除します。よろしいですか？"} %>
   </div>
 
   <br>
 
   <h3>達成履歴</h3>
-  <%= render "public/habit_records/list", habit_records: @habit_records %>
+  <%= render "admin/habit_records/list", habit_records: @habit_records %>
 

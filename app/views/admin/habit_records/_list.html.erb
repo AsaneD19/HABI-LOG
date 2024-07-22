@@ -1,0 +1,5 @@
+<% n = 1 %>
+<% habit_records.each do |habit_record| %>
+  <%= render "admin/habit_records/data", habit_record: habit_record, count: n %>
+  <% n += 1 %>
+<% end %>

@@ -1,0 +1,13 @@
+<h1><%= @member.name %>(<%= @member.account_id %>)の返信一覧</h1>
+<%= link_to "戻る", admin_member_path(@member) %>
+<% if @reply_comments.count == 0 %>
+  <div><font color="red">返信はありません。</font></div>
+<% else %>
+  <% @reply_comments.each do |reply_comment| %>
+    <div>
+      <%= reply_comment.created_at %> -
+      - <%= reply_comment.content %> -
+      <%= link_to "削除", admin_member_reply_comment_path(@member, reply_comment), method: :delete, data: {confirm: "削除します。よろしいですか？"} %>
+    </div>
+  <% end %>
+<% end %>

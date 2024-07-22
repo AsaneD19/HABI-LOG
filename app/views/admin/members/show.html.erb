@@ -3,10 +3,10 @@
   <%= render 'layouts/error_message', error_obj: @member %>
 <% end %>
 
-<%= link_to "投稿一覧", admin_feeds_path(@member) %>
+<%= link_to "投稿一覧", admin_member_feeds_path(@member) %>
 <%= link_to "習慣一覧", admin_member_habits_path(@member) %>
-<%= link_to "コメント一覧", admin_post_comments_path(@member) %>
-
+<%= link_to "コメント一覧", admin_member_post_comments_path(@member) %>
+<%= link_to "返信一覧", admin_member_reply_comments_path(@member) %>
 <%= form_with model: @member, url: admin_member_path(@member), method: :patch do |f| %>
   <p>アカウント名</p>
   <%= f.text_field :account_id, value: @member.account_id %>

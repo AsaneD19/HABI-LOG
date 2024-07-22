@@ -2,12 +2,9 @@
   習慣名：<%= habit.name %>
 </div>
 <div>
-  最終達成日：<%= render "display_last_achievement", last_achievement: habit.last_achievement %>
+  最終達成日：<%= render "admin/habits/display_last_achievement", last_achievement: habit.last_achievement %>
 </div>
 <div>
   <%= link_to "詳細", admin_member_habit_path(habit.member, habit) %>
-</div>
-<div>
-  <%= link_to "削除", admin_member_habit_path(habit.member, habit), method: :delete, data: { confirm: "削除します。よろしいですか？"} %>
 </div>
 <br>
