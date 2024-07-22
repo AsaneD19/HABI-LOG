@@ -1,0 +1,3 @@
+        <h4>フォローリクエスト！</h4>
+        <%= render 'public/members/data', member: @notification.notifiable.follower %>
+        <%= render 'public/follow_requests/form', member: @notification.notifiable.follower %>

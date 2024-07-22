@@ -1,29 +1,31 @@
-<div class="card mb-3">
-<% if feed.current_duration == 0 %>
-  <div class="card-header text-white bg-primary h3">
-    NEW HABIT : <%= feed.habit.name %>
-  </div>
-<% else %>
-  <div class="card-header text-white bg-success h3">
-    RECORD : <%= feed.habit.name %>
-  </div>
-<% end %>
-  <div class="card-body bg-light">
-    <h4 class="card-title text-dark">
-      <%= render "public/members/display_name", member: feed.member, with_lock_icon: true %>
-    </h4>
-    <p class="card-text text-dark">
-      <%= feed.text_content %>
-    </p>
-    <h6 class="text-muted text-right">
-      <%= link_to tag_path(feed.habit.tag) do %>
-        #<%= feed.habit.tag.name %>
-      <% end %>
-    </h6>
-    <h6 class="text-muted text-right"><%= render "layouts/time_display", time_data: feed.created_at%></h6>
-    <div class="d-flex">
-      <p><%= render 'public/favorites/form', favorable: feed %>　</p>
-      <p><i class="fa-regular fa-message"></i><%= feed.post_comments.count %></p>
+<%= link_to feed_path(feed), class: "text-decoration-none" do %>
+  <div class="card mb-3">
+  <% if feed.current_duration == 0 %>
+    <div class="card-header text-white bg-primary h3">
+      NEW HABIT : <%= feed.habit.name %>
+    </div>
+  <% else %>
+    <div class="card-header text-white bg-success h3">
+      RECORD : <%= feed.habit.name %>
+    </div>
+  <% end %>
+    <div class="card-body bg-light">
+      <h4 class="card-title text-dark">
+        <%= render "public/members/display_name", member: feed.member, with_lock_icon: true %>
+      </h4>
+      <p class="card-text text-dark">
+        <%= feed.text_content %>
+      </p>
+      <h6 class="text-muted text-right">
+        <%= link_to tag_path(feed.habit.tag) do %>
+          #<%= feed.habit.tag.name %>
+        <% end %>
+      </h6>
+      <h6 class="text-muted text-right"><%= render "layouts/time_display", time_data: feed.created_at%></h6>
+      <div class="d-flex">
+        <p><%= render 'public/favorites/form', favorable: feed %>　</p>
+        <p><i class="fa-regular fa-message"></i><%= feed.post_comments.count %></p>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

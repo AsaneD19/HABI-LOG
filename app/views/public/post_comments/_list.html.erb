@@ -6,9 +6,7 @@
     <% else %>
       <h4>コメント一覧</h4>
       <% post_comments.each do |post_comment| %>
-        <%= link_to feed_post_comment_path(feed_id: post_comment.feed.id, id: post_comment.id), class: "text-decoration-none" do %>
           <%= render "public/post_comments/data", post_comment: post_comment %>
-        <% end %>
       <% end %>
     <% end %>
   </div>

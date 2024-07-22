@@ -7,6 +7,7 @@ class Public::ReplyCommentsController < ApplicationController
     @reply_comment = set_reply_comment_params(ReplyComment.new(reply_comment_params), params[:post_comment_id])
     if @reply_comment.save
       flash[:notice] = "Your reply to post comment has succeeded."
+      byebug
       unless @reply_comment.post_comment.member == @reply_comment.member
         @reply_comment.notifications.create(member_id: @reply_comment.post_comment.member_id)
       end

@@ -1,16 +1,18 @@
-<div class="card m-3 text-dark">
-  <div class="row g-0">
-    <div class="col-md-2">
-      <%= image_tag member.get_profile_image(100,100) %>
-    </div>
-    <div class="col-md-10">
-      <div class="card-body">
-        <h5 class="card-title">
-          <%= render "public/members/display_name", member: member, with_lock_icon: true %>
-        </h5>
-        <p class="card-text text-truncate"><small><%= member.introduction %></small></p>
-        <p class="card-text text-right"><small class="text-body-secondary">signed up : <%= render "layouts/time_display", time_data: member.created_at %> </small></p>
+<%= link_to member_path(member), class: "text-decoration-none" do %>
+  <div class="card m-3 text-dark">
+    <div class="row g-0">
+      <div class="col-md-2">
+        <%= image_tag member.get_profile_image(100,100) %>
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= render "public/members/display_name", member: member, with_lock_icon: true %>
+          </h5>
+          <p class="card-text text-truncate"><small><%= member.introduction %></small></p>
+          <p class="card-text text-right"><small class="text-body-secondary">signed up : <%= render "layouts/time_display", time_data: member.created_at %> </small></p>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

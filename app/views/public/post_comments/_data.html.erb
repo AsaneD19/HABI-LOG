@@ -1,6 +1,4 @@
-<% if post_comment.member != current_member && post_comment.member.is_private == true %>
-  <p>非公開！</p>
-<% else %>
+<%= link_to feed_post_comment_path(feed_id: post_comment.feed.id, id: post_comment.id), class: "text-decoration-none" do %>
   <div class="card mb-3">
     <div class="card-body">
       <div class="text-dark">
