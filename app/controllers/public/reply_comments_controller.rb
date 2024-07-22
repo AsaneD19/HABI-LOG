@@ -36,13 +36,14 @@ class Public::ReplyCommentsController < ApplicationController
     reply_comment.post_comment_id = post_comment_id
     return reply_comment
   end
+
   def notify_members(reply_comment)
     post_comment_member = reply_comment.post_comment.member
     unless post_comment_member == reply_comment.member
       reply_comment.notifications.create(member_id: post_comment_member.id)
       reply_members = Member.joins(:reply_comments).where(reply_comments: { post_comment_id: reply_comment.post_comment_id }).distinct
       reply_members.each do |reply_member|
-        reply_comment.notifications.create(member_id: reply_member.id) unless reply_member == reply_comment.member
+        reply_comment.notifications.create(member_id: reply_member.id) if reply_member != reply_comment.post_comment.member && reply_member != current_member
       end
     end
   end
