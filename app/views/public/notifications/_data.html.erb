@@ -13,7 +13,7 @@
         <% when "FollowRequest" %>
           <%= render "layouts/time_display", time_data: notification.created_at %>　フォローリクエストがあります。
         <% when "PostComment" %>
-          <%= render "layouts/time_display", time_data: notification.created_at %>　投稿対するコメントがあります。
+          <%= render "layouts/time_display", time_data: notification.created_at %>　投稿に対するコメントがあります。
         <% when "ReplyComment" %>
           <% if notification.notifiable.post_comment.member == current_member %>
             <%= render "layouts/time_display", time_data: notification.created_at %>　コメントに対する返信がありました。
