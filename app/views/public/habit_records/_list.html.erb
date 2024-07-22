@@ -1,6 +1,10 @@
-<% n = 1 %>
-<% habit_records.each do |habit_record| %>
-  <%= n %>回目
-  <%= render "public/habit_records/data", habit_record: habit_record %>
-  <% n += 1 %>
-<% end %>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h2 class="text-center">達成履歴</h2>
+    <% n = 1 %>
+    <% habit_records.each do |habit_record| %>
+      <%= render "public/habit_records/data", habit_record: habit_record, count: n %>
+      <% n += 1 %>
+    <% end %>
+  </div>
+</div>

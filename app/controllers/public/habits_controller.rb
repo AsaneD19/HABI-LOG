@@ -47,7 +47,7 @@ class Public::HabitsController < ApplicationController
       @habit.update(achievement_count: @habit.achievement_count + 1, current_duration: @habit.current_duration, max_duration: @habit.max_duration, last_achievement: @habit.last_achievement)
       send_feed(@habit.id, @habit_record.comment, @habit.current_duration)
       flash[:notice] = "Your achievement has recorded successfully."
-      redirect_to member_habits_path(current_member.id)
+      redirect_to member_habit_path(@habit)
     else
       flash[:alert] = @habit_record.errors.full_messages.join(", ")
       @habit = Habit.find(params[:id])

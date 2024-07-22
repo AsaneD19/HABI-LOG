@@ -1,10 +1,14 @@
-<div>
-  実行日：<%= render "layouts/time_display", time_data: habit_record.created_at %>
+<div class="card mb-3">
+  <div class="card-header"><%= count %>回目</div>
+  <div class="card-body">
+    <div>
+      実行日：<%= render "layouts/time_display", time_data: habit_record.created_at %>
+    </div>
+    <div>
+      継続日数： <%= habit_record.current_duration %>
+    </div>
+    <div>
+      コメント： <%= habit_record.comment %>
+    </div>
+  </div>
 </div>
-<div>
-  継続日数： <%= habit_record.current_duration %>
-</div>
-<div>
-  コメント： <%= habit_record.comment %>
-</div>
-<br>
