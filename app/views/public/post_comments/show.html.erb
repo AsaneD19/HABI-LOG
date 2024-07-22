@@ -1,11 +1,14 @@
-<h1>コメント詳細</h1>
-<%= render "public/post_comments/data", post_comment: @post_comment %>
-
-<h1>コメントへの返信</h1>
-<% if @reply_comments.count == 0 %>
-  <div><font color="red">返信はありません</font></div>
-<% else %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <%= render "public/post_comments/data", post_comment: @post_comment %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <%= render "public/reply_comments/form", reply_comment: @reply_comment, post_comment_id: @post_comment.id, feed_id: @post_comment.feed_id %>
+    </div>
+  </div>
   <%= render "public/reply_comments/list", reply_comments: @reply_comments %>
-<% end %>
+</div>
 
-<%= render "public/reply_comments/form", reply_comment: @reply_comment, post_comment_id: @post_comment.id, feed_id: @post_comment.feed_id %>

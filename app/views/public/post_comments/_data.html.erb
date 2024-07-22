@@ -1,26 +1,24 @@
 <% if post_comment.member != current_member && post_comment.member.is_private == true %>
   <p>非公開！</p>
 <% else %>
-  <div class="card mb-2">
+  <div class="card mb-3">
     <div class="card-body">
-      <div class="card-header">
-        <div class="d-flex">
-          <h5 class="card-title"><%= post_comment.member.name %></h5>
-          <h5 class="card-title text-muted"><%= post_comment.member.account_id %></h5>
-        </div>
+      <div class="d-flex text-dark">
+        <div><%= post_comment.member.name %></div>
+        <div class="text-muted">(<%= post_comment.member.account_id %>)</div>
       </div>
-      <h4 class="card-title">あああ
-      </h4>
-      <p class="card-text"><%= post_comment.content %></p>
-      <h6 class="text-muted">　<%= render "layouts/time_display", time_data: post_comment.created_at %></h6>
+      <br>
+      <div class="card-text text-dark">
+        <%= post_comment.content %>
+      </div>
+      <h6 class="text-muted text-right"><%= render "layouts/time_display", time_data: post_comment.created_at%></h6>
+      <p><%= render 'public/favorites/form', favorable: post_comment %></p>
+      <p>
+        <i class="fa-solid fa-reply"></i><%= post_comment.reply_comments.count %>
+      </p>
+      <% if post_comment.member == current_member %>
+        <%= link_to "削除", feed_post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？"} %>
+      <% end %>
     </div>
   </div>
-
-
-  <p><%= render 'public/favorites/form', favorable: post_comment %></p>
-
-  <% if post_comment.member == current_member %>
-    <%= link_to "消す", feed_post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？"} %>
-  <% end %>
-
 <% end %>

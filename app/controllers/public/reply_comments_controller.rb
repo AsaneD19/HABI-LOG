@@ -1,7 +1,7 @@
 class Public::ReplyCommentsController < ApplicationController
   include CheckMemberStatus
   before_action :is_guest_member?
-  before_action ->{is_matching_login_member(ReplyComment.find(params[:id]).member)}
+  before_action ->{is_matching_login_member(ReplyComment.find(params[:id]).member)}, only: [:destroy]
 
   def create
     @reply_comment = set_reply_comment_params(ReplyComment.new(reply_comment_params), params[:post_comment_id])
@@ -10,7 +10,7 @@ class Public::ReplyCommentsController < ApplicationController
       unless @reply_comment.post_comment.member == @reply_comment.member
         @reply_comment.notifications.create(member_id: @reply_comment.post_comment.member_id)
       end
-      redirect_to feed_path(params[:feed_id])
+      redirect_to feed_post_comment_path(params[:feed_id], params[:post_comment_id])
     else
       flash[:alert] = @reply_comment.errors.full_messages.join(", ")
       @post_comment = PostComment.find(@reply_comment.post_comment_id)

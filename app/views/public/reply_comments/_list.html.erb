@@ -1,9 +1,13 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
+<br>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h4>コメントへの返信</h4>
+    <% if @reply_comments.count == 0 %>
+      <div><font color="red">返信はありません</font></div>
+    <% else %>
       <% reply_comments.each do |reply_comment| %>
           <%= render "public/reply_comments/data", reply_comment: reply_comment %>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>

@@ -5,7 +5,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col-md-8 offset-md-2">
       <div class="card mb-3">
         <% if @feed.current_duration == 0 %>
           <div class="card-header text-white bg-primary h3">
@@ -27,21 +27,14 @@
           <h6 class="text-muted text-right">#<%= @feed.habit.tag.name %></h6>
           <h6 class="text-muted text-right"><%= render "layouts/time_display", time_data: @feed.created_at %></h6>
           <p><%= render 'public/favorites/form', favorable: @feed %></p>
+          <% if @feed.member == current_member %>
+            <%= link_to "削除", feed_path(@feed.id), method: :delete, data: { confirm: "Are you sure ?"} %>
+          <% end %>
         </div>
       </div>
-      <% if @feed.member == current_member %>
-        <%= link_to "消す", feed_path(@feed.id), method: :delete, data: { confirm: "Are you sure ?"} %>
-      <% end %>
-    </div>
-    <div class="col">
-      <% if @post_comments.count == 0 %>
-        <p><font color="red">まだコメントがありません</font></p>
-      <% else %>
-        <%= render "public/post_comments/list", post_comments: @post_comments %>
-      <% end %>
-      <%= render "public/post_comments/form", post_comment: @post_comment, feed_id: @feed.id %>
     </div>
   </div>
+  <%= render "public/post_comments/form", post_comment: @post_comment, feed_id: @feed.id %>
+  <%= render "public/post_comments/list", post_comments: @post_comments %>
+
 </div>
-
-
